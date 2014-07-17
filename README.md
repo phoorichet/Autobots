@@ -1,4 +1,4 @@
-# README
+# Autobots
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
@@ -17,7 +17,30 @@ Things you may want to cover:
 
 ## Database creation
 
+* Create a role for application user
+
+```shell
+psql template1
+-#CREATE USER autobots;
+-#ALTER USER autobots CREATEDB;
+```
+
+[http://www.cyberciti.biz/faq/howto-add-postgresql-user-account/]
+
+* Create databases
+
+```shell
+rake db:create
+```
+
 ## Database initialization
+
+* Initialize database
+
+```Shell
+rake db:migrate
+```
+
 
 ## How to run the test suite
 
