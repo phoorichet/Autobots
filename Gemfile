@@ -48,4 +48,9 @@ end
 gem 'devise'
 
 # Use Boostrap
-gem 'bootstrap-sass', '~> 3.1.1'
+gem 'bootstrap-sass', '~> 3.2.0'
+
+# Autoprefixer with Bootstrap to add browser vendor prefixes automatically
+gem 'autoprefixer-rails'
+
+
