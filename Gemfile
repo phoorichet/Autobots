@@ -53,4 +53,7 @@ gem 'bootstrap-sass', '~> 3.2.0'
 # Autoprefixer with Bootstrap to add browser vendor prefixes automatically
 gem 'autoprefixer-rails'
 
+# Font Awesome
+gem 'font-awesome-sass'
+
 
