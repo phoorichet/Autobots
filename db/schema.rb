@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140722024712) do
+ActiveRecord::Schema.define(version: 20140722074305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20140722024712) do
     t.float    "http_succ_rate"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "date_time"
   end
 
   create_table "metric_pings", force: true do |t|
@@ -47,6 +48,7 @@ ActiveRecord::Schema.define(version: 20140722024712) do
     t.float    "avg_rtt_succ_rate"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "date_time"
   end
 
   create_table "metric_speedtests", force: true do |t|
@@ -71,6 +73,7 @@ ActiveRecord::Schema.define(version: 20140722024712) do
     t.float    "speedtest_lt_300k_rate"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "date_time"
   end
 
   create_table "metric_youtubes", force: true do |t|
@@ -89,6 +92,7 @@ ActiveRecord::Schema.define(version: 20140722024712) do
     t.float    "youtube_rate"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "date_time"
   end
 
   create_table "users", force: true do |t|
