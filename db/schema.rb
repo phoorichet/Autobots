@@ -11,10 +11,85 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140717095617) do
+ActiveRecord::Schema.define(version: 20140722024712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "metric_https", force: true do |t|
+    t.string   "region"
+    t.string   "location"
+    t.string   "rncname"
+    t.string   "mobile_code"
+    t.string   "imei"
+    t.string   "imsi"
+    t.string   "script_name"
+    t.string   "apn"
+    t.string   "serviceinfo"
+    t.integer  "attempt"
+    t.integer  "success"
+    t.float    "http_succ_rate"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "metric_pings", force: true do |t|
+    t.string   "region"
+    t.string   "location"
+    t.string   "rncname"
+    t.string   "mobile_code"
+    t.string   "imei"
+    t.string   "imsi"
+    t.string   "target_ip"
+    t.integer  "attempt"
+    t.float    "percent_loss"
+    t.float    "avg_packet_loss_rate"
+    t.float    "avg_rtt_succ_rate"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "metric_speedtests", force: true do |t|
+    t.string   "region"
+    t.string   "location"
+    t.string   "rncname"
+    t.string   "mobile_code"
+    t.string   "imei"
+    t.string   "imsi"
+    t.string   "script_name"
+    t.string   "set_server_name"
+    t.integer  "attempt"
+    t.integer  "download_1mbps"
+    t.float    "speedtest_dl_1m_rate"
+    t.integer  "download_2mbps"
+    t.float    "speedtest_dl_2m_rate"
+    t.integer  "upload_300kbps"
+    t.float    "speedtest_ul_300k_rate"
+    t.integer  "upload_1mkbps"
+    t.float    "speedtest_ul_1m_rate"
+    t.integer  "latency_300ms"
+    t.float    "speedtest_lt_300k_rate"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "metric_youtubes", force: true do |t|
+    t.string   "region"
+    t.string   "location"
+    t.string   "rncname"
+    t.string   "mobile_code"
+    t.string   "imei"
+    t.string   "imsi"
+    t.string   "script_name"
+    t.integer  "attempt"
+    t.integer  "success"
+    t.integer  "quality"
+    t.float    "youtube_succ_rate"
+    t.float    "youtube_qual_rate"
+    t.float    "youtube_rate"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"

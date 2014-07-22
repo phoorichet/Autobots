@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Region:</strong>
+  <%= @metric_ping.region %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @metric_ping.location %>
+</p>
+
+<p>
+  <strong>Rncname:</strong>
+  <%= @metric_ping.rncname %>
+</p>
+
+<p>
+  <strong>Mobile code:</strong>
+  <%= @metric_ping.mobile_code %>
+</p>
+
+<p>
+  <strong>Imei:</strong>
+  <%= @metric_ping.imei %>
+</p>
+
+<p>
+  <strong>Imsi:</strong>
+  <%= @metric_ping.imsi %>
+</p>
+
+<p>
+  <strong>Target ip:</strong>
+  <%= @metric_ping.target_ip %>
+</p>
+
+<p>
+  <strong>Attempt:</strong>
+  <%= @metric_ping.attempt %>
+</p>
+
+<p>
+  <strong>Percent loss:</strong>
+  <%= @metric_ping.percent_loss %>
+</p>
+
+<p>
+  <strong>Avg packet loss rate:</strong>
+  <%= @metric_ping.avg_packet_loss_rate %>
+</p>
+
+<p>
+  <strong>Avg rtt succ rate:</strong>
+  <%= @metric_ping.avg_rtt_succ_rate %>
+</p>
+
+<%= link_to 'Edit', edit_metric_ping_path(@metric_ping) %> |
+<%= link_to 'Back', metric_pings_path %>

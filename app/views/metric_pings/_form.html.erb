@@ -1,0 +1,61 @@
+<%= form_for(@metric_ping) do |f| %>
+  <% if @metric_ping.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@metric_ping.errors.count, "error") %> prohibited this metric_ping from being saved:</h2>
+
+      <ul>
+      <% @metric_ping.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :region %><br>
+    <%= f.text_field :region %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :rncname %><br>
+    <%= f.text_field :rncname %>
+  </div>
+  <div class="field">
+    <%= f.label :mobile_code %><br>
+    <%= f.text_field :mobile_code %>
+  </div>
+  <div class="field">
+    <%= f.label :imei %><br>
+    <%= f.text_field :imei %>
+  </div>
+  <div class="field">
+    <%= f.label :imsi %><br>
+    <%= f.text_field :imsi %>
+  </div>
+  <div class="field">
+    <%= f.label :target_ip %><br>
+    <%= f.text_field :target_ip %>
+  </div>
+  <div class="field">
+    <%= f.label :attempt %><br>
+    <%= f.number_field :attempt %>
+  </div>
+  <div class="field">
+    <%= f.label :percent_loss %><br>
+    <%= f.text_field :percent_loss %>
+  </div>
+  <div class="field">
+    <%= f.label :avg_packet_loss_rate %><br>
+    <%= f.text_field :avg_packet_loss_rate %>
+  </div>
+  <div class="field">
+    <%= f.label :avg_rtt_succ_rate %><br>
+    <%= f.text_field :avg_rtt_succ_rate %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

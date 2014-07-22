@@ -1,0 +1,93 @@
+<%= form_for(@metric_speedtest) do |f| %>
+  <% if @metric_speedtest.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@metric_speedtest.errors.count, "error") %> prohibited this metric_speedtest from being saved:</h2>
+
+      <ul>
+      <% @metric_speedtest.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :region %><br>
+    <%= f.text_field :region %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :rncname %><br>
+    <%= f.text_field :rncname %>
+  </div>
+  <div class="field">
+    <%= f.label :mobile_code %><br>
+    <%= f.text_field :mobile_code %>
+  </div>
+  <div class="field">
+    <%= f.label :imei %><br>
+    <%= f.text_field :imei %>
+  </div>
+  <div class="field">
+    <%= f.label :imsi %><br>
+    <%= f.text_field :imsi %>
+  </div>
+  <div class="field">
+    <%= f.label :script_name %><br>
+    <%= f.text_field :script_name %>
+  </div>
+  <div class="field">
+    <%= f.label :set_server_name %><br>
+    <%= f.text_field :set_server_name %>
+  </div>
+  <div class="field">
+    <%= f.label :attempt %><br>
+    <%= f.number_field :attempt %>
+  </div>
+  <div class="field">
+    <%= f.label :download_1mbps %><br>
+    <%= f.number_field :download_1mbps %>
+  </div>
+  <div class="field">
+    <%= f.label :speedtest_dl_1m_rate %><br>
+    <%= f.text_field :speedtest_dl_1m_rate %>
+  </div>
+  <div class="field">
+    <%= f.label :download_2mbps %><br>
+    <%= f.number_field :download_2mbps %>
+  </div>
+  <div class="field">
+    <%= f.label :speedtest_dl_2m_rate %><br>
+    <%= f.text_field :speedtest_dl_2m_rate %>
+  </div>
+  <div class="field">
+    <%= f.label :upload_300kbps %><br>
+    <%= f.number_field :upload_300kbps %>
+  </div>
+  <div class="field">
+    <%= f.label :speedtest_ul_300k_rate %><br>
+    <%= f.text_field :speedtest_ul_300k_rate %>
+  </div>
+  <div class="field">
+    <%= f.label :upload_1mkbps %><br>
+    <%= f.number_field :upload_1mkbps %>
+  </div>
+  <div class="field">
+    <%= f.label :speedtest_ul_1m_rate %><br>
+    <%= f.text_field :speedtest_ul_1m_rate %>
+  </div>
+  <div class="field">
+    <%= f.label :latency_300ms %><br>
+    <%= f.number_field :latency_300ms %>
+  </div>
+  <div class="field">
+    <%= f.label :speedtest_lt_300k_rate %><br>
+    <%= f.text_field :speedtest_lt_300k_rate %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

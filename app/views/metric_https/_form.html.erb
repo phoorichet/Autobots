@@ -1,0 +1,65 @@
+<%= form_for(@metric_http) do |f| %>
+  <% if @metric_http.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@metric_http.errors.count, "error") %> prohibited this metric_http from being saved:</h2>
+
+      <ul>
+      <% @metric_http.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :region %><br>
+    <%= f.text_field :region %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :rncname %><br>
+    <%= f.text_field :rncname %>
+  </div>
+  <div class="field">
+    <%= f.label :mobile_code %><br>
+    <%= f.text_field :mobile_code %>
+  </div>
+  <div class="field">
+    <%= f.label :imei %><br>
+    <%= f.text_field :imei %>
+  </div>
+  <div class="field">
+    <%= f.label :imsi %><br>
+    <%= f.text_field :imsi %>
+  </div>
+  <div class="field">
+    <%= f.label :script_name %><br>
+    <%= f.text_field :script_name %>
+  </div>
+  <div class="field">
+    <%= f.label :apn %><br>
+    <%= f.text_field :apn %>
+  </div>
+  <div class="field">
+    <%= f.label :serviceinfo %><br>
+    <%= f.text_field :serviceinfo %>
+  </div>
+  <div class="field">
+    <%= f.label :attempt %><br>
+    <%= f.number_field :attempt %>
+  </div>
+  <div class="field">
+    <%= f.label :success %><br>
+    <%= f.number_field :success %>
+  </div>
+  <div class="field">
+    <%= f.label :http_succ_rate %><br>
+    <%= f.text_field :http_succ_rate %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

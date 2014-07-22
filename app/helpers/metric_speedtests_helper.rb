@@ -1,0 +1,2 @@
+module MetricSpeedtestsHelper
+end

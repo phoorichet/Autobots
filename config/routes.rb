@@ -1,4 +1,12 @@
 Autobots::Application.routes.draw do
+  resources :metric_youtubes
+
+  resources :metric_speedtests
+
+  resources :metric_https
+
+  resources :metric_pings
+
   devise_for :users
   resources :users
 

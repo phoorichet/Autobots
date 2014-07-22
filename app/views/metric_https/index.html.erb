@@ -1,0 +1,49 @@
+<h1>Listing metric_https</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Region</th>
+      <th>Location</th>
+      <th>Rncname</th>
+      <th>Mobile code</th>
+      <th>Imei</th>
+      <th>Imsi</th>
+      <th>Script name</th>
+      <th>Apn</th>
+      <th>Serviceinfo</th>
+      <th>Attempt</th>
+      <th>Success</th>
+      <th>Http succ rate</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @metric_https.each do |metric_http| %>
+      <tr>
+        <td><%= metric_http.region %></td>
+        <td><%= metric_http.location %></td>
+        <td><%= metric_http.rncname %></td>
+        <td><%= metric_http.mobile_code %></td>
+        <td><%= metric_http.imei %></td>
+        <td><%= metric_http.imsi %></td>
+        <td><%= metric_http.script_name %></td>
+        <td><%= metric_http.apn %></td>
+        <td><%= metric_http.serviceinfo %></td>
+        <td><%= metric_http.attempt %></td>
+        <td><%= metric_http.success %></td>
+        <td><%= metric_http.http_succ_rate %></td>
+        <td><%= link_to 'Show', metric_http %></td>
+        <td><%= link_to 'Edit', edit_metric_http_path(metric_http) %></td>
+        <td><%= link_to 'Destroy', metric_http, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Metric http', new_metric_http_path %>

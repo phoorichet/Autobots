@@ -1,0 +1,2 @@
+module MetricPingsHelper
+end

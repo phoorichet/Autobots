@@ -1,0 +1,63 @@
+<h1>Listing metric_speedtests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Region</th>
+      <th>Location</th>
+      <th>Rncname</th>
+      <th>Mobile code</th>
+      <th>Imei</th>
+      <th>Imsi</th>
+      <th>Script name</th>
+      <th>Set server name</th>
+      <th>Attempt</th>
+      <th>Download 1mbps</th>
+      <th>Speedtest dl 1m rate</th>
+      <th>Download 2mbps</th>
+      <th>Speedtest dl 2m rate</th>
+      <th>Upload 300kbps</th>
+      <th>Speedtest ul 300k rate</th>
+      <th>Upload 1mkbps</th>
+      <th>Speedtest ul 1m rate</th>
+      <th>Latency 300ms</th>
+      <th>Speedtest lt 300k rate</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @metric_speedtests.each do |metric_speedtest| %>
+      <tr>
+        <td><%= metric_speedtest.region %></td>
+        <td><%= metric_speedtest.location %></td>
+        <td><%= metric_speedtest.rncname %></td>
+        <td><%= metric_speedtest.mobile_code %></td>
+        <td><%= metric_speedtest.imei %></td>
+        <td><%= metric_speedtest.imsi %></td>
+        <td><%= metric_speedtest.script_name %></td>
+        <td><%= metric_speedtest.set_server_name %></td>
+        <td><%= metric_speedtest.attempt %></td>
+        <td><%= metric_speedtest.download_1mbps %></td>
+        <td><%= metric_speedtest.speedtest_dl_1m_rate %></td>
+        <td><%= metric_speedtest.download_2mbps %></td>
+        <td><%= metric_speedtest.speedtest_dl_2m_rate %></td>
+        <td><%= metric_speedtest.upload_300kbps %></td>
+        <td><%= metric_speedtest.speedtest_ul_300k_rate %></td>
+        <td><%= metric_speedtest.upload_1mkbps %></td>
+        <td><%= metric_speedtest.speedtest_ul_1m_rate %></td>
+        <td><%= metric_speedtest.latency_300ms %></td>
+        <td><%= metric_speedtest.speedtest_lt_300k_rate %></td>
+        <td><%= link_to 'Show', metric_speedtest %></td>
+        <td><%= link_to 'Edit', edit_metric_speedtest_path(metric_speedtest) %></td>
+        <td><%= link_to 'Destroy', metric_speedtest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Metric speedtest', new_metric_speedtest_path %>

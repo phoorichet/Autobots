@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Region:</strong>
+  <%= @metric_http.region %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @metric_http.location %>
+</p>
+
+<p>
+  <strong>Rncname:</strong>
+  <%= @metric_http.rncname %>
+</p>
+
+<p>
+  <strong>Mobile code:</strong>
+  <%= @metric_http.mobile_code %>
+</p>
+
+<p>
+  <strong>Imei:</strong>
+  <%= @metric_http.imei %>
+</p>
+
+<p>
+  <strong>Imsi:</strong>
+  <%= @metric_http.imsi %>
+</p>
+
+<p>
+  <strong>Script name:</strong>
+  <%= @metric_http.script_name %>
+</p>
+
+<p>
+  <strong>Apn:</strong>
+  <%= @metric_http.apn %>
+</p>
+
+<p>
+  <strong>Serviceinfo:</strong>
+  <%= @metric_http.serviceinfo %>
+</p>
+
+<p>
+  <strong>Attempt:</strong>
+  <%= @metric_http.attempt %>
+</p>
+
+<p>
+  <strong>Success:</strong>
+  <%= @metric_http.success %>
+</p>
+
+<p>
+  <strong>Http succ rate:</strong>
+  <%= @metric_http.http_succ_rate %>
+</p>
+
+<%= link_to 'Edit', edit_metric_http_path(@metric_http) %> |
+<%= link_to 'Back', metric_https_path %>

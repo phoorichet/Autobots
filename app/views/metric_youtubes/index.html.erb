@@ -1,0 +1,51 @@
+<h1>Listing metric_youtubes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Region</th>
+      <th>Location</th>
+      <th>Rncname</th>
+      <th>Mobile code</th>
+      <th>Imei</th>
+      <th>Imsi</th>
+      <th>Script name</th>
+      <th>Attempt</th>
+      <th>Success</th>
+      <th>Quality</th>
+      <th>Youtube succ rate</th>
+      <th>Youtube qual rate</th>
+      <th>Youtube rate</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @metric_youtubes.each do |metric_youtube| %>
+      <tr>
+        <td><%= metric_youtube.region %></td>
+        <td><%= metric_youtube.location %></td>
+        <td><%= metric_youtube.rncname %></td>
+        <td><%= metric_youtube.mobile_code %></td>
+        <td><%= metric_youtube.imei %></td>
+        <td><%= metric_youtube.imsi %></td>
+        <td><%= metric_youtube.script_name %></td>
+        <td><%= metric_youtube.attempt %></td>
+        <td><%= metric_youtube.success %></td>
+        <td><%= metric_youtube.quality %></td>
+        <td><%= metric_youtube.youtube_succ_rate %></td>
+        <td><%= metric_youtube.youtube_qual_rate %></td>
+        <td><%= metric_youtube.youtube_rate %></td>
+        <td><%= link_to 'Show', metric_youtube %></td>
+        <td><%= link_to 'Edit', edit_metric_youtube_path(metric_youtube) %></td>
+        <td><%= link_to 'Destroy', metric_youtube, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Metric youtube', new_metric_youtube_path %>
