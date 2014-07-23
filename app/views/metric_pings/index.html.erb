@@ -1,8 +1,9 @@
 <h1>Listing metric_pings</h1>
 
-<table>
+<table class="table table-hover table-condensed">
   <thead>
     <tr>
+      <th>Date Time</th>
       <th>Region</th>
       <th>Location</th>
       <th>Rncname</th>
@@ -23,6 +24,7 @@
   <tbody>
     <% @metric_pings.each do |metric_ping| %>
       <tr>
+        <td><%= metric_ping.date_time %></td>
         <td><%= metric_ping.region %></td>
         <td><%= metric_ping.location %></td>
         <td><%= metric_ping.rncname %></td>
@@ -34,14 +36,9 @@
         <td><%= metric_ping.percent_loss %></td>
         <td><%= metric_ping.avg_packet_loss_rate %></td>
         <td><%= metric_ping.avg_rtt_succ_rate %></td>
-        <td><%= link_to 'Show', metric_ping %></td>
-        <td><%= link_to 'Edit', edit_metric_ping_path(metric_ping) %></td>
-        <td><%= link_to 'Destroy', metric_ping, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Metric ping', new_metric_ping_path %>
+<%= paginate @metric_pings, :theme => 'twitter-bootstrap-3' %>

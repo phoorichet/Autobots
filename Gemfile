@@ -56,4 +56,6 @@ gem 'autoprefixer-rails'
 # Font Awesome
 gem 'font-awesome-sass'
 
-
+# Pagination
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'

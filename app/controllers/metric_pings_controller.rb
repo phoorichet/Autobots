@@ -4,7 +4,8 @@ class MetricPingsController < ApplicationController
   # GET /metric_pings
   # GET /metric_pings.json
   def index
-    @metric_pings = MetricPing.all
+    page = params[:page] || 1
+    @metric_pings = MetricPing.page(page)
   end
 
   # GET /metric_pings/1
@@ -69,6 +70,6 @@ class MetricPingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def metric_ping_params
-      params.require(:metric_ping).permit(:region, :location, :rncname, :mobile_code, :imei, :imsi, :target_ip, :attempt, :percent_loss, :avg_packet_loss_rate, :avg_rtt_succ_rate)
+      params.require(:metric_ping).permit(:region, :location, :rncname, :mobile_code, :imei, :imsi, :target_ip, :attempt, :percent_loss, :avg_packet_loss_rate, :avg_rtt_succ_rate, :date_time, :created_at)
     end
 end

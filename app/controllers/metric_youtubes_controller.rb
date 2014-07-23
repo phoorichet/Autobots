@@ -4,7 +4,8 @@ class MetricYoutubesController < ApplicationController
   # GET /metric_youtubes
   # GET /metric_youtubes.json
   def index
-    @metric_youtubes = MetricYoutube.all
+    page = params[:page] || 1
+    @metric_youtubes = MetricYoutube.page(page)
   end
 
   # GET /metric_youtubes/1
@@ -69,6 +70,6 @@ class MetricYoutubesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def metric_youtube_params
-      params.require(:metric_youtube).permit(:region, :location, :rncname, :mobile_code, :imei, :imsi, :script_name, :attempt, :success, :quality, :youtube_succ_rate, :youtube_qual_rate, :youtube_rate)
+      params.require(:metric_youtube).permit(:region, :location, :rncname, :mobile_code, :imei, :imsi, :script_name, :attempt, :success, :quality, :youtube_succ_rate, :youtube_qual_rate, :youtube_rate, :date_time, :created_at)
     end
 end

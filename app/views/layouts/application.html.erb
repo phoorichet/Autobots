@@ -242,7 +242,7 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar">
+    <div class="col-lg-2 sidebar">
         <div class="navbar-default navbar-static-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="side-menu">
@@ -273,7 +273,15 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+                        <a href="#"><i class="fa fa-table fa-fw"></i> Tables<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><%= link_to "Http", metric_https_path %></li>
+                            <li><%= link_to "Ping", metric_pings_path %></li>
+                            <li><%= link_to "Youtube", metric_youtubes_path %></li>
+                            <li><%= link_to "Speedtest", metric_speedtests_path %></li>
+
+                        </ul>
+                        <!-- /.nav-second-level -->
                     </li>
                     <li>
                         <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
@@ -348,7 +356,7 @@
         </div>
 
     </div>
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="col-lg-10 col-lg-offset-2 main">
      <%= yield %>
     </div>
   </div>

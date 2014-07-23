@@ -4,7 +4,8 @@ class MetricHttpsController < ApplicationController
   # GET /metric_https
   # GET /metric_https.json
   def index
-    @metric_https = MetricHttp.all
+    page = params[:page] || 1
+    @metric_https = MetricHttp.page(page)
   end
 
   # GET /metric_https/1
@@ -69,6 +70,6 @@ class MetricHttpsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def metric_http_params
-      params.require(:metric_http).permit(:region, :location, :rncname, :mobile_code, :imei, :imsi, :script_name, :apn, :serviceinfo, :attempt, :success, :http_succ_rate)
+      params.require(:metric_http).permit(:region, :location, :rncname, :mobile_code, :imei, :imsi, :script_name, :apn, :serviceinfo, :attempt, :success, :http_succ_rate, :date_time, :created_at)
     end
 end

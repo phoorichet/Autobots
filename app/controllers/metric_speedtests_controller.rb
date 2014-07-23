@@ -4,7 +4,8 @@ class MetricSpeedtestsController < ApplicationController
   # GET /metric_speedtests
   # GET /metric_speedtests.json
   def index
-    @metric_speedtests = MetricSpeedtest.all
+    page = params[:page] || 1
+    @metric_speedtests = MetricSpeedtest.page(page)
   end
 
   # GET /metric_speedtests/1
@@ -69,6 +70,6 @@ class MetricSpeedtestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def metric_speedtest_params
-      params.require(:metric_speedtest).permit(:region, :location, :rncname, :mobile_code, :imei, :imsi, :script_name, :set_server_name, :attempt, :download_1mbps, :speedtest_dl_1m_rate, :download_2mbps, :speedtest_dl_2m_rate, :upload_300kbps, :speedtest_ul_300k_rate, :upload_1mkbps, :speedtest_ul_1m_rate, :latency_300ms, :speedtest_lt_300k_rate)
+      params.require(:metric_speedtest).permit(:region, :location, :rncname, :mobile_code, :imei, :imsi, :script_name, :set_server_name, :attempt, :download_1mbps, :speedtest_dl_1m_rate, :download_2mbps, :speedtest_dl_2m_rate, :upload_300kbps, :speedtest_ul_300k_rate, :upload_1mkbps, :speedtest_ul_1m_rate, :latency_300ms, :speedtest_lt_300k_rate, :date_time, :created_at)
     end
 end
