@@ -1,4 +1,9 @@
 Autobots::Application.routes.draw do
+
+  resources :services do
+    resources :metrics
+  end
+
   resources :metric_youtubes
 
   resources :metric_speedtests

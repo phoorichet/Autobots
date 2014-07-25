@@ -11,7 +11,8 @@ module ApplicationHelper
 
 
   # Use to identify the active page
-  def is_active(path)  
-    current_page?(path) ? "active" : nil        
+  def is_active(path)
+    style_class = "active"  
+    current_page?(path) ? style_class : nil        
   end
 end

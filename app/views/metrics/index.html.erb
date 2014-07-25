@@ -1,0 +1,37 @@
+<h1>Listing metrics</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Settings</th>
+      <th>Model name</th>
+      <th>Attr</th>
+      <th>Transform</th>
+      <th>Service</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @metrics.each do |metric| %>
+      <tr>
+        <td><%= metric.name %></td>
+        <td><%= metric.settings %></td>
+        <td><%= metric.model_name %></td>
+        <td><%= metric.attr %></td>
+        <td><%= metric.transform %></td>
+        <td><%= metric.service_id %></td>
+        <td><%= link_to 'Show', [metric.service, metric] %></td>
+        <td><%= link_to 'Edit', edit_service_metric_path(metric.service, metric) %></td>
+        <td><%= link_to 'Destroy', [metric.service, metric], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Metric', new_service_metric_path %>

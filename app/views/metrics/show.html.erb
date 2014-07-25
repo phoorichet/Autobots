@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @metric.name %>
+</p>
+
+<p>
+  <strong>Settings:</strong>
+  <%= @metric.settings %>
+</p>
+
+<p>
+  <strong>Model name:</strong>
+  <%= @metric.model_name %>
+</p>
+
+<p>
+  <strong>Attr:</strong>
+  <%= @metric.attr %>
+</p>
+
+<p>
+  <strong>Transform:</strong>
+  <%= @metric.transform %>
+</p>
+
+<p>
+  <strong>Service:</strong>
+  <%= @metric.service_id %>
+</p>
+
+<%= link_to 'Edit', edit_service_metric_path(@metric.service, @metric) %> |
+<%= link_to 'Back', service_metrics_path(@metric.service) %>
