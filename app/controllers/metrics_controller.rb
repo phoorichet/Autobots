@@ -1,5 +1,5 @@
 class MetricsController < ApplicationController
-  before_action :get_service
+  before_action :set_service
   before_action :set_metric, only: [:show, :edit, :update, :destroy]
 
   # GET /metrics
@@ -74,7 +74,7 @@ class MetricsController < ApplicationController
     end
 
     # Get service that has the service
-    def get_service
+    def set_service
       @service = Service.find(params[:service_id])
     end
 end
