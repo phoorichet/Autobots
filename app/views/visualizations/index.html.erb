@@ -1,0 +1,35 @@
+<h1>Listing visualizations</h1>
+
+<table class="table table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>View path</th>
+      <th>Setting</th>
+      <th>Type Viz</th>
+      <th>Config file</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @visualizations.each do |visualization| %>
+      <tr>
+        <td><%= visualization.name %></td>
+        <td><%= visualization.view_path %></td>
+        <td><%= visualization.setting %></td>
+        <td><%= visualization.type_viz %></td>
+        <td><%= visualization.config_file %></td>
+        <td><%= link_to 'Show', visualization %></td>
+        <td><%= link_to 'Edit', edit_visualization_path(visualization) %></td>
+        <td><%= link_to 'Destroy', visualization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Visualization', new_visualization_path %>

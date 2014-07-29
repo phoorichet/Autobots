@@ -1,0 +1,37 @@
+<%= form_for(@visualization) do |f| %>
+  <% if @visualization.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@visualization.errors.count, "error") %> prohibited this visualization from being saved:</h2>
+
+      <ul>
+      <% @visualization.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :view_path %><br>
+    <%= f.text_field :view_path %>
+  </div>
+  <div class="field">
+    <%= f.label :setting %><br>
+    <%= f.text_field :setting %>
+  </div>
+  <div class="field">
+    <%= f.label :type_viz %><br>
+    <%= f.text_field :type_viz %>
+  </div>
+  <div class="field">
+    <%= f.label :config_file %><br>
+    <%= f.text_field :config_file %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

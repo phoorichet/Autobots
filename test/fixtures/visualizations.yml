@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  view_path: MyString
+  setting: MyString
+  type: 
+  config_file: MyString
+
+two:
+  name: MyString
+  view_path: MyString
+  setting: MyString
+  type: 
+  config_file: MyString

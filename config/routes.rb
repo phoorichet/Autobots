@@ -1,5 +1,7 @@
 Autobots::Application.routes.draw do
 
+  resources :visualizations
+
   resources :services do
     resources :metrics
   end
@@ -14,6 +16,23 @@ Autobots::Application.routes.draw do
 
   devise_for :users
   resources :users
+
+    # API V1
+  namespace :api, defaults: {:format=> 'json'} do
+    namespace :v1 do
+      # Facebook
+      resources :facebooks do
+        collection do
+          get 'metric'
+        end
+
+        member do
+        end
+      end
+
+
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

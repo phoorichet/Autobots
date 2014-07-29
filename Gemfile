@@ -59,3 +59,7 @@ gem 'font-awesome-sass'
 # Pagination
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
+
+# Angular
+gem 'angularjs-rails', '~> 1.2.15'
+gem 'angular-ui-rails' 

@@ -277,6 +277,11 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
+                        <%= link_to(visualizations_path) do %>
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Visualizations
+                        <% end -%>
+                    </li>
+                    <li>
                         <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
                     </li>
                     <li>
@@ -350,7 +355,8 @@
 
     </div>
     <div class="col-lg-10 col-lg-offset-2 main">
-     <%= yield %>
+        <%= flash_messages %>
+        <%= yield %>
     </div>
   </div>
 </div>
@@ -360,13 +366,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-      <%= yield %>  
+            <%= flash_messages %>
+            <%= yield %>  
+        </div>
     </div>
-  </div>
 </div>
 <% end %>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
 </body>
 </html>

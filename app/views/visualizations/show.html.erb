@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @visualization.name %>
+</p>
+
+<p>
+  <strong>View path:</strong>
+  <%= @visualization.view_path %>
+</p>
+
+<p>
+  <strong>Setting:</strong>
+  <%= @visualization.setting %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @visualization.type_viz %>
+</p>
+
+<p>
+  <strong>Config file:</strong>
+  <%= @visualization.config_file %>
+</p>
+
+<p><strong>Partial view</strong></p>
+<%= render "visualizations/shared/" + @visualization.view_path %>
+
+<%= link_to 'Edit', edit_visualization_path(@visualization) %> |
+<%= link_to 'Back', visualizations_path %>
