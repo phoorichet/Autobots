@@ -34,7 +34,8 @@
 
       var xAxis = d3.svg.axis()
             .scale(x)
-            .orient("bottom");
+            .orient("bottom")
+            .ticks(d3.time.day, 1);
 
       var yAxis = d3.svg.axis()
             .scale(y)
@@ -55,7 +56,7 @@
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis);
 
-        svg.append("g")
+      svg.append("g")
             .attr("class", "y axis")
             .call(yAxis)
           .append("text")
@@ -71,7 +72,36 @@
             .attr("class", "line")
             .attr("d", line);
 
- 
+      var focus = svg.append("g")
+            .attr("class", "focus")
+            .style("display", "none");
+
+      focus.append("circle")
+            .attr("r", 4.5);
+
+      focus.append("text")
+            .attr("x", 9)
+            .attr("dy", "-.35em");
+
+      svg.append("rect")
+            .attr("class", "overlay")
+            .attr("width", width)
+            .attr("height", height)
+            .on("mouseover", function() { focus.style("display", null); })
+            .on("mouseout", function() { focus.style("display", "none"); })
+            .on("mousemove", mousemove);
+
+      var bisectDate = d3.bisector(function(d) { return d.date; }).left,
+            dateFormat = d3.time.format("%a %b %H:%M");
+      function mousemove() {
+          var x0 = x.invert(d3.mouse(this)[0]),
+              i = bisectDate(data, x0, 1),
+              d0 = data[i - 1],
+              d1 = data[i],
+              d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+          focus.attr("transform", "translate(" + x(d.date) + "," + y(d.http_succ_rate) + ")");
+          focus.select("text").text(d.http_succ_rate + " % " + dateFormat(d.date));
+        }
       
         
         /*######### end D3 ######*/
