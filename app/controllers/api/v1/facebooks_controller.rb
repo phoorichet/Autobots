@@ -5,7 +5,8 @@ module Api
 
       # Get data and configurations for visualization
       def metric
-        respond_with MetricHttp.first.to_json
+        attr = params[:attr]
+        respond_with MetricHttp.facebook.north.where("apn = ?", '3GGSNSUK4N').to_json
       end
 
     end # class

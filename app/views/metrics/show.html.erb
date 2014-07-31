@@ -30,5 +30,16 @@
   <%= @metric.service_id %>
 </p>
 
+<p>
+  <strong>Visualization:</strong>
+  <%= @metric.visualization_id %>
+</p>
+
+<p>
+  <strong>Partial view</strong>
+  <%= render "visualizations/shared/" + @metric.visualization.view_path %>
+</p>
+<br/>
+
 <%= link_to 'Edit', edit_service_metric_path(@metric.service, @metric) %> |
 <%= link_to 'Back', service_metrics_path(@metric.service) %>

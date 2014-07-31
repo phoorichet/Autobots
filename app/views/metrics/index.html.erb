@@ -9,6 +9,7 @@
       <th>Attr</th>
       <th>Transform</th>
       <th>Service</th>
+      <th>Visualization</th>
       <th></th>
       <th></th>
       <th></th>
@@ -24,6 +25,7 @@
         <td><%= metric.attr %></td>
         <td><%= metric.transform %></td>
         <td><%= metric.service_id %></td>
+        <td><%= metric.visualization_id %></td>
         <td><%= link_to 'Show', [metric.service, metric] %></td>
         <td><%= link_to 'Edit', edit_service_metric_path(metric.service, metric) %></td>
         <td><%= link_to 'Destroy', [metric.service, metric], method: :delete, data: { confirm: 'Are you sure?' } %></td>
