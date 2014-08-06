@@ -1,0 +1,59 @@
+<div ng-controller="FilterCtrl as filter">
+  <p>Filter sets</p>
+
+
+  <!-- Time span -->
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      {{ filters.time.from.date | date: 'medium' }} to {{ filters.time.to.date | date: 'medium' }} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <!-- time options -->
+      <li ng-repeat="timespan in panel.time_options track by $index" ng-click="setRelativeFilter(timespan)">
+        <a>Last {{ timespan }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Refresh options -->
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      Refresh <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <!-- time options -->
+      <li ng-repeat="interval in panel.refresh_intervals track by $index">
+        <a ng-click"set_interval(timespan)">Every {{ interval }}</a>
+      </li>
+    </ul>
+  </div>
+
+
+  <!-- Regions -->
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      Region {{ filters.region }} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <!-- time options -->
+      <li ng-repeat="region in panel.region_options track by $index" ng-click="setRegionFilter(region)">
+        <a>{{ region }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Sites -->
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      Site {{ filters.site }} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <!-- time options -->
+      <li ng-repeat="site in panel.site_options track by $index" ng-click="setSiteFilter(site)">
+        <a>{{ site }}</a>
+      </li>
+    </ul>
+  </div>
+
+</div>
+

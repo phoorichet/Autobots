@@ -1,113 +1,132 @@
 (function(){
   
-  var module = angular.module('vizLineController', []);
+  var module = angular.module('vizLineController', ['filters', 'facebookService']);
   
-  module.controller('VizLineCtrl', [ '$scope', 'Facebook', 
-    function($scope, Facebook) {
+  module.controller('VizLineCtrl', [ '$scope', 'Filters', 'Facebook', 
+    function($scope, filters, Facebook) {
 
-      // var start = new Date(gon.metric.start);
-      // var stop  = new Date(gon.metric.stop);
+      $scope.filters = filters || {} ;
+      $scope.filters.attr = gon.metric.attr;
 
-      var params = {
-            "attr": gon.metric.http_succ_rate
+      console.log("Hello!!");
+
+      $scope.$watchCollection('filters', function(newValue, oldValue){
+        console.log(newValue);
+        $scope.updateViz(newValue);
+      });
+
+      $scope.updateViz = function(attrs){
+        console.log('updateing viz...');
+
+        var attr = attrs.attr;
+
+        Facebook.metric(attrs, function(data){
+          data.forEach(function(d) {
+            d.date = new Date(d.date_time);
+          });
+
+        /* ######### D3 goes here ###### */
+          
+        var margin = {top: 20, right: 20, bottom: 30, left: 50},
+            width = 960 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+        var x = d3.time.scale()
+              .domain(d3.extent(data, function(d){ return d.date; }))
+              .range([0, width]);
+
+        var y = d3.scale.linear()
+              .domain(d3.extent(data, function(d){ return d[attr]; }))
+            .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+              .scale(x)
+              .orient("bottom")
+              .ticks(d3.time.day, 2);
+
+        var yAxis = d3.svg.axis()
+              .scale(y)
+              .orient("left");
+
+        var line = d3.svg.line()
+              .x(function(d){ return x(d.date) })
+              .y(function(d){ return y(d[attr]) });
+
+        var svg = d3.select("#viz").append("svg")
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        svg.append("g")
+              .attr("class", "x axis")
+              .attr("transform", "translate(0," + height + ")")
+              .call(xAxis);
+
+        svg.append("g")
+              .attr("class", "y axis")
+              .call(yAxis)
+            .append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", 6)
+              .attr("dy", ".71em")
+              .style("text-anchor", "end")
+              .text("%");
+
+
+        svg.append("path")
+              .datum(data)
+              .attr("class", "line")
+              .attr("d", line);
+
+        var dots = svg.append('g')
+            .attr('class', 'dot-group');
+        
+        dots.selectAll(".dot")
+              .data(data)
+            .enter().append("circle")
+              .attr("class", "dot")
+              .attr("cx", line.x())
+              .attr("cy", line.y())
+              .attr("r", 1);
+
+        var focus = svg.append("g")
+              .attr("class", "focus")
+              .style("display", "none");
+
+        focus.append("circle")
+              .attr("r", 4.5);
+
+        focus.append("text")
+              .attr("x", 9)
+              .attr("dy", "-.35em");
+
+        svg.append("rect")
+              .attr("class", "overlay")
+              .attr("width", width)
+              .attr("height", height)
+              .on("mouseover", function() { focus.style("display", null); })
+              .on("mouseout", function() { focus.style("display", "none"); })
+              .on("mousemove", mousemove)
+              .on("click", function() { console.log(d3.mouse(this)); });
+
+        var bisectDate = d3.bisector(function(d) { return d.date; }).left,
+              dateFormat = d3.time.format("%a %b %H:%M");
+              
+        function mousemove() {
+            var x0 = x.invert(d3.mouse(this)[0]),
+                i = bisectDate(data, x0, 1),
+                d0 = data[i - 1],
+                d1 = data[i],
+                d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+            focus.attr("transform", "translate(" + x(d.date) + "," + y(d[attr]) + ")");
+            focus.select("text").text(d[attr] + " % " + dateFormat(d.date));
+          }
+          /* ######### end D3 ###### */
+
+        }); // end facebook
+
       };
-      Facebook.metric(params, function(data){
-        console.log(gon.metric);
-        data.forEach(function(d) {
-          d.date = new Date(d.date_time);
-        });
-        console.log(data[0]);
-
-        // D3 goes here
-        
-      var margin = {top: 20, right: 20, bottom: 30, left: 50},
-          width = 960 - margin.left - margin.right,
-          height = 500 - margin.top - margin.bottom;
-
-      var x = d3.time.scale()
-            .domain(d3.extent(data, function(d){ return d.date; }))
-            .range([0, width]);
-
-      var y = d3.scale.linear()
-            .domain(d3.extent(data, function(d){ return d.http_succ_rate; }))
-          .range([height, 0]);
-
-      var xAxis = d3.svg.axis()
-            .scale(x)
-            .orient("bottom")
-            .ticks(d3.time.day, 1);
-
-      var yAxis = d3.svg.axis()
-            .scale(y)
-            .orient("left");
-
-      var line = d3.svg.line()
-            .x(function(d){ return x(d.date) })
-            .y(function(d){ return y(d.http_succ_rate) });
-
-      var svg = d3.select("#viz").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-          .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-      svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
-
-      svg.append("g")
-            .attr("class", "y axis")
-            .call(yAxis)
-          .append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", ".71em")
-            .style("text-anchor", "end")
-            .text("%");
-
-
-      svg.append("path")
-            .datum(data)
-            .attr("class", "line")
-            .attr("d", line);
-
-      var focus = svg.append("g")
-            .attr("class", "focus")
-            .style("display", "none");
-
-      focus.append("circle")
-            .attr("r", 4.5);
-
-      focus.append("text")
-            .attr("x", 9)
-            .attr("dy", "-.35em");
-
-      svg.append("rect")
-            .attr("class", "overlay")
-            .attr("width", width)
-            .attr("height", height)
-            .on("mouseover", function() { focus.style("display", null); })
-            .on("mouseout", function() { focus.style("display", "none"); })
-            .on("mousemove", mousemove);
-
-      var bisectDate = d3.bisector(function(d) { return d.date; }).left,
-            dateFormat = d3.time.format("%a %b %H:%M");
-      function mousemove() {
-          var x0 = x.invert(d3.mouse(this)[0]),
-              i = bisectDate(data, x0, 1),
-              d0 = data[i - 1],
-              d1 = data[i],
-              d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-          focus.attr("transform", "translate(" + x(d.date) + "," + y(d.http_succ_rate) + ")");
-          focus.select("text").text(d.http_succ_rate + " % " + dateFormat(d.date));
-        }
-      
-        
-        /*######### end D3 ######*/
-
-      }); // end facebook
-
 
     }
   ]); // end module

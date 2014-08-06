@@ -70,5 +70,8 @@ gem 'd3-rails'
 # Javascript and Rails variable interchange
 gem 'gon'
 
+# Bower
+gem 'bower-rails'
+
 
 

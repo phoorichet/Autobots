@@ -36,6 +36,7 @@ GEM
       rails (>= 3.1)
     bootstrap-sass (3.2.0.0)
       sass (~> 3.2)
+    bower-rails (0.8.3)
     builder (3.1.4)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -144,6 +145,7 @@ DEPENDENCIES
   autoprefixer-rails
   bootstrap-kaminari-views
   bootstrap-sass (~> 3.2.0)
+  bower-rails
   coffee-rails (~> 4.0.0)
   d3-rails
   devise

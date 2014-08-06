@@ -1,6 +1,8 @@
 (function(){
 
-  angular.module('facebookService', ['ngResource']).factory('Facebook', [ '$resource', 
+  var module = angular.module('facebookService', ['ngResource']);
+
+  module.factory('Facebook', [ '$resource', 
     function($resource) {
       return $resource('/api/v1/facebooks/:collectionCtrl:id/:memberCtrl', {
         id: '@id',
@@ -20,7 +22,7 @@
           isArray: true
         }
       });
-    }
-  ]);
+    } // end function
+  ]); // end module
 
 }).call(this)
