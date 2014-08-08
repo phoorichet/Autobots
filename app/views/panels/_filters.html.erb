@@ -55,5 +55,18 @@
     </ul>
   </div>
 
+  <!-- APN -->
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      GGSN: {{ filters.apn }} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <!-- time options -->
+      <li ng-repeat="apn in panel.apn_options track by $index" ng-click="setApnFilter(apn)">
+        <a>{{ apn }}</a>
+      </li>
+    </ul>
+  </div>
+
 </div>
 

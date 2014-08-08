@@ -14,7 +14,8 @@
         time_options  : ['15m','1h','6h','12h','24h','2d','7d','30d'],
         refresh_intervals : ['5s','10s','30s','1m','5m','15m','30m','1h','2h','1d'],
         region_options : ['All', 'North', 'Northeast', 'East', 'Central', 'Bangkok', 'South'],
-        site_options: ['All', 'CWDC', 'SUK']
+        site_options: ['All', 'CWDC', 'SUK', 'TLS'],
+        apn_options: ["All", "internet", "3GGSNSUK11H", "3GGSNCWD7N", "3GGSNCWD5N", "3GGSNSUK8N", "3GGSNSUK9N", "3GGSNCWD2N", "3GGSNSUK7N", "3GGSNSUK4N", "3GGSNCWD8N", "3GGSNSUK6N", "3GGSNSUK3N", "3GGSNCWD11H", "3GGSNSUK5N", "3GGSNCWD3N", "3GGSNCWD6N", "3GGSNSUK2N", "3GGSNCWD4N"]
       };
 
       $scope.setRelativeFilter = function(timespan) {
@@ -43,6 +44,10 @@
         $scope.filters.site = site;
       };
 
+      $scope.setApnFilter = function(apn) {
+        $scope.filters.apn = apn;
+      };
+
       var getScopeTimeObj = function(from,to) {
         return {
           from: getTimeObj(from),
@@ -57,7 +62,7 @@
           // minute: pad(date.getMinutes(),2),
           // second: pad(date.getSeconds(),2),
           // millisecond: pad(date.getMilliseconds(),3),
-          time: date.getTime()
+          "time": date.getTime()
         };
       };
 

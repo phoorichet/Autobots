@@ -11,4 +11,11 @@ class MetricHttp < ActiveRecord::Base
   scope :south,     -> { where("region = ?", "South") }
   scope :central,   -> { where("region = ?", "Central") }
   scope :bankgkok,  -> { where("region = ?", "Bangkok") }
+  scope :asc_date_time,       -> { order(date_time: :asc) }
+  scope :start,     ->(timestamp) { where("date_time >= ?", timestamp) }
+  scope :stop,      ->(timestamp) { where("date_time < ?", timestamp) }
+  scope :region,    ->(region) { region == "All" ? nil : where("region = ?", region) }
+  scope :site,      ->(site) { site == "All" ? nil : where("apn like ?", "%#{site}%") }
+  scope :apn,      ->(apn) { apn == "All" ? nil : where("apn = ?", apn) }
+
 end

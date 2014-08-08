@@ -18,9 +18,12 @@
       $scope.updateViz = function(attrs){
         console.log('updateing viz...');
 
-        var attr = attrs.attr;
+        var attr = attrs.attr,
+            formatPercent = d3.format(".2f");
 
         Facebook.metric(attrs, function(data){
+          console.log(data);
+          // Calculate the date
           data.forEach(function(d) {
             d.date = new Date(d.date_time);
           });
@@ -36,7 +39,8 @@
               .range([0, width]);
 
         var y = d3.scale.linear()
-              .domain(d3.extent(data, function(d){ return d[attr]; }))
+              // .domain(d3.extent(data, function(d){ return d[attr]; }))
+              .domain([0, 100])
             .range([height, 0]);
 
         var xAxis = d3.svg.axis()
@@ -49,8 +53,10 @@
               .orient("left");
 
         var line = d3.svg.line()
-              .x(function(d){ return x(d.date) })
-              .y(function(d){ return y(d[attr]) });
+              .x(function(d){ return x(d.date); })
+              .y(function(d){ return y(d[attr]); });
+
+        d3.select('#viz').select('svg').remove(); // clear the existing
 
         var svg = d3.select("#viz").append("svg")
               .attr("width", width + margin.left + margin.right)
@@ -74,10 +80,19 @@
               .text("%");
 
 
-        svg.append("path")
+        var path = svg.append("path")
               .datum(data)
               .attr("class", "line")
               .attr("d", line);
+
+        var totalLength = path.node().getTotalLength();
+
+        path.attr("stroke-dasharray", totalLength + " " + totalLength)
+            .attr("stroke-dashoffset",  function() { return this.getTotalLength(); })
+            .transition()
+              .duration(1500)
+              .ease("linear")
+              .attr("stroke-dashoffset", 0);
 
         var dots = svg.append('g')
             .attr('class', 'dot-group');
@@ -112,17 +127,37 @@
 
         var bisectDate = d3.bisector(function(d) { return d.date; }).left,
               dateFormat = d3.time.format("%a %b %H:%M");
-              
+
         function mousemove() {
+          if(data.length > 0){
             var x0 = x.invert(d3.mouse(this)[0]),
                 i = bisectDate(data, x0, 1),
                 d0 = data[i - 1],
                 d1 = data[i],
                 d = x0 - d0.date > d1.date - x0 ? d1 : d0;
             focus.attr("transform", "translate(" + x(d.date) + "," + y(d[attr]) + ")");
-            focus.select("text").text(d[attr] + " % " + dateFormat(d.date));
+            focus.select("text").text(formatPercent(d[attr]) + " % " + dateFormat(d.date));
           }
+        }
           /* ######### end D3 ###### */
+
+          // tick();
+
+          function tick(){
+            setInterval(function(){
+              console.log('tick...' + data.length);
+              // redraw path, shift path left
+              path.attr("d", line)
+                  .attr("transform", null)
+                  .transition()
+                  // .duration(500)
+                  .ease("linear")
+                  // .attr("transform", "translate(" + x(-1) + ")")
+                  .each("end", tick);
+
+              data.shift();
+            }, 1000);
+          }
 
         }); // end facebook
 
