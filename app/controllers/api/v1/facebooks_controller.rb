@@ -18,8 +18,13 @@ module Api
         region      = params[:region]
         site        = params[:site]
         apn         = params[:apn]
-        respond_with MetricHttp.facebook
-                              .select("date_time, avg(#{metric_attr}) as #{metric_attr}")
+        stack       = params[:stack]
+
+        # Completely hack on this logic
+        # TODO
+        if (stack == 'All')
+          respond_with MetricHttp.facebook
+                              .select("date_time, avg(#{metric_attr}) as value")
                               .region(region)
                               .site(site)
                               .apn(apn)
@@ -27,6 +32,27 @@ module Api
                               .stop(stop)
                               .group(:date_time)
                               .asc_date_time
+        elsif (stack == 'RNC')
+          respond_with MetricHttp.facebook
+                              .select("date_time, rncname as group, avg(#{metric_attr}) as value")
+                              .region(region)
+                              .site(site)
+                              .apn(apn)
+                              .start(start)
+                              .stop(stop)
+                              .group(:date_time, :rncname)
+                              .asc_date_time
+        else                  
+          respond_with MetricHttp.facebook
+                              .select("date_time, apn as group, avg(#{metric_attr}) as value")
+                              .region(region)
+                              .site(site)
+                              .apn(apn)
+                              .start(start)
+                              .stop(stop)
+                              .group(:date_time, :apn)
+                              .asc_date_time
+        end
 
       end
 

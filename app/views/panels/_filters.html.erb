@@ -28,6 +28,31 @@
     </ul>
   </div>
 
+  <!-- Sites -->
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      Site {{ filters.site }} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <!-- time options -->
+      <li ng-repeat="site in panel.site_options track by $index" ng-click="setSiteFilter(site)">
+        <a>{{ site }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- APN && GGSN -->
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      GGSN: {{ filters.apn }} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <!-- time options -->
+      <li ng-repeat="apn in panel.apn_options track by $index" ng-click="setApnFilter(apn)">
+        <a>{{ apn }}</a>
+      </li>
+    </ul>
+  </div>
 
   <!-- Regions -->
   <div class="btn-group">
@@ -42,31 +67,24 @@
     </ul>
   </div>
 
-  <!-- Sites -->
+  <!-- Separate RCN check box -->
   <div class="btn-group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      Site {{ filters.site }} <span class="caret"></span>
+      Stack: {{ filters.stack }} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
       <!-- time options -->
-      <li ng-repeat="site in panel.site_options track by $index" ng-click="setSiteFilter(site)">
-        <a>{{ site }}</a>
+      <li ng-repeat="stack in panel.stack_options track by $index" ng-click="setStackFilter(stack)">
+        <a>{{ stack }}</a>
       </li>
     </ul>
   </div>
 
-  <!-- APN -->
-  <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      GGSN: {{ filters.apn }} <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-      <!-- time options -->
-      <li ng-repeat="apn in panel.apn_options track by $index" ng-click="setApnFilter(apn)">
-        <a>{{ apn }}</a>
-      </li>
-    </ul>
+<!--   <div class="btn-group">
+        <input type="radio" ng-click="toggleStackRnc()"> Stack RNCs
+        <input type="radio" ng-click="toggleStackRnc()"> Stack GGSNs
+    
   </div>
-
+ -->
 </div>
 
