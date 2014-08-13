@@ -57,12 +57,25 @@
   <!-- Regions -->
   <div class="btn-group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      Region {{ filters.region }} <span class="caret"></span>
+      Region: {{ filters.region }} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
       <!-- time options -->
       <li ng-repeat="region in panel.region_options track by $index" ng-click="setRegionFilter(region)">
         <a>{{ region }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Regions -->
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      SGSN: {{ filters.sgsn }} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <!-- time options -->
+      <li ng-repeat="sgsn in panel.sgsn_options track by $index" ng-click="setSgsnFilter(sgsn)">
+        <a>{{ sgsn }}</a>
       </li>
     </ul>
   </div>

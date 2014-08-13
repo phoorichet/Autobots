@@ -17,5 +17,6 @@ class MetricHttp < ActiveRecord::Base
   scope :region,    ->(region) { region == "All" ? nil : where("region = ?", region) }
   scope :site,      ->(site) { site == "All" ? nil : where("apn like ?", "%#{site}%") }
   scope :apn,      ->(apn) { apn == "All" ? nil : where("apn = ?", apn) }
+  scope :sgsn,      ->(sgsn) { sgsn == "All" ? nil : where(rncname: Sgsn.where(name: "3SGSNBPL1H").first.rncs.map {|d| d.name}) }
 
 end

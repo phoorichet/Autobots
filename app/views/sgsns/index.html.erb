@@ -1,0 +1,29 @@
+<h1>Listing sgsns</h1>
+
+<table class="table table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th># Associated RNCs</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sgsns.each do |sgsn| %>
+      <tr>
+        <td><%= sgsn.name %></td>
+        <td><%= sgsn.rncs.count %></td>
+        <td><%= link_to 'Show', sgsn %></td>
+        <td><%= link_to 'Edit', edit_sgsn_path(sgsn) %></td>
+        <td><%= link_to 'Destroy', sgsn, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sgsn', new_sgsn_path %>

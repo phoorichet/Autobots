@@ -1,0 +1,2 @@
+module RncsHelper
+end

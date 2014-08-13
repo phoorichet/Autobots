@@ -1,5 +1,9 @@
 Autobots::Application.routes.draw do
 
+  resources :sgsns
+
+  resources :rncs
+
   resources :visualizations
 
   resources :services do

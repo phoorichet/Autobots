@@ -35,7 +35,8 @@
         'time': getScopeTimeObj(kbn.parseDate(_filter.from), new Date()),
         'invterval': null,
         'apn': 'All',
-        'stack': 'All'
+        'stack': 'All',
+        'sgsn': 'All'
       };
 
       return filterObj;

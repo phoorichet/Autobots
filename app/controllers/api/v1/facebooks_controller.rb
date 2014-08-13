@@ -19,38 +19,46 @@ module Api
         site        = params[:site]
         apn         = params[:apn]
         stack       = params[:stack]
+        sgsn        = params[:sgsn]
+
 
         # Completely hack on this logic
         # TODO
-        if (stack == 'All')
+        # 
+        if (stack == 'GGSN')
           respond_with MetricHttp.facebook
-                              .select("date_time, avg(#{metric_attr}) as value")
+                              .select("date_time, apn as group, avg(#{metric_attr}) as value")
                               .region(region)
                               .site(site)
                               .apn(apn)
+                              .sgsn(sgsn)
                               .start(start)
                               .stop(stop)
-                              .group(:date_time)
+                              .group(:date_time, :apn)
                               .asc_date_time
+
         elsif (stack == 'RNC')
           respond_with MetricHttp.facebook
                               .select("date_time, rncname as group, avg(#{metric_attr}) as value")
                               .region(region)
                               .site(site)
                               .apn(apn)
+                              .sgsn(sgsn)
                               .start(start)
                               .stop(stop)
                               .group(:date_time, :rncname)
                               .asc_date_time
+                              
         else                  
           respond_with MetricHttp.facebook
-                              .select("date_time, apn as group, avg(#{metric_attr}) as value")
+                              .select("date_time, avg(#{metric_attr}) as value")
                               .region(region)
                               .site(site)
                               .apn(apn)
+                              .sgsn(sgsn)
                               .start(start)
                               .stop(stop)
-                              .group(:date_time, :apn)
+                              .group(:date_time)
                               .asc_date_time
         end
 

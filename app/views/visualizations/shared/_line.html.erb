@@ -1,5 +1,5 @@
 <p>This is line partial view</p>
-<div ng-controller="VizLineCtrl as lineCtrl">
+<div ng-controller="VizLineCtrl as lineCtrl" ng-init="init( '<%= @metric.attr %>' )">
   <div>From {{ filters.from }}</div>
   <div id="viz" class="viz-text"></div>
 

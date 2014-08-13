@@ -2,16 +2,19 @@
   
   var module = angular.module('vizLineController', ['filters', 'facebookService']);
   
-  module.controller('VizLineCtrl', [ '$scope', 'Filters', 'Facebook', 
-    function($scope, filters, Facebook) {
+  module.controller('VizLineCtrl', [ '$scope', '$log', 'Filters', 'Facebook',
+    function($scope, $log, filters, Facebook) {
 
-      $scope.filters = filters || {} ;
-      $scope.filters.attr = gon.metric.attr;
-
-      console.log("Hello!!");
+      //This function is sort of private constructor for controller
+      //Based on passed argument you can make a call to resource
+      $scope.init = function(metric_attr){
+        $log.log("Hello!!");
+        $scope.filters = filters || {} ;
+        $scope.filters.attr = metric_attr;
+      };
 
       $scope.$watchCollection('filters', function(newValue, oldValue){
-        console.log(newValue);
+        $log.log(newValue);
         if(newValue.stack === "All"){
           $scope.updateViz(newValue);
         }else{
@@ -20,13 +23,13 @@
       });
 
       $scope.updateViz = function(attrs){
-        console.log('updateing viz...');
+        $log.log('updateing viz...');
 
         var attr = attrs.attr,
             formatPercent = d3.format(".2f");
 
         Facebook.metric(attrs, function(data){
-          console.log(data);
+          $log.log(data);
           // Calculate the date
           data.forEach(function(d) {
             d.date = new Date(d.date_time);
@@ -127,7 +130,7 @@
               .on("mouseover", function() { focus.style("display", null); })
               .on("mouseout", function() { focus.style("display", "none"); })
               .on("mousemove", mousemove)
-              .on("click", function() { console.log(d3.mouse(this)); });
+              .on("click", function() { $log.log(d3.mouse(this)); });
 
         var bisectDate = d3.bisector(function(d) { return d.date; }).left,
               dateFormat = d3.time.format("%a %b %H:%M");
@@ -149,7 +152,7 @@
 
           function tick(){
             setInterval(function(){
-              console.log('tick...' + data.length);
+              $log.log('tick...' + data.length);
               // redraw path, shift path left
               path.attr("d", line)
                   .attr("transform", null)
@@ -169,13 +172,13 @@
 
 
       $scope.updateVizStack = function(attrs){
-        console.log('updateing viz stack...');
+        $log.log('updateing viz stack...');
 
         var attr = attrs.attr,
             formatPercent = d3.format(".2f");
 
         Facebook.metric(attrs, function(data){
-          console.log(data);
+          $log.log(data);
           // Calculate the date
           data.forEach(function(d) {
             d.date = new Date(d.date_time);
@@ -209,12 +212,12 @@
               .x(function(d){ return x(d.date); })
               .y(function(d){ return y(d.value); });
 
-        var uniqueRncs = d3.set(data.map(function(v){ return v.group; })).values().sort();
+        var uniqueGroups = d3.set(data.map(function(v){ return v.group; })).values().sort();
 
         var color = d3.scale.category10()
-              .domain(uniqueRncs);
+              .domain(uniqueGroups);
 
-        var rncs = color.domain().map(function(name){
+        var groups = color.domain().map(function(name){
           return {
             name: name,
             values: data.filter(function(d){ return d.group === name }).map(function(d){
@@ -247,7 +250,7 @@
               .text("%");
 
         var rnc = svg.selectAll('rcn')
-              .data(rncs)
+              .data(groups)
             .enter().append('g')
               .attr('class', 'rnc');
 
@@ -302,7 +305,7 @@
               .on("mouseover", function() { focus.style("display", null); })
               .on("mouseout", function() { focus.style("display", "none"); })
               .on("mousemove", mousemove)
-              .on("click", function() { console.log(d3.mouse(this)); });
+              .on("click", function() { $log.log(d3.mouse(this)); });
 
         var bisectDate = d3.bisector(function(d) { return d.date; }).left,
               dateFormat = d3.time.format("%a %b %H:%M");
@@ -324,7 +327,7 @@
 
         //   function tick(){
         //     setInterval(function(){
-        //       console.log('tick...' + data.length);
+        //       $log.log('tick...' + data.length);
         //       // redraw path, shift path left
         //       path.attr("d", line)
         //           .attr("transform", null)

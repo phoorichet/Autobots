@@ -1,4 +1,4 @@
-(function(){
+$(document).ready(function(){
 
 
   var autobotApp = angular.module('autobotsApp', [
@@ -7,7 +7,7 @@
     "filterController",
     // Services
     "facebookService",
-    "filters"
+    "filters",
   ]);
 
   // Angular and Turbolink
@@ -17,4 +17,4 @@
   });
           
 
-}).call(this);
+});

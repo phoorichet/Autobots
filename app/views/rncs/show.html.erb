@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @rnc.name %>
+</p>
+
+<p>
+  <strong>Sgsn:</strong>
+  <%= @rnc.sgsn_id %>
+</p>
+
+<%= link_to 'Edit', edit_rnc_path(@rnc) %> |
+<%= link_to 'Back', rncs_path %>
