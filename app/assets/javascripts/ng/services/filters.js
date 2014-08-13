@@ -5,7 +5,7 @@
   module.factory('Filters', [
     function(){
 
-      var initTimespan = '15m';
+      var initTimespan = '30d';
 
       var _filter = {
         from : "now-"+initTimespan,

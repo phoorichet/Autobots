@@ -6,7 +6,7 @@ $(document).ready(function(){
     "vizLineController",
     "filterController",
     // Services
-    "facebookService",
+    "apiService",
     "filters",
   ]);
 

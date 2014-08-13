@@ -34,6 +34,56 @@ Autobots::Application.routes.draw do
         end
       end
 
+      # Twitter
+      resources :twitters do
+        collection do
+          get 'metric'
+        end
+
+        member do
+        end
+      end
+
+      # Instagram
+      resources :instagrams do
+        collection do
+          get 'metric'
+        end
+
+        member do
+        end
+      end
+
+      # Ping
+      resources :pings do
+        collection do
+          get 'metric'
+        end
+
+        member do
+        end
+      end
+
+      # Speedtest
+      resources :speedtests do
+        collection do
+          get 'metric'
+        end
+
+        member do
+        end
+      end
+
+      # Youtubes
+      resources :youtubes do
+        collection do
+          get 'metric'
+        end
+
+        member do
+        end
+      end
+
 
     end
   end

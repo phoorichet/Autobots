@@ -1,16 +1,19 @@
 (function(){
   
-  var module = angular.module('vizLineController', ['filters', 'facebookService']);
+  var module = angular.module('vizLineController', []);
   
-  module.controller('VizLineCtrl', [ '$scope', '$log', 'Filters', 'Facebook',
-    function($scope, $log, filters, Facebook) {
+
+  module.controller('VizLineCtrl', [ '$scope', '$log', 'Filters', 'Api',
+    function($scope, $log, filters, Api) {
 
       //This function is sort of private constructor for controller
       //Based on passed argument you can make a call to resource
-      $scope.init = function(metric_attr){
-        $log.log("Hello!!");
+      $scope.init = function(serviceName, metricAttr){
+        
         $scope.filters = filters || {} ;
-        $scope.filters.attr = metric_attr;
+        $scope.filters.attr = metricAttr;
+        $log.debug(serviceName);
+        $scope.service = Api[serviceName];
       };
 
       $scope.$watchCollection('filters', function(newValue, oldValue){
@@ -28,7 +31,7 @@
         var attr = attrs.attr,
             formatPercent = d3.format(".2f");
 
-        Facebook.metric(attrs, function(data){
+        $scope.service.metric(attrs, function(data){
           $log.log(data);
           // Calculate the date
           data.forEach(function(d) {
@@ -177,7 +180,7 @@
         var attr = attrs.attr,
             formatPercent = d3.format(".2f");
 
-        Facebook.metric(attrs, function(data){
+        $scope.service.metric(attrs, function(data){
           $log.log(data);
           // Calculate the date
           data.forEach(function(d) {

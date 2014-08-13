@@ -1,6 +1,6 @@
 module Api
   module V1
-    class FacebooksController < ApplicationController
+    class PingsController < ApplicationController
       include ApiHelper
       respond_to :json
 
@@ -25,7 +25,7 @@ module Api
         # Completely hack on this logic
         # TODO
         if (stack == 'GGSN')
-          respond_with MetricHttp.facebook
+          respond_with MetricPing
                               .select("date_time, apn as group, avg(#{metric_attr}) as value")
                               .region(region)
                               .site(site)
@@ -37,7 +37,7 @@ module Api
                               .asc_date_time
 
         elsif (stack == 'RNC')
-          respond_with MetricHttp.facebook
+          respond_with MetricPing
                               .select("date_time, rncname as group, avg(#{metric_attr}) as value")
                               .region(region)
                               .site(site)
@@ -49,7 +49,7 @@ module Api
                               .asc_date_time
 
         else                  
-          respond_with MetricHttp.facebook
+          respond_with MetricPing
                               .select("date_time, avg(#{metric_attr}) as value")
                               .region(region)
                               .site(site)
