@@ -11,7 +11,7 @@
       var kbn = window.kbn;
       // Set and populate defaults
       $scope.panel = {
-        time_options  : ['15m','1h','6h','12h','24h','2d','7d','30d'],
+        time_options  : ['15m','1h','6h','12h','24h','2d','7d', '15d','30d', '45d', '60d'],
         refresh_intervals : ['5s','10s','30s','1m','5m','15m','30m','1h','2h','1d'],
         region_options : ['All', 'North', 'Northeast', 'East', 'Central', 'Bangkok', 'South'],
         site_options: ['All', 'CWD', 'SUK', 'TLS'],

@@ -113,6 +113,24 @@
                       isArray: true
                     }
                   }),
+        Adhoc: $resource('/api/v1/adhocs/:collectionCtrl:id/:memberCtrl', {
+                    id: '@id',
+                    collectionCtrl: '@collectionCtrl',
+                    memberCtrl: '@memberCtrl'
+                  }, {
+                    index: {
+                      method: 'GET',
+                      isArray: true,
+                      responseType: 'json'
+                    },
+                    heatmap: {
+                      method: 'GET',
+                      params: {
+                        collectionCtrl: 'metric'
+                      },
+                      isArray: true
+                    }
+                  }),
       }// end return
     } // end function
   ]); // end module

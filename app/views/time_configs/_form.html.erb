@@ -1,0 +1,37 @@
+<%= form_for(@time_config) do |f| %>
+  <% if @time_config.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@time_config.errors.count, "error") %> prohibited this time_config from being saved:</h2>
+
+      <ul>
+      <% @time_config.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :reps %><br>
+    <%= f.text_field :reps %>
+  </div>
+
+   <div class="field">
+    <%= f.label :time_type %><br />
+    <%= f.label :time_type, "Realtime", :value => "_realtime"  %>
+    <%= f.radio_button :time_type, "_realtime", :checked => @time_config.time_type == "_realtime" %>
+    <%= f.label :time_type, "Relative", :value => "_relative" %>
+    <%= f.radio_button :time_type, "_relative", :checked => @time_config.time_type == "_relative" %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

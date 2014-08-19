@@ -1,5 +1,7 @@
 Autobots::Application.routes.draw do
 
+  resources :time_configs
+
   resources :sgsns
 
   resources :rncs
@@ -28,6 +30,7 @@ Autobots::Application.routes.draw do
       resources :facebooks do
         collection do
           get 'metric'
+          get 'heatmap'
         end
 
         member do
@@ -84,6 +87,16 @@ Autobots::Application.routes.draw do
         end
       end
 
+      # Youtubes
+      resources :adhocs do
+        collection do
+          get 'heatmap'
+        end
+
+        member do
+        end
+      end
+
 
     end
   end
@@ -94,6 +107,8 @@ Autobots::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
   root to: "static_pages#index"
+
+  get 'heatmap' => 'static_pages#heatmap'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

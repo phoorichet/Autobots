@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @time_config.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @time_config.description %>
+</p>
+
+<p>
+  <strong>Reps:</strong>
+  <%= @time_config.reps %>
+</p>
+
+<p>
+  <strong>Time type:</strong>
+  <%= @time_config.time_type %>
+</p>
+
+<%= link_to 'Edit', edit_time_config_path(@time_config) %> |
+<%= link_to 'Back', time_configs_path %>

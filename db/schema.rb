@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140813032346) do
+ActiveRecord::Schema.define(version: 20140815110625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20140813032346) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "visualization_id"
+    t.string   "resource_name"
   end
 
   create_table "rncs", force: true do |t|
@@ -124,6 +125,15 @@ ActiveRecord::Schema.define(version: 20140813032346) do
 
   create_table "sgsns", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "time_configs", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "reps"
+    t.string   "time_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

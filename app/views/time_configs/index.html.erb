@@ -1,0 +1,33 @@
+<h1>Listing time_configs</h1>
+
+<table class="table table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Reps</th>
+      <th>Time type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @time_configs.each do |time_config| %>
+      <tr>
+        <td><%= time_config.name %></td>
+        <td><%= time_config.description %></td>
+        <td><%= time_config.reps %></td>
+        <td><%= time_config.time_type %></td>
+        <td><%= link_to 'Show', time_config %></td>
+        <td><%= link_to 'Edit', edit_time_config_path(time_config) %></td>
+        <td><%= link_to 'Destroy', time_config, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Time config', new_time_config_path %>
