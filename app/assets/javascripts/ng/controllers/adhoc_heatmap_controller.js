@@ -1,8 +1,8 @@
 (function(){
   
-  var module = angular.module('vizHeatmapController', []);
+  var module = angular.module('adhocHeatmapController', []);
   
-  module.controller('VizHeatmapCtrl', [ '$scope', '$log', 'Filters', 'Api',
+  module.controller('AdhocHeatmapCtrl', [ '$scope', '$log', 'Filters', 'Api',
     function($scope, $log, filters, Api) {
 
       //This function is sort of private constructor for controller
@@ -40,7 +40,7 @@
             format = d3.time.format("%Y-%m-%d"),
             monthLabelFormat = d3.time.format("%b %a %d");
 
-        $scope.service.metric(attrs, function(data){
+        $scope.service.heatmap(attrs, function(data){
           $log.log(data);
           
           data.forEach(function(d) {
@@ -131,7 +131,7 @@
         heatMap.transition().duration(1000)
               .style("fill", function(d) { return colorScale(d.value); });
 
-        heatMap.append("title").text(function(d) { return d.value + "," + monthLabelFormat(d.date) });
+        heatMap.append("title").text(function(d) { return d.service+", "+ d.value + "," + monthLabelFormat(d.date) });
               
           
         var legend = svg.append("g").selectAll(".legend")

@@ -89,6 +89,24 @@
               .style("text-anchor", "end")
               .text("%");
 
+        svg.append("line")
+              .attr("class", "threshold-line")
+              .style('opacity', 1)
+              .attr('x1', 0)
+              .attr('y1', y(85))
+              .attr('x2', width)
+              .attr('y2', y(85))
+              .transition()
+                .duration(1500)
+                .ease("linear")
+                .style('opacity', 1);
+
+        svg.append("text")
+              .attr("x", width)
+              .attr("y", y(85))
+              .attr("dy", "-0.3em")
+              .style("text-anchor", "end")
+              .text("Threshold 85%");
 
         var path = svg.append("path")
               .datum(data)
@@ -113,7 +131,24 @@
               .attr("class", "dot")
               .attr("cx", line.x())
               .attr("cy", line.y())
-              .attr("r", 1);
+              .attr("r", function(d) { return d.value < 85 ? 3 : 1; })
+              .classed("below-threshold", function(d) { return d.value < 85.0 ? true : false ; });
+
+        svg.selectAll(".below-threshold")
+            .transition()
+              .duration(500)
+              .each(blink);
+
+        function blink(){
+          var circle = d3.select(this);
+          (function repeat(){
+              circle = circle.transition()
+                  .attr("r", 5)
+                .transition()
+                  .attr("r", 1)
+                  .each("end", repeat);
+          })();
+        }
 
         var focus = svg.append("g")
               .attr("class", "focus")
@@ -136,7 +171,7 @@
               .on("click", function() { $log.log(d3.mouse(this)); });
 
         var bisectDate = d3.bisector(function(d) { return d.date; }).left,
-              dateFormat = d3.time.format("%a %b %H:%M");
+              dateFormat = d3.time.format("%a %b %d %H:%M");
 
         function mousemove() {
           if(data.length > 0){
@@ -288,7 +323,8 @@
               .attr("class", "dot")
               .attr("cx", line.x())
               .attr("cy", line.y())
-              .attr("r", 1);
+              .attr("r", 1)
+              .classed("below-threshold", function(d) { console.log(d.value < 85.0); return d.value < 85.0 ? true : false ; });
 
         var focus = svg.append("g")
               .attr("class", "focus")

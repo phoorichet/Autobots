@@ -126,7 +126,7 @@
                     heatmap: {
                       method: 'GET',
                       params: {
-                        collectionCtrl: 'metric'
+                        collectionCtrl: 'heatmap'
                       },
                       isArray: true
                     }

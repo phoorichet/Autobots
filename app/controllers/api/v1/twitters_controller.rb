@@ -11,55 +11,20 @@ module Api
           respond_with msg: "Invalid params", type: "error"
         end
 
-        metric_attr = params[:attr]
-        timeobj     = JSON.parse(params[:time])
-        start       = long_to_date(timeobj["from"]["time"])
-        stop        = long_to_date(timeobj["to"]["time"])
-        region      = params[:region]
-        site        = params[:site]
-        apn         = params[:apn]
-        stack       = params[:stack]
-        sgsn        = params[:sgsn]
+        options = build_options(params)
+        select_statement = build_select(options)
+        group_statement  = build_groups(options)
 
-
-        # Completely hack on this logic
-        # TODO
-        if (stack == 'GGSN')
-          respond_with MetricHttp.twitter
-                              .select("date_time, apn as group, avg(#{metric_attr}) as value")
-                              .region(region)
-                              .site(site)
-                              .apn(apn)
-                              .sgsn(sgsn)
-                              .start(start)
-                              .stop(stop)
-                              .group(:date_time, :apn)
+        respond_with MetricHttp.twitter
+                              .select(select_statement)
+                              .region(options[:region])
+                              .site(options[:site])
+                              .apn(options[:apn])
+                              .sgsn(options[:sgsn])
+                              .start(options[:start])
+                              .stop(options[:stop])
+                              .group(group_statement)
                               .asc_date_time
-
-        elsif (stack == 'RNC')
-          respond_with MetricHttp.twitter
-                              .select("date_time, rncname as group, avg(#{metric_attr}) as value")
-                              .region(region)
-                              .site(site)
-                              .apn(apn)
-                              .sgsn(sgsn)
-                              .start(start)
-                              .stop(stop)
-                              .group(:date_time, :rncname)
-                              .asc_date_time
-
-        else                  
-          respond_with MetricHttp.twitter
-                              .select("date_time, avg(#{metric_attr}) as value")
-                              .region(region)
-                              .site(site)
-                              .apn(apn)
-                              .sgsn(sgsn)
-                              .start(start)
-                              .stop(stop)
-                              .group(:date_time)
-                              .asc_date_time
-        end
 
       end
 

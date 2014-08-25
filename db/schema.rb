@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140815110625) do
+ActiveRecord::Schema.define(version: 20140822045911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "links", force: true do |t|
+    t.string   "source"
+    t.string   "target"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "metric_https", force: true do |t|
     t.string   "region"
@@ -106,6 +114,14 @@ ActiveRecord::Schema.define(version: 20140815110625) do
     t.datetime "updated_at"
     t.integer  "visualization_id"
     t.string   "resource_name"
+  end
+
+  create_table "nodes", force: true do |t|
+    t.string   "name"
+    t.string   "node_type"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "rncs", force: true do |t|

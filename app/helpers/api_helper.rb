@@ -44,6 +44,53 @@ module ApiHelper
     end
   end
 
+  # Parse the params to get all required options.
+  def build_options(params)
+    timeobj = JSON.parse(params[:time])
+    group       = "date_time"
+    stack       = params[:stack]
+    if (stack == "GGSN")
+      group = "apn"
+    elsif (stack == "RNC")
+      group = "rncname"
+    else
+      # Do nothing
+    end
+    return {
+        :metric_attr => params[:attr],
+        :timeobj     => timeobj,
+        :start       => long_to_date(timeobj["from"]["time"]),
+        :stop        => long_to_date(timeobj["to"]["time"]),
+        :region      => params[:region],
+        :site        => params[:site],
+        :apn         => params[:apn],
+        :stack       => params[:stack],
+        :sgsn        => params[:sgsn],
+        :function    => "avg", # Fixed for now
+        :group       => group
+      }
+  end
+
+  # Create a string for SELECT cause with hash params.
+  def build_select(params)
+    return "date_time, #{params[:group]} as group, #{params[:function]}(#{params[:metric_attr]}) as value"
+  end
+
+  # Create a string for group operation
+  def build_groups(params)
+    group_array = [:date_time]
+    group       = "date_time"
+    stack       = params[:stack]
+    if (stack == "GGSN")
+      group_array << :apn
+    elsif (stack == "RNC")
+      group_array << :rncname
+    else
+      # Do nothing
+    end
+    return group_array.join(",")
+  end
+
 
   module ApiClassMethod
   end

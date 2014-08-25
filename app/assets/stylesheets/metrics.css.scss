@@ -35,9 +35,14 @@
 }
 
 .dot {
-  fill: none;
+  fill: #ddd;
   stroke: black;
   stroke-width: 1px;
+}
+
+.dot.below-threshold {
+  fill: red;
+  stroke: red;
 }
 
 rect.bordered {
@@ -57,4 +62,9 @@ text.axis-workweek {
 
 text.axis-worktime {
   fill: #000;
+}
+
+.threshold-line {
+  stroke: #ccc;
+  stroke-width: 1px;
 }

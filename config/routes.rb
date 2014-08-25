@@ -1,5 +1,9 @@
 Autobots::Application.routes.draw do
 
+  resources :links
+
+  resources :nodes
+
   resources :time_configs
 
   resources :sgsns
