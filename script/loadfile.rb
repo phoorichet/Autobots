@@ -1,8 +1,8 @@
 require 'csv'
 puts "=== Loading File ==="
 
-APP_FILE_DIRECTORY = "./data/precal_speedtest.csv"
-APP = "speedtest"
+APP_FILE_DIRECTORY = "./data/precal_ping.csv"
+APP = "youtube"
 puts " => #{APP}"
 Dir.glob(APP_FILE_DIRECTORY) do |file|
   puts "reading... #{file}"
@@ -19,7 +19,7 @@ Dir.glob(APP_FILE_DIRECTORY) do |file|
       record[:created_at] = date
       record[:date_time] = date
       # puts record
-      MetricSpeedtest.new(record).save
+      MetricPing.new(record).save
 
     rescue => e
       puts e

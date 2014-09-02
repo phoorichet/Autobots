@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140902042509) do
+ActiveRecord::Schema.define(version: 20140902074327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,28 @@ ActiveRecord::Schema.define(version: 20140902042509) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "date_time"
+    t.string   "apn"
+    t.string   "site"
+    t.string   "ip"
+    t.string   "technology"
+    t.string   "sgsn_name"
+    t.string   "script_name"
+    t.float    "lat"
+    t.float    "lon"
+    t.string   "cell_id"
+    t.string   "lac"
+    t.float    "avg_rssi"
+    t.float    "avg_rxlev"
+    t.float    "avg_ecio"
+    t.string   "target_host"
+    t.integer  "packet_sent"
+    t.integer  "packet_received"
+    t.integer  "packet_lost"
+    t.float    "rtt_min"
+    t.float    "rtt_avg"
+    t.float    "rtt_max"
+    t.float    "rtt_mdev"
+    t.integer  "success"
   end
 
   create_table "metric_speedtests", force: true do |t|
@@ -135,6 +157,18 @@ ActiveRecord::Schema.define(version: 20140902042509) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "date_time"
+    t.string   "apn"
+    t.string   "site"
+    t.string   "ip"
+    t.string   "technology"
+    t.string   "sgsn_name"
+    t.float    "lat"
+    t.float    "lon"
+    t.string   "cell_id"
+    t.string   "lac"
+    t.float    "avg_rssi"
+    t.float    "avg_rxlev"
+    t.float    "avg_ecio"
   end
 
   create_table "metrics", force: true do |t|

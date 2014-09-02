@@ -1,3 +1,5 @@
+require "rockey/config/mixin"
+
 class MetricPing < ActiveRecord::Base
   include Rockey::Config::Mixin
   # Filter scopes
@@ -15,6 +17,12 @@ class MetricPing < ActiveRecord::Base
   scope :apn,      ->(apn) { apn == "All" ? nil : where("apn = ?", apn) }
   scope :sgsn,      ->(sgsn) { sgsn == "All" ? nil : where(rncname: Sgsn.where(name: sgsn).first.rncs.map {|d| d.name}) }
 
-  set_default :export_attr, [:attempt, :percent_loss, :avg_packet_loss_rate, :avg_rtt_succ_rate]
+  set_default :export_attr, [ :attempt, :percent_loss, :avg_packet_loss_rate, 
+                              :avg_rtt_succ_rate, :avg_rssi, :avg_rxlev, :avg_ecio,
+                              :speedtest_dl_1m_rate, :download_2mbps,
+                              :speedtest_dl_2m_rate, :upload_300kbps,
+                              :speedtest_ul_300k_rate, :upload_1mkbps,
+                              :speedtest_ul_1m_rate, :latency_300ms,
+                              :speedtest_lt_300k_rate ]
 
 end
