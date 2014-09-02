@@ -24,11 +24,12 @@
 
         var margin = { top: 50, right: 0, bottom: 100, left: 100 },
             width = 960 - margin.left - margin.right,
-            height = 1000 - margin.top - margin.bottom,
+            height = 640 - margin.top - margin.bottom,
             gridSize = Math.floor(width / 24),
             legendElementWidth = gridSize*2,
-            buckets = 9,
-            colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], // alternatively colorbrewer.YlGnBu[9]
+            buckets = 5,
+            // colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], // alternatively colorbrewer.YlGnBu[9]
+            colors = colorbrewer.YlGnBu[buckets]
             // days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
             times = d3.range(24),
             hour = d3.time.format("%H"),
@@ -36,7 +37,8 @@
             dayInYear = d3.time.format("%j"),
             week = d3.time.format("%U"),
             month = d3.time.format("%m"),
-            percent = d3.format(".1%"),
+            percent = d3.format(".2%"),
+            tpFormat = d3.format(".0f,"),
             format = d3.time.format("%Y-%m-%d"),
             monthLabelFormat = d3.time.format("%b %a %d");
 
@@ -72,7 +74,7 @@
         /* ######### D3 goes here ###### */
 
         var colorScale = d3.scale.quantile()
-              .domain([80, 85, 90, 95, 100])
+              .domain([128, 384, 1000, 2000, 3000])
               .range(colors);
 
         d3.select('#viz').select('svg').remove(); // clear the existing
@@ -131,7 +133,7 @@
         heatMap.transition().duration(1000)
               .style("fill", function(d) { return colorScale(d.value); });
 
-        heatMap.append("title").text(function(d) { return d.value + "," + monthLabelFormat(d.date) });
+        heatMap.append("title").text(function(d) { return tpFormat(d.value) + " Kbps"; });
               
           
         var legend = svg.append("g").selectAll(".legend")

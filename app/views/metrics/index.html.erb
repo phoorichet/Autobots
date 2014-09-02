@@ -5,7 +5,6 @@
     <tr>
       <th>Name</th>
       <th>Settings</th>
-      <th>Model name</th>
       <th>Attr</th>
       <th>Transform</th>
       <th>Service</th>
@@ -21,7 +20,6 @@
       <tr>
         <td><%= metric.name %></td>
         <td><%= metric.settings %></td>
-        <td><%= metric.model_name %></td>
         <td><%= metric.attr %></td>
         <td><%= metric.transform %></td>
         <td><%= metric.service_id %></td>
@@ -37,3 +35,5 @@
 <br>
 
 <%= link_to 'New Metric', new_service_metric_path %>
+<br/>
+<%= link_to 'Back to Services', services_path %>

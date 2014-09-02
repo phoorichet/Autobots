@@ -28,6 +28,24 @@ module Api
 
       end
 
+      # Retrun an array of nodes and links to build force layout
+      def force
+        if not validate_params(params)
+          respond_with msg: "Invalid params", type: "error"
+        end
+
+        options = build_options(params)
+        select_statement = build_select(options)
+        group_statement  = build_groups(options)
+
+        data = Node.get_force(options, select_statement, group_statement)
+
+        respond_with data
+
+
+
+      end
+
 
 
     end # class

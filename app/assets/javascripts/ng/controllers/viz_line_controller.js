@@ -18,11 +18,8 @@
 
       $scope.$watchCollection('filters', function(newValue, oldValue){
         $log.log(newValue);
-        if(newValue.stack === "All"){
-          $scope.updateViz(newValue);
-        }else{
-          $scope.updateVizStack(newValue);
-        }
+        $scope.updateVizStack(newValue);
+
       });
 
       $scope.updateViz = function(attrs){
@@ -217,7 +214,7 @@
 
         $scope.service.metric(attrs, function(data){
           $log.log(data);
-          // Calculate the date
+          
           data.forEach(function(d) {
             d.date = new Date(d.date_time);
           });
@@ -287,17 +284,36 @@
               .style("text-anchor", "end")
               .text("%");
 
-        var rnc = svg.selectAll('rcn')
+        svg.append("line")
+              .attr("class", "threshold-line")
+              .style('opacity', 1)
+              .attr('x1', 0)
+              .attr('y1', y(85))
+              .attr('x2', width)
+              .attr('y2', y(85))
+              .transition()
+                .duration(1500)
+                .ease("linear")
+                .style('opacity', 1);
+
+        svg.append("text")
+              .attr("x", width)
+              .attr("y", y(85))
+              .attr("dy", "-0.3em")
+              .style("text-anchor", "end")
+              .text("Threshold 85%");
+
+        var lineGroups = svg.selectAll('groups')
               .data(groups)
             .enter().append('g')
-              .attr('class', 'rnc');
+              .attr('class', 'groups');
 
-        rnc.append("path")
+        lineGroups.append("path")
             .attr("class", "line")
             .attr("d", function(d) { return line(d.values); })
             .style("stroke", function(d) { return color(d.name); });
 
-        rnc.append("text")
+        lineGroups.append("text")
               .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
               .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.value) + ")"; })
               .attr("x", 3)
@@ -324,7 +340,12 @@
               .attr("cx", line.x())
               .attr("cy", line.y())
               .attr("r", 1)
-              .classed("below-threshold", function(d) { console.log(d.value < 85.0); return d.value < 85.0 ? true : false ; });
+              .classed("below-threshold", function(d) { return d.value < 85.0 ? true : false ; });
+
+        svg.selectAll(".below-threshold")
+            .transition()
+              .duration(500)
+              .each(blink);
 
         var focus = svg.append("g")
               .attr("class", "focus")
@@ -379,6 +400,18 @@
         //       data.shift();
         //     }, 1000);
         //   }
+
+
+        function blink(){
+          var circle = d3.select(this);
+          (function repeat(){
+              circle = circle.transition()
+                  .attr("r", 5)
+                .transition()
+                  .attr("r", 1)
+                  .each("end", repeat);
+          })();
+        }
 
         }); // end $scope.service.metric
 

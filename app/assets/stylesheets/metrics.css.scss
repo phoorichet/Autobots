@@ -68,3 +68,40 @@ text.axis-worktime {
   stroke: #ccc;
   stroke-width: 1px;
 }
+
+
+// .node {
+//   stroke: #fff;
+//   stroke-width: 1.5px;
+// }
+
+// .link {
+//   stroke: #999;
+//   stroke-opacity: .6;
+// }
+
+.node rect {
+  cursor: move;
+  fill-opacity: .9;
+  shape-rendering: crispEdges;
+}
+
+.node text {
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff;
+}
+
+.link {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .2;
+}
+
+// .dropped-link {
+//   stroke: "red";
+//   stroke-width: 5;
+// }
+
+.link:hover {
+  stroke-opacity: .5;
+}

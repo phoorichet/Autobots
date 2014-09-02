@@ -19,5 +19,9 @@ module Autobots
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    
+    # Lock added
+    # Load lib for development
+    config.autoload_paths << Rails.root.join('lib')
   end
 end

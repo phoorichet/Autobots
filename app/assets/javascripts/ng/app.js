@@ -6,6 +6,8 @@ $(document).ready(function(){
     "vizLineController",
     "filterController",
     "vizHeatmapController",
+    "vizForceController",
+    "vizSankeyController",
     "adhocHeatmapController",
     // Services
     "apiService",

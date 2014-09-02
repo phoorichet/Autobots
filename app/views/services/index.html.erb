@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Model</th>
       <th>Setttings</th>
       <th></th>
       <th></th>
@@ -15,6 +16,7 @@
     <% @services.each do |service| %>
       <tr>
         <td><%= service.name %></td>
+        <td><%= service.model_name %></td>
         <td><%= service.setttings %></td>
         <td><%= link_to 'Show', service %></td>
         <td><%= link_to 'Edit', edit_service_path(service) %></td>

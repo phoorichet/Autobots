@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140822045911) do
+ActiveRecord::Schema.define(version: 20140902042509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20140822045911) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "link_type"
   end
 
   create_table "metric_https", force: true do |t|
@@ -40,7 +41,25 @@ ActiveRecord::Schema.define(version: 20140822045911) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "date_time"
+    t.string   "sgsn_name"
+    t.string   "site"
+    t.string   "cell_id"
+    t.string   "lac"
+    t.string   "ip"
+    t.float    "lat"
+    t.float    "lon"
+    t.float    "connecting_time"
+    t.float    "avg_rssi"
+    t.float    "avg_rxlev"
+    t.float    "avg_ecio"
+    t.float    "throughput_download_app"
+    t.float    "throughput_download_rlc"
   end
+
+  add_index "metric_https", ["apn"], name: "index_metric_https_on_apn", using: :btree
+  add_index "metric_https", ["date_time"], name: "index_metric_https_on_date_time", using: :btree
+  add_index "metric_https", ["serviceinfo"], name: "index_metric_https_on_serviceinfo", using: :btree
+  add_index "metric_https", ["sgsn_name"], name: "index_metric_https_on_sgsn_name", using: :btree
 
   create_table "metric_pings", force: true do |t|
     t.string   "region"
@@ -82,6 +101,21 @@ ActiveRecord::Schema.define(version: 20140822045911) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "date_time"
+    t.string   "apn"
+    t.string   "site"
+    t.integer  "server_id"
+    t.string   "server_name"
+    t.string   "internal_ip"
+    t.string   "external_ip"
+    t.string   "sgsn_name"
+    t.float    "lat"
+    t.float    "lon"
+    t.string   "cell_id"
+    t.string   "lac"
+    t.string   "technology"
+    t.float    "avg_rssi"
+    t.float    "avg_rxlev"
+    t.float    "avg_ecio"
   end
 
   create_table "metric_youtubes", force: true do |t|
@@ -106,7 +140,6 @@ ActiveRecord::Schema.define(version: 20140822045911) do
   create_table "metrics", force: true do |t|
     t.string   "name"
     t.string   "settings"
-    t.string   "model_name"
     t.string   "attr"
     t.string   "transform"
     t.integer  "service_id"
@@ -114,6 +147,7 @@ ActiveRecord::Schema.define(version: 20140822045911) do
     t.datetime "updated_at"
     t.integer  "visualization_id"
     t.string   "resource_name"
+    t.string   "unit"
   end
 
   create_table "nodes", force: true do |t|
@@ -122,6 +156,8 @@ ActiveRecord::Schema.define(version: 20140822045911) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "coverage_region"
+    t.string   "site"
   end
 
   create_table "rncs", force: true do |t|
@@ -137,6 +173,7 @@ ActiveRecord::Schema.define(version: 20140822045911) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "model_name"
   end
 
   create_table "sgsns", force: true do |t|

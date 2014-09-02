@@ -35,6 +35,7 @@ Autobots::Application.routes.draw do
         collection do
           get 'metric'
           get 'heatmap'
+          get 'force'
         end
 
         member do

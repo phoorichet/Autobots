@@ -70,6 +70,8 @@ class MetricHttpsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def metric_http_params
-      params.require(:metric_http).permit(:region, :location, :rncname, :mobile_code, :imei, :imsi, :script_name, :apn, :serviceinfo, :attempt, :success, :http_succ_rate, :date_time, :created_at)
+      params.require(:metric_http).permit(:region, :location, :rncname, :mobile_code, 
+        :imei, :imsi, :script_name, :apn, :serviceinfo, :attempt, :success, 
+        :http_succ_rate, :date_time, :created_at, :unit)
     end
 end

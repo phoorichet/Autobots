@@ -1,4 +1,5 @@
 class MetricPing < ActiveRecord::Base
+  include Rockey::Config::Mixin
   # Filter scopes
   scope :east,      -> { where("region = ?", "East") }
   scope :northeast, -> { where("region = ?", "Northeast") }
@@ -13,5 +14,7 @@ class MetricPing < ActiveRecord::Base
   scope :site,      ->(site) { site == "All" ? nil : where("apn like ?", "%#{site}%") }
   scope :apn,      ->(apn) { apn == "All" ? nil : where("apn = ?", apn) }
   scope :sgsn,      ->(sgsn) { sgsn == "All" ? nil : where(rncname: Sgsn.where(name: sgsn).first.rncs.map {|d| d.name}) }
+
+  set_default :export_attr, [:attempt, :percent_loss, :avg_packet_loss_rate, :avg_rtt_succ_rate]
 
 end

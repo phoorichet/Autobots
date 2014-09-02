@@ -4,7 +4,7 @@ class ServicesController < ApplicationController
   # GET /services
   # GET /services.json
   def index
-    @services = current_user.services
+    @services = current_user.services.order(:name)
   end
 
   # GET /services/1
@@ -69,6 +69,6 @@ class ServicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def service_params
-      params.require(:service).permit(:name, :setttings)
+      params.require(:service).permit(:name, :setttings, :model_name)
     end
 end

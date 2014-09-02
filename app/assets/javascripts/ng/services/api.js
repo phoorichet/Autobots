@@ -21,6 +21,13 @@
                         collectionCtrl: 'metric'
                       },
                       isArray: true
+                    },
+                    force: {
+                      method: 'GET',
+                      params: {
+                        collectionCtrl: 'force'
+                      },
+                      isArray: false
                     }
                   }),
         Twitter: $resource('/api/v1/twitters/:collectionCtrl:id/:memberCtrl', {

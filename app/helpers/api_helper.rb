@@ -47,7 +47,7 @@ module ApiHelper
   # Parse the params to get all required options.
   def build_options(params)
     timeobj = JSON.parse(params[:time])
-    group       = "date_time"
+    group       = "'g'"
     stack       = params[:stack]
     if (stack == "GGSN")
       group = "apn"

@@ -1,4 +1,7 @@
+require "rockey/config/mixin"
+
 class MetricHttp < ActiveRecord::Base
+  include Rockey::Config::Mixin
   # Service scopes
   scope :instagram, -> { where("serviceinfo = ?", "INSTAGRAM") }
   scope :twitter,   -> { where("serviceinfo = ?", "TWITTER")   }
@@ -16,7 +19,16 @@ class MetricHttp < ActiveRecord::Base
   scope :stop,      ->(timestamp) { where("date_time < ?", timestamp) }
   scope :region,    ->(region) { region == "All" ? nil : where("region = ?", region) }
   scope :site,      ->(site) { site == "All" ? nil : where("apn like ?", "%#{site}%") }
-  scope :apn,      ->(apn) { apn == "All" ? nil : where("apn = ?", apn) }
-  scope :sgsn,      ->(sgsn) { sgsn == "All" ? nil : where(rncname: Sgsn.where(name: sgsn).first.rncs.map {|d| d.name}) }
+  scope :apn,       ->(apn) { apn == "All" ? nil : where("apn = ?", apn) }
+  scope :sgsn,      ->(sgsn) { sgsn == "All" ? nil : where(sgsn_name: sgsn) }
+  scope :rnc,       ->(rnc) { rnc == "All" ? nil : where(rncname: rnc) }
+  # scope :ggsn,      ->(ggsn) { ggsn == "All" ? nil : where(ggsn_name: ggsn) }
+  
+  # Tell the front-end which attributes are measurable
+  set_default :export_attr, [:throughput_download_app, :throughput_download_rlc, :avg_rssi,
+                            :avg_rxlev, :avg_ecio, :connecting_time, :attempt, :success, 
+                            :http_succ_rate]
+
+  # export_filter : TODO
 
 end
