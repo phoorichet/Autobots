@@ -16,6 +16,7 @@
 //= require angular
 //= require angular-resource
 //= require angular-ui
+//= require angular-route
 //= require d3
 //= require turbolinks
 //= require_tree .

@@ -1,1 +1,1 @@
-json.extract! @time_config, :id, :name, :description, :reps, :time_type, :created_at, :updated_at
+json.extract! @time_config, :id, :name, :description, :start, :stop, :time_type, :created_at, :updated_at

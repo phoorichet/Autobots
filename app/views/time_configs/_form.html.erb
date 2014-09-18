@@ -11,27 +11,57 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :reps %><br>
-    <%= f.text_field :reps %>
+
+  <div class="form-group field">
+    <%= f.label :name, class: "col-sm-2" %>
+    <div class="col-sm-10">
+    <%= f.text_field :name, class: "form-control" %>
+    </div>
   </div>
 
-   <div class="field">
-    <%= f.label :time_type %><br />
-    <%= f.label :time_type, "Realtime", :value => "_realtime"  %>
-    <%= f.radio_button :time_type, "_realtime", :checked => @time_config.time_type == "_realtime" %>
-    <%= f.label :time_type, "Relative", :value => "_relative" %>
-    <%= f.radio_button :time_type, "_relative", :checked => @time_config.time_type == "_relative" %>
+  <div class="form-group field">
+    <%= f.label :description, class: "col-sm-2" %>
+    <div class="col-sm-10">
+    <%= f.text_field :description, class: "form-control" %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="form-group field">
+    <%= f.label :start, class: "col-sm-2" %>
+    <div class="col-sm-10">
+    <%= f.text_field :start, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group field">
+    <%= f.label :stop, class: "col-sm-2" %>
+    <div class="col-sm-10">
+    <%= f.text_field :stop, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group field">
+    <%= f.label :interval, class: "col-sm-2" %>
+    <div class="col-sm-10">
+    <%= f.text_field :interval, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group field">
+    <%= f.label :time_type, class: "col-sm-2" %>
+    <div class="col-sm-10">
+      <%= f.label :time_type, "Realtime", :value => "_realtime"  %>
+      <%= f.radio_button :time_type, "_realtime", :checked => @time_config.time_type == "_realtime" %>
+      <%= f.label :time_type, "Relative", :value => "_relative" %>
+      <%= f.radio_button :time_type, "_relative", :checked => @time_config.time_type == "_relative" %>
+      <%= f.label :time_type, "Interval", :value => "_interval" %>
+      <%= f.radio_button :time_type, "_interval", :checked => @time_config.time_type == "_interval" %>
+    </div>
+  </div>
+
+  <div class="form-group actions">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit "Submit", class: "btn btn-default" %>
+    </div>
   </div>
 <% end %>

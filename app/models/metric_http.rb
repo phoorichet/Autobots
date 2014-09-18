@@ -1,7 +1,9 @@
 require "rockey/config/mixin"
+require "rockey/scope/fsquare"
 
 class MetricHttp < ActiveRecord::Base
   include Rockey::Config::Mixin
+  include Rockey::Scope::Fsquare
   # Service scopes
   scope :instagram, -> { where("serviceinfo = ?", "INSTAGRAM") }
   scope :twitter,   -> { where("serviceinfo = ?", "TWITTER")   }

@@ -41,10 +41,9 @@ module Api
         data = Node.get_force(options, select_statement, group_statement)
 
         respond_with data
-
-
-
       end
+
+      # def metric_by_region
 
 
 

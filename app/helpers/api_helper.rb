@@ -49,10 +49,12 @@ module ApiHelper
     timeobj = JSON.parse(params[:time])
     group       = "'g'"
     stack       = params[:stack]
-    if (stack == "GGSN")
+    if stack.casecmp("GGSN").zero?
       group = "apn"
-    elsif (stack == "RNC")
+    elsif stack.casecmp("RNC").zero?
       group = "rncname"
+    elsif stack.casecmp("region").zero?
+      group = "region"
     else
       # Do nothing
     end
@@ -81,10 +83,12 @@ module ApiHelper
     group_array = [:date_time]
     group       = "date_time"
     stack       = params[:stack]
-    if (stack == "GGSN")
+    if stack.casecmp("GGSN").zero?
       group_array << :apn
-    elsif (stack == "RNC")
+    elsif stack.casecmp("RNC").zero?
       group_array << :rncname
+    elsif stack.casecmp("region").zero?
+      group_array << :region
     else
       # Do nothing
     end

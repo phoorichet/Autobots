@@ -1,0 +1,73 @@
+<div ng-init="initialize()">
+  <style>
+    .highlight {
+      background-color: yellow;
+    }
+  </style>
+  <p>This is timpicker</p>
+  <div>Selected: {{ timepick }}</div>
+  <div>Refresh: {{ interval }}</div>
+  <div>Start: {{ timestart | date:'medium' }}</div>
+  <div>Stop: {{ timestop | date:'medium' }}</div>
+  
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+            Relative Time
+          </a>
+        </h4>
+      </div>
+      <div id="collapseOne" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <!-- Realtime options -->
+          <ul>
+            <li class="time-option" 
+            ng-class="{highlight: hover}"
+            ng-repeat="option in realtimeOptions" 
+            ng-click="changeRelativeTimepick(option)"
+            ng-mouseenter="hover = true"
+            ng-mouseleave="hover = false">{{ option.name }}</li>
+          </ul>
+          <!-- Refresh Intervals -->
+          <div>Refresh: </div>
+          <ul>
+            <li class="time-option" 
+            ng-class="{highlight: hover}"
+            ng-repeat="option in refreshIntervals" 
+            ng-click="changeInterval(option)"
+            ng-mouseenter="hover = true"
+            ng-mouseleave="hover = false">Every {{ option }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+            Custom Time
+          </a>
+        </h4>
+      </div>
+      <div id="collapseTwo" class="panel-collapse collapse">
+        <div class="panel-body">
+          <ul>
+            <li class="time-option" 
+            ng-class="{highlight: hover}"
+            ng-repeat="option in abstimeOptions" 
+            ng-click="changeAbsTimepick(option)"
+            ng-mouseenter="hover = true"
+            ng-mouseleave="hover = false">{{ option }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span>
+    <button type="button" class="btn btn-primary" ng-click="submitRequest()">OK</button>
+    <button type="button" class="btn btn-danger">Cancel</button>
+  </span>
+</div>

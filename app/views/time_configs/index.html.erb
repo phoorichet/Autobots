@@ -5,7 +5,9 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
-      <th>Reps</th>
+      <th>Start</th>
+      <th>Stop</th>
+      <th>Interval</th>
       <th>Time type</th>
       <th></th>
       <th></th>
@@ -18,7 +20,9 @@
       <tr>
         <td><%= time_config.name %></td>
         <td><%= time_config.description %></td>
-        <td><%= time_config.reps %></td>
+        <td><%= time_config.start %></td>
+        <td><%= time_config.stop %></td>
+        <td><%= time_config.interval %></td>
         <td><%= time_config.time_type %></td>
         <td><%= link_to 'Show', time_config %></td>
         <td><%= link_to 'Edit', edit_time_config_path(time_config) %></td>

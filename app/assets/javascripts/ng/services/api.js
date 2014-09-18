@@ -138,6 +138,17 @@
                       isArray: true
                     }
                   }),
+        TimeConfig: $resource('/api/v1/time_configs/:collectionCtrl:id/:memberCtrl', {
+                    id: '@id',
+                    collectionCtrl: '@collectionCtrl',
+                    memberCtrl: '@memberCtrl'
+                  }, {
+                    index: {
+                      method: 'GET',
+                      isArray: true,
+                      responseType: 'json'
+                    }
+                  }),
       }// end return
     } // end function
   ]); // end module

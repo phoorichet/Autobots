@@ -92,7 +92,7 @@ Autobots::Application.routes.draw do
         end
       end
 
-      # Youtubes
+      # Adhocs
       resources :adhocs do
         collection do
           get 'heatmap'
@@ -102,6 +102,14 @@ Autobots::Application.routes.draw do
         end
       end
 
+      # Timeconfig
+      resources :time_configs do
+        collection do
+        end
+
+        member do
+        end
+      end
 
     end
   end

@@ -69,6 +69,6 @@ class TimeConfigsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_config_params
-      params.require(:time_config).permit(:name, :description, :reps, :time_type)
+      params.require(:time_config).permit(:name, :description, :start, :stop, :interval, :time_type)
     end
 end
