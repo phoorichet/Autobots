@@ -19,4 +19,9 @@
 //= require angular-route
 //= require d3
 //= require turbolinks
+//= require moment
+//= require colorbrewer
+//= require d3-plugins/sankey/sankey
+//= require topojson
+//= require underscore
 //= require_tree .

@@ -1,22 +1,32 @@
 $(document).ready(function(){
 
 
-  var autobotsApp = angular.module('autobotsApp', [
-    'ngRoute',
-    'app.directives',
-    'app.controllers',
-    // Controller
-    "vizLineController",
-    "filterController",
-    "vizHeatmapController",
-    "vizForceController",
-    "vizSankeyController",
-    "adhocHeatmapController",
-    "vizThaimapController",
-    // Services
-    "apiService",
-    "filters",
+  var autobotsApp = angular.module('autobot', [
+    'autobot.api',
+    'autobot.filter',
+    'autobot.vforce',
+    'autobot.vheatmap',
+    'autobot.vline',
+    'autobot.vmap',
+    'autobot.vsankey',
   ]);
+
+  // var autobotsApp = angular.module('autobotsApp', [
+  //   'ngRoute',
+  //   'app.directives',
+  //   'app.controllers',
+  //   // Controller
+  //   "vizLineController",
+  //   "filterController",
+  //   "vizHeatmapController",
+  //   "vizForceController",
+  //   "vizSankeyController",
+  //   "adhocHeatmapController",
+  //   "vizThaimapController",
+  //   // Services
+  //   "apiService",
+  //   "filters",
+  // ]);
 
   // autobotsApp.config(['$routeProvider',
   //   function($routeProvider){
@@ -30,7 +40,11 @@ $(document).ready(function(){
   // Angular and Turbolink
   // http://stackoverflow.com/questions/14797935/using-angularjs-with-turbolinks
   $(document).on('ready page:load', function(){
-    angular.bootstrap("body", ['autobotsApp'])
+    angular.bootstrap("body", ['autobot']);
+  });
+
+  $(function() {
+    $('#side-menu').metisMenu();
   });
           
 

@@ -1,0 +1,11 @@
+# A sample Bowerfile
+# Check out https://github.com/42dev/bower-rails#ruby-dsl-configuration for more options
+
+asset 'bootstrap'
+asset "moment"
+asset "d3"
+asset "colorbrewer"
+asset "d3-plugins"
+asset "lodash"
+asset "underscore"
+asset "topojson"

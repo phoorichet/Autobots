@@ -1,0 +1,13 @@
+{
+  "name": "dsl-generated dependencies",
+  "dependencies": {
+    "bootstrap": "latest",
+    "moment": "latest",
+    "d3": "latest",
+    "colorbrewer": "latest",
+    "d3-plugins": "latest",
+    "lodash": "latest",
+    "underscore": "latest",
+    "topojson": "latest"
+  }
+}
