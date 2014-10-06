@@ -1,0 +1,79 @@
+@font-face {
+    font-family: VarelaRound;
+    src: font-url(font_path("VarelaRound-Regular.ttf"));
+}
+
+@font-face {
+    font-family: Dense;
+    src: font-url(font_path("Dense-Regular.ttf"));
+}
+
+$logo-and-header-size: 50px;
+
+.robot-logo-text {
+  font-family: VarelaRound;
+  font-size: 48px;
+  background-color: black;
+  color: rgb(255, 255, 255);
+}
+
+.robot-navbar-side-wrapper {
+  // background-color: rgb(84, 88, 138);
+  // // color: rgb(255, 255, 255);
+  // // padding: 0px 0px 0px 0px;
+  // padding-left: 0px !important;
+  // padding-right: 0px !important;
+  position: fixed;
+  // border-right-style: groove;
+  min-height: 900px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-right: 1px solid #eee;
+}
+
+.robot-section-main {
+  margin-top: 50px;
+}
+
+.robot-section-login {
+  background-image: url(image_path("background-glass.jpeg"));
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  min-height: 900px;
+  // margin-top: -50px;
+}
+
+.robot-login-panel {
+  max-width: 400px;
+  margin-top: 200px;
+}
+
+
+.robot-header-main {
+  
+}
+
+.robot-row-header {
+  min-width: 50px;
+  background-color: rgb(0,0,0);
+}
+
+
+.robot-page-header {
+  padding-bottom: 9px;
+  margin: 15px 0 20px;
+  border-bottom: 1px solid #eee;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

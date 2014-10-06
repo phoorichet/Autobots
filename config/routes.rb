@@ -36,6 +36,7 @@ Autobots::Application.routes.draw do
           get 'metric'
           get 'heatmap'
           get 'force'
+          get 'metric_by_region'
         end
 
         member do
@@ -119,9 +120,10 @@ Autobots::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  root to: "static_pages#index"
+  root to: "static_pages#dashboards"
 
   get 'heatmap' => 'static_pages#heatmap'
+  get 'dashboards' => 'static_pages#dashboards'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

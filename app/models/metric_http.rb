@@ -1,9 +1,9 @@
-require "rockey/config/mixin"
-require "rockey/scope/fsquare"
+require "locke/config/mixin"
+require "locke/dsl/qdsl"
 
 class MetricHttp < ActiveRecord::Base
-  include Rockey::Config::Mixin
-  include Rockey::Scope::Fsquare
+  include Locke::Config::Mixin
+  include Locke::Dsl::Qdsl
   # Service scopes
   scope :instagram, -> { where("serviceinfo = ?", "INSTAGRAM") }
   scope :twitter,   -> { where("serviceinfo = ?", "TWITTER")   }
@@ -32,5 +32,10 @@ class MetricHttp < ActiveRecord::Base
                             :http_succ_rate]
 
   # export_filter : TODO
+  # 
+  
+  def test
+    self.facebook.line
+  end
 
 end

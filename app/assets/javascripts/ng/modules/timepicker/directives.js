@@ -7,7 +7,7 @@
       restrict: "AE",
       replace: true,
       // template: "<p>Test Directive hahaha</p>",
-      templateUrl: '/assets/ng/components/timepicker/template.html',
+      templateUrl: '/assets/ng/modules/timepicker/template.html',
       controller: 'TimepickerCtrl',
       // link: function(scope, element, attributes){
       //   element.on('click', function(){

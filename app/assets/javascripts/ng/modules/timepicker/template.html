@@ -1,27 +1,38 @@
-<div ng-init="initialize()">
+<div class="robot-timepicker-wrapper" ng-init="initialize()">
   <style>
     .highlight {
       background-color: yellow;
     }
+    .robot-timepicker-wrapper {
+      margin-top: 25px;
+    }
+    .robot-info-time {
+      font-size: 11px;
+      /*font-style: italic;*/
+    }
   </style>
-  <p>This is timpicker</p>
-  <div>Selected: {{ timepick }}</div>
-  <div>Refresh: {{ interval }}</div>
-  <div>Start: {{ timestart | date:'medium' }}</div>
-  <div>Stop: {{ timestop | date:'medium' }}</div>
   
-  <div class="panel-group" id="accordion">
+  
+  <div class="panel-group" id="robotTimpickerAccordion">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-            Relative Time
+        <h1 class="panel-title">
+          <a data-toggle="collapse" data-parent="#robotTimpickerAccordion" href="#collapseTimepicker">
+            {{ timepick }}
           </a>
-        </h4>
+        </h1>
       </div>
-      <div id="collapseOne" class="panel-collapse collapse in">
+      <div id="collapseTimepicker" class="panel-collapse collapse">
         <div class="panel-body">
+          <ul class="list-unstyled">
+            <li class="robot-info-time">Selected: {{ timepick }}</li>
+            <li class="robot-info-time">Refresh: {{ interval }}</li>
+            <li class="robot-info-time">Start: {{ timestart | date:'medium' }}</li>
+            <li class="robot-info-time">Stop: {{ timestop | date:'medium' }}</li>
+          </ul>
+
           <!-- Realtime options -->
+          <div>Time: </div>
           <ul>
             <li class="time-option" 
             ng-class="{highlight: hover}"
@@ -40,10 +51,15 @@
             ng-mouseenter="hover = true"
             ng-mouseleave="hover = false">Every {{ option }}</li>
           </ul>
+          <span>
+            <button type="button" class="btn btn-primary" ng-click="submitRequest()">OK</button>
+            <button type="button" class="btn btn-danger" ng-click="hideAccordion()">Cancel</button>
+          </span>
         </div>
       </div>
+      
     </div>
-    <div class="panel panel-default">
+    <!-- <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
           <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
@@ -63,11 +79,8 @@
           </ul>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 
-  <span>
-    <button type="button" class="btn btn-primary" ng-click="submitRequest()">OK</button>
-    <button type="button" class="btn btn-danger">Cancel</button>
-  </span>
+  
 </div>

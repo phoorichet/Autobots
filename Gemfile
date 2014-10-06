@@ -61,11 +61,12 @@ gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 
 # Angular
-gem 'angularjs-rails', '~> 1.2.15'
-gem 'angular-ui-rails' 
+# gem 'angularjs-rails', '~> 1.2.15'
+# gem 'angular-ui-rails' 
+# gem 'angular-rails-templates'
 
 # D3 Library https://github.com/iblue/d3-rails
-gem 'd3-rails'
+# gem 'd3-rails'
 
 # Javascript and Rails variable interchange
 gem 'gon'

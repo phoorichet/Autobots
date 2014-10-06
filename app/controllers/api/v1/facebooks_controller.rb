@@ -5,8 +5,7 @@ module Api
       respond_to :json
 
       # Get data and configurations for visualization
-      def metric
-        
+      def metric      
         if not validate_params(params)
           respond_with msg: "Invalid params", type: "error"
         end
@@ -43,7 +42,29 @@ module Api
         respond_with data
       end
 
-      # def metric_by_region
+      def metric_by_region
+        if not validate_params(params)
+          respond_with msg: "Invalid params", type: "error"
+        end
+
+        options = build_options(params)
+        vspec   = options[:vspec].symbolize_keys
+        puts "==> #{options[:vspec]}"
+
+        results = MetricHttp.vtype(vspec[:vtype])
+                              .xaxis(vspec[:x])
+                              .yaxis(vspec[:y])
+                              .aggregate("avg")
+                              .stack(options[:stack])
+                              .run
+
+        # addtional criteria
+        results = results.where("#{vspec[:date_time]} >= ?", options[:start]) if options[:start]
+        results = results.where("#{vspec[:date_time]} <  ?", options[:stop]) if options[:stop] 
+
+        respond_with results
+
+      end
 
 
 

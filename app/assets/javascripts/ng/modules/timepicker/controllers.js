@@ -22,7 +22,7 @@
 
         // default value
         $scope.interval         = '1m'; 
-        $scope.timepick         = 'Last 15 minutes from now'; 
+        $scope.timepick         = 'Last 15 minutes'; 
         var startStop = $scope.calculateTime('15m', 'now');
         $scope.timestart = startStop.start;
         $scope.timestop  = startStop.stop;
@@ -44,7 +44,13 @@
         $scope.interval = option;
       }
 
+      $scope.hideAccordion = function(){
+        $("#collapseTimepicker").collapse('hide');
+      }
+
       $scope.submitRequest = function(){
+        $scope.hideAccordion();
+        
         // submit request to change the filter and close modal
         
       }

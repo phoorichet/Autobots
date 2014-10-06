@@ -47,17 +47,19 @@ module ApiHelper
   # Parse the params to get all required options.
   def build_options(params)
     timeobj = JSON.parse(params[:time])
-    group       = "'g'"
-    stack       = params[:stack]
-    if stack.casecmp("GGSN").zero?
-      group = "apn"
-    elsif stack.casecmp("RNC").zero?
-      group = "rncname"
-    elsif stack.casecmp("region").zero?
-      group = "region"
-    else
-      # Do nothing
+    vspec   = params[:vspec] != nil ? JSON.parse(params[:vspec]) : nil
+    start   = long_to_date(timeobj["from"]["time"])
+    stop    = long_to_date(timeobj["to"]["time"])
+
+    where = []
+
+    if not timeobj.empty?
+      # where << "date_time >= '#{start}'"
+      # where << "date_time >= '#{stop}'" 
     end
+
+    group       = "'g'"
+    # stack       = params[:stack]
     return {
         :metric_attr => params[:attr],
         :timeobj     => timeobj,
@@ -69,13 +71,15 @@ module ApiHelper
         :stack       => params[:stack],
         :sgsn        => params[:sgsn],
         :function    => "avg", # Fixed for now
-        :group       => group
+        :group       => group,
+        :vspec       => vspec,
+        :criteria    => where
       }
   end
 
   # Create a string for SELECT cause with hash params.
   def build_select(params)
-    return "date_time, #{params[:group]} as group, #{params[:function]}(#{params[:metric_attr]}) as value"
+      return "date_time, #{params[:group]} as group, #{params[:function]}(#{params[:metric_attr]}) as value"
   end
 
   # Create a string for group operation

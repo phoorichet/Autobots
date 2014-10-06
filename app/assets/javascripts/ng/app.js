@@ -1,7 +1,9 @@
-$(document).ready(function(){
+'use strict';
 
+(function(){
 
   var autobotsApp = angular.module('autobot', [
+    'ui.router',
     'autobot.api',
     'autobot.filter',
     'autobot.vforce',
@@ -9,43 +11,32 @@ $(document).ready(function(){
     'autobot.vline',
     'autobot.vmap',
     'autobot.vsankey',
+    'autobot.timepicker'
   ]);
 
-  // var autobotsApp = angular.module('autobotsApp', [
-  //   'ngRoute',
-  //   'app.directives',
-  //   'app.controllers',
-  //   // Controller
-  //   "vizLineController",
-  //   "filterController",
-  //   "vizHeatmapController",
-  //   "vizForceController",
-  //   "vizSankeyController",
-  //   "adhocHeatmapController",
-  //   "vizThaimapController",
-  //   // Services
-  //   "apiService",
-  //   "filters",
-  // ]);
 
-  // autobotsApp.config(['$routeProvider',
-  //   function($routeProvider){
-  //     $routeProvider
-  //       .when('/timepicker', {
-  //         templateUrl: 'javascript/ng/components/timepicker/module.html'
-  //       })
-  //   }
-  // ])
+  autobotsApp.config(function($stateProvider, $urlRouterProvider) {
+    $stateProvider
+      .state('start', {
+        url: '/start',
+        templateUrl: 'partials/start.html',
+        controller: function($scope, $stateParams) {
+          console.log('-------------Yo!');
+        }
+      })
+
+    $urlRouterProvider.when('','/'); //Set default state when the page is loaded
+  });
 
   // Angular and Turbolink
   // http://stackoverflow.com/questions/14797935/using-angularjs-with-turbolinks
-  $(document).on('ready page:load', function(){
-    angular.bootstrap("body", ['autobot']);
-  });
+  // $(document).on('ready page:load', function(){
+  //   angular.bootstrap("body", ['autobot']);
+  // });
 
-  $(function() {
-    $('#side-menu').metisMenu();
-  });
+  // $(function() {
+  //   $('#side-menu').metisMenu();
+  // });
           
 
-});
+}());

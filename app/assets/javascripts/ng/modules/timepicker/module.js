@@ -1,5 +1,5 @@
 (function(){
 
-  angular.module('autobot.timepicker',['autobot.timepicker.controllers', 'autobot.filter.directives']);
+  angular.module('autobot.timepicker',['autobot.timepicker.controllers', 'autobot.timepicker.directives']);
   
 }());

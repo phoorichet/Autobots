@@ -15,10 +15,8 @@
 //= require jquery_ujs
 //= require angular
 //= require angular-resource
-//= require angular-ui
-//= require angular-route
+//= require angular-ui-router
 //= require d3
-//= require turbolinks
 //= require moment
 //= require colorbrewer
 //= require d3-plugins/sankey/sankey

@@ -13,6 +13,10 @@
  *= require_tree .
  */
 
+// Custom SASS variables
+// $grid-columns: 16;
+// $grid-gutter-width: 20px;
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 

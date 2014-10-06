@@ -1,14 +1,14 @@
 require 'active_support/concern'
 
-module Rockey::Config::Mixin
+module Locke::Config::Mixin
   extend ActiveSupport::Concern
   
   # Adapted from http://speakmy.name/2011/05/29/simple-configuration-for-ruby-apps/
   # config for an instance
   attr_accessor :config
 
-  def self.included(base)
-    base.extend(Rockey::Config::Mixin::ClassMethods)
+  included do
+    # the first method to call
   end
 
   # def init_config(params)

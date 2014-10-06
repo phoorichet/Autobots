@@ -16,7 +16,7 @@
         region_options : ['All', 'North', 'Northeast', 'East', 'Central', 'Bangkok', 'South'],
         site_options: ['All', 'CWD', 'SUK', 'TLS'],
         apn_options: ["All", "internet", "3GGSNSUK11H", "3GGSNCWD7N", "3GGSNCWD5N", "3GGSNSUK8N", "3GGSNSUK9N", "3GGSNCWD2N", "3GGSNSUK7N", "3GGSNSUK4N", "3GGSNCWD8N", "3GGSNSUK6N", "3GGSNSUK3N", "3GGSNCWD11H", "3GGSNSUK5N", "3GGSNCWD3N", "3GGSNCWD6N", "3GGSNSUK2N", "3GGSNCWD4N"],
-        stack_options: ['All', 'RNC', 'GGSN', 'region'],
+        stack_options: [ {key: 'All', value: ''}, {key: 'RNC', value: 'rncname'}, {key: 'GGSN', value: 'apn'}, {key: 'region', value: 'region'} ],
         sgsn_options: ['All', '3SGSNBPL1H', '3SGSNBPL2H', '3SGSNBPL3H', '3SGSNCMI1H', '3SGSNCWD2H', '3SGSNPLK1H', '3SGSNSNI1H', '3SGSNSUK1H', '3SGSNSUK2H', '3SGSNTWA2H', '3SGSNTWA3H']
       };
 

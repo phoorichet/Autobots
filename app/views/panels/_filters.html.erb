@@ -87,8 +87,8 @@
     </button>
     <ul class="dropdown-menu" role="menu">
       <!-- time options -->
-      <li ng-repeat="stack in panel.stack_options track by $index" ng-click="setStackFilter(stack)">
-        <a>{{ stack }}</a>
+      <li ng-repeat="stack in panel.stack_options track by $index" ng-click="setStackFilter(stack.value)">
+        <a>{{ stack.key }}</a>
       </li>
     </ul>
   </div>

@@ -1,4 +1,4 @@
-<div class="login-panel panel panel-default">
+<div class="panel panel-default robot-login-panel">
   <div class="panel-heading">
       <h3 class="panel-title">Please Sign In</h3>
   </div>
@@ -21,7 +21,9 @@
               <%= f.submit "Sign in", class:  "btn btn-lg btn-success btn-block" %>
           </fieldset>
       <% end %>
+      <br/>
+      <%= render "devise/shared/links" %>
   </div>
 </div>
 
-<%= render "devise/shared/links" %>
+

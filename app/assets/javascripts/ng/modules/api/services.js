@@ -22,6 +22,13 @@
                       },
                       isArray: true
                     },
+                    metric_by_region: {
+                      method: 'GET',
+                      params: {
+                        collectionCtrl: 'metric_by_region'
+                      },
+                      isArray: true
+                    },
                     force: {
                       method: 'GET',
                       params: {
