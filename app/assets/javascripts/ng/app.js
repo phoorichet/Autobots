@@ -11,7 +11,8 @@
     'autobot.vline',
     'autobot.vmap',
     'autobot.vsankey',
-    'autobot.timepicker'
+    'autobot.timepicker',
+    'autobot.networkmap'
   ]);
 
 

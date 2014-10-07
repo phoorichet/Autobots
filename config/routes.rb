@@ -120,7 +120,7 @@ Autobots::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  root to: "static_pages#dashboards"
+  root to: "static_pages#index"
 
   get 'heatmap' => 'static_pages#heatmap'
   get 'dashboards' => 'static_pages#dashboards'

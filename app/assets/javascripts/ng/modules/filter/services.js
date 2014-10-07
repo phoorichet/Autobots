@@ -32,7 +32,7 @@
         'region': 'All',
         'site': 'All',
         'rncs': [],
-        'time': getScopeTimeObj(kbn.parseDate(_filter.from), new Date()),
+        'time': {}, //getScopeTimeObj(kbn.parseDate(_filter.from), new Date()),
         'invterval': null,
         'apn': 'All',
         'stack': '',

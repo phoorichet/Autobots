@@ -66,7 +66,12 @@ $logo-and-header-size: 50px;
 }
 
 
-
+#robotEatingApple {
+  background-image: url(image_path("android_eating_apple.png"));
+  background-position: center top;
+  // background-size: cover;
+  min-height: 800px;
+}
 
 
 

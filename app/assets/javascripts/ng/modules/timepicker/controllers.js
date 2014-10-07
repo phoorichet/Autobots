@@ -1,9 +1,9 @@
 (function(){
   
-  var module = angular.module('autobot.timepicker.controllers', ['autobot.api.services']);
+  var module = angular.module('autobot.timepicker.controllers', ['autobot.api.services', 'autobot.filter.services']);
 
-  module.controller('TimepickerCtrl', ['$scope', 'Api',
-    function($scope, Api){
+  module.controller('TimepickerCtrl', ['$scope', 'Api', 'Filters',
+    function($scope, Api, Filters){
 
       // Get async data
       Api.TimeConfig.index(function(data){
@@ -26,6 +26,7 @@
         var startStop = $scope.calculateTime('15m', 'now');
         $scope.timestart = startStop.start;
         $scope.timestop  = startStop.stop;
+        $scope.setTime();
       }
 
       $scope.changeRelativeTimepick = function(timeconfig){
@@ -52,7 +53,7 @@
         $scope.hideAccordion();
         
         // submit request to change the filter and close modal
-        
+        $scope.setTime();
       }
 
       /**
@@ -75,6 +76,15 @@
           stop : moment().toDate()
         };
 
+      }
+
+
+      $scope.setTime = function(){
+        Filters.time = { 
+          from: { date: $scope.timestart, time: $scope.timestart.getTime() },
+          to:   { date: $scope.timestop,  time: $scope.timestop.getTime() }
+        };
+        console.log(Filters);
       }
 
 
