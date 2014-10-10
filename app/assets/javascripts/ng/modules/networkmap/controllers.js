@@ -23,14 +23,14 @@
         $scope.updateViz(newValue);
       });
 
-      $scope.updateViz = function(){
+      $scope.updateViz = function(filters){
 
         var attr = $scope.filters.attr,
             formatPercent = d3.format(".2f"),
             monthWeekFormat = d3.time.format("%m-%d");
 
         var margin = { top: 50, right: 0, bottom: 100, left: 100 },
-            width = $scope.width - margin.left - margin.right,
+            width  = $scope.width - margin.left - margin.right,
             height = $scope.height - margin.top - margin.bottom,
             format = d3.time.format("%Y-%m-%d"),
             monthLabelFormat = d3.time.format("%b %a %d");
@@ -64,9 +64,11 @@
 
           var path = sankey.link();
 
-          d3.select($scope.element[0]).select('svg').remove(); // clear the existing
+          var container = $scope.element.find(".viz");
 
-          var svg = d3.select($scope.element[0]).append("svg")
+          d3.select(container[0]).select('svg').remove(); // clear the existing
+
+          var svg = d3.select(container[0]).append("svg")
               .attr("width", width)
               .attr("height", height);
 

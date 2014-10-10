@@ -61,6 +61,7 @@ module Api
         # addtional criteria
         results = results.where("#{vspec[:date_time]} >= ?", options[:start]) if options[:start]
         results = results.where("#{vspec[:date_time]} <  ?", options[:stop]) if options[:stop] 
+        results = results.where("region =  ?", options[:region]) if options[:region] 
 
         respond_with results
 

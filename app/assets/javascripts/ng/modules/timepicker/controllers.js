@@ -22,8 +22,8 @@
 
         // default value
         $scope.interval         = '1m'; 
-        $scope.timepick         = 'Last 15 minutes'; 
-        var startStop = $scope.calculateTime('15m', 'now');
+        $scope.timepick         = 'Last 3 mounts'; 
+        var startStop = $scope.calculateTime('3M', 'now');
         $scope.timestart = startStop.start;
         $scope.timestop  = startStop.stop;
         $scope.setTime();

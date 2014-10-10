@@ -41,6 +41,12 @@ rake db:create
 rake db:migrate
 ```
 
+## Asset building
+
+* Download bower packages (Read from Bowerfile)
+```
+rake bower:install
+```
 
 ## How to run the test suite
 

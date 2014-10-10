@@ -22,4 +22,6 @@
 //= require d3-plugins/sankey/sankey
 //= require topojson
 //= require underscore
+//= require radialProgress
+//= require metisMenu.min
 //= require_tree .
