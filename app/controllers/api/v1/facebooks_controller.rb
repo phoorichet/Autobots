@@ -11,19 +11,23 @@ module Api
         end
 
         options = build_options(params)
-        select_statement = build_select(options)
-        group_statement  = build_groups(options)
+        vspec   = options[:vspec].symbolize_keys
+        puts "==> #{options[:vspec]}"
 
-        respond_with MetricHttp.facebook
-                              .select(select_statement)
-                              .region(options[:region])
-                              .site(options[:site])
-                              .apn(options[:apn])
-                              .sgsn(options[:sgsn])
-                              .start(options[:start])
-                              .stop(options[:stop])
-                              .group(group_statement)
-                              .asc_date_time
+        results = MetricHttp.vtype(vspec[:vtype])
+                              .xaxis(vspec[:x])
+                              .yaxis(vspec[:y])
+                              .aggregate("avg")
+                              .stack(vspec[:stack])
+                              .run
+
+        # addtional criteria
+        results = results.where("#{vspec[:date_time]} >= ?", options[:start]) if options[:start]
+        results = results.where("#{vspec[:date_time]} <  ?", options[:stop]) if options[:stop] 
+        results = results.order("#{vspec[:date_time]} ASC")
+        results = results.where("region =  ?", options[:region]) if options[:region] 
+
+        respond_with results
 
       end
 
@@ -55,7 +59,7 @@ module Api
                               .xaxis(vspec[:x])
                               .yaxis(vspec[:y])
                               .aggregate("avg")
-                              .stack(options[:stack])
+                              .stack(vspec[:stack])
                               .run
 
         # addtional criteria

@@ -15,12 +15,6 @@
         $scope.filters = Filters;
         $scope.service = Api[attributes.service];
 
-        // Set the metric attributes
-        $scope.filters['attr']  = $scope.attr;
-
-        // Define visualization specs
-        $scope.filters['vspec'] = { vtype: "map", x: "region", y: $scope.attr, date_time: "date_time" };
-
         // Interesting region
         if (attributes.region !== null){
           $scope.region  = attributes.region;
@@ -199,6 +193,8 @@
 
           // Modify filter so that it is local
           var submitFilters = _.clone($scope.filters);
+          submitFilters.filters['attr']  = $scope.attr;
+          submitFilters.filters['vspec'] = { vtype: "map", x: "region", y: $scope.attr, date_time: "date_time" };
           if ($scope.region) {
             submitFilters['region'] = $scope.region;
           }

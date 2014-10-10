@@ -66,7 +66,7 @@ module Locke::Dsl::Qdsl
 
     def stack(value)
       @criteria ||= Hash.new
-      @criteria[:stack] = value if not value.empty?
+      @criteria[:stack] = value if not (value.nil? || value.empty?)
 
       self
     end

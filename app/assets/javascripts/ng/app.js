@@ -13,7 +13,8 @@
     'autobot.vsankey',
     'autobot.timepicker',
     'autobot.networkmap',
-    'autobot.regionmap'
+    'autobot.regionmap',
+    'autobot.linegraph'
   ]);
 
 

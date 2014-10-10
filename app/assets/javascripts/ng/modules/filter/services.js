@@ -29,14 +29,14 @@
       var now = new Date();
       // Default values
       var filterObj = {
-        'region': 'All',
-        'site': 'All',
-        'rncs': [],
+        // 'region': 'All',
+        // 'site': 'All',
+        // 'rncs': [],
         'time': {}, //getScopeTimeObj(kbn.parseDate(_filter.from), new Date()),
-        'invterval': null,
-        'apn': 'All',
-        'stack': '',
-        'sgsn': 'All'
+        // 'invterval': null,
+        // 'apn': 'All',
+        // 'stack': '',
+        // 'sgsn': 'All'
       };
 
       return filterObj;
