@@ -1,8 +1,8 @@
 (function(){
   
-  var module = angular.module('autobot.linegraph.controllers', ['autobot.api.services', 'autobot.filter.services']);
+  var module = angular.module('autobot.linechart.controllers', ['autobot.api.services', 'autobot.filter.services']);
 
-  module.controller('LinegraphCtrl', ['$scope', 'Api', 'Filters',
+  module.controller('LinechartCtrl', ['$scope', 'Api', 'Filters',
     function($scope, Api, Filters){
       /**
        * Initialize  all the variables

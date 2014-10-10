@@ -1,14 +1,14 @@
 (function(){
 
-  var module = angular.module('autobot.linegraph.directives', ['autobot.linegraph.controllers']);
+  var module = angular.module('autobot.linechart.directives', ['autobot.linechart.controllers']);
   
-  module.directive('linegraphPanel', function(){
+  module.directive('linechartPanel', function(){
     return {
       restrict: "AE",
       replace: true,
       // template: "<p>Test Directive hahaha</p>",
-      templateUrl: '/assets/ng/modules/linegraph/template.html',
-      controller: 'LinegraphCtrl',
+      templateUrl: '/assets/ng/modules/linechart/template.html',
+      controller: 'LinechartCtrl',
       link: function(scope, element, attributes){
         // Init the scope
         scope.initialize(element, attributes);

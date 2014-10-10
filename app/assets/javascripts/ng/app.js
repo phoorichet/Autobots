@@ -14,7 +14,7 @@
     'autobot.timepicker',
     'autobot.networkmap',
     'autobot.regionmap',
-    'autobot.linegraph'
+    'autobot.linechart'
   ]);
 
 
