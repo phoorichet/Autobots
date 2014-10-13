@@ -19,6 +19,7 @@ GEM
       activesupport (= 4.0.4)
       arel (~> 4.0.0)
     activerecord-deprecated_finders (1.0.3)
+    activerecord-oracle_enhanced-adapter (1.5.5)
     activesupport (4.0.4)
       i18n (~> 0.6, >= 0.6.9)
       minitest (~> 4.2)
@@ -136,6 +137,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-oracle_enhanced-adapter (~> 1.5.0)
   autoprefixer-rails
   bootstrap-kaminari-views
   bootstrap-sass (~> 3.2.0)

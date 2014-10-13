@@ -3,8 +3,10 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
 
+group :development do
 # Use postgresql as the database for Active Record
-gem 'pg'
+  gem 'pg'
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
@@ -74,5 +76,10 @@ gem 'gon'
 # Bower
 gem 'bower-rails'
 
+group :production do
+  # Oracel connector
+  gem "activerecord-oracle_enhanced-adapter", "~> 1.5.0"
+  # gem 'ruby-oci8', '~> 2.1.0'
+end
 
 
