@@ -52,9 +52,7 @@ test:
   password:
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  database: autobots_production
-  pool: 5
-  username: Autobots
-  password:
+  adapter: oracle_enhanced
+  database: "(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=tcp)(HOST=10.15.34.83)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=autobots)))"
+  username: autobots
+  password: $upersecre7
