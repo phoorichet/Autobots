@@ -1,5 +1,20 @@
 <div class="robot-regionmap-wrapper">  
-  <h3>{{ region || "Thailand"}}</h3>
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+      {{ region || "Thailand" }}
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="region = null;">Thailand</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="region = 'Bangkok';">Bangkok</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="region = 'North';">North</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="region = 'Northeast';">Northeast</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="region = 'Central';">Central</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="region = 'East';">East</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="region = 'South';">South</a></li>
+    </ul>
+  </div>
+  <!-- <h3>{{ region || "Thailand"}}</h3> -->
   <h4>{{ filters.attr }}</h4>
   <p>From {{ filters.time.from.date | date:'medium' }} --> To {{ filters.time.to.date | date:'medium' }}</p>
   <div class="viz"></div>

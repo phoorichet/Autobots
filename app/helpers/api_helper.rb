@@ -48,6 +48,7 @@ module ApiHelper
   def build_options(params)
     timeobj = JSON.parse(params[:time])
     vspec   = params[:vspec] != nil ? JSON.parse(params[:vspec]) : nil
+    filters = params[:filters] != nil ? JSON.parse(params[:filters]) : nil
     start   = long_to_date(timeobj["from"]["time"])
     stop    = long_to_date(timeobj["to"]["time"])
 
@@ -73,7 +74,8 @@ module ApiHelper
         :function    => "avg", # Fixed for now
         :group       => group,
         :vspec       => vspec,
-        :criteria    => where
+        :criteria    => where,
+        :filters     => filters
       }
   end
 

@@ -11,20 +11,19 @@
         $scope.element = element;
         $scope.width   = attributes.width;
         $scope.height  = attributes.height;
+        $scope.region  = attributes.region || null;
         $scope.attr    = attributes.attr;
         $scope.filters = Filters;
         $scope.service = Api[attributes.service];
-
-        // Interesting region
-        if (attributes.region !== null){
-          $scope.region  = attributes.region;
-          // $scope.filters['region'] = $scope.region;
-        }
       }
 
       $scope.$watchCollection('filters', function(newValue, oldValue){
         $scope.updateViz(newValue);
       });
+
+      $scope.$watchCollection('region', function(newValue, oldValue){
+        $scope.updateViz(newValue);
+      });      
 
       $scope.updateViz = function(filters){
         var formatPercent = d3.format(".2f"),
@@ -32,11 +31,11 @@
 
         var margin = { top: 50, right: 0, bottom: 100, left: 100 },
             width  = $scope.width - margin.left - margin.right,
-            height = $scope.width - margin.top - margin.bottom;
+            height = $scope.height - margin.top - margin.bottom;
 
 
         d3.json("/assets/data/tha_provinces.json", function(error, tha) {
-          console.log(tha);
+          // console.log(tha);
 
           var container = $scope.element.find(".viz");
 
@@ -50,7 +49,7 @@
             .center([0, 13.7])
             .rotate([-100.60, 0])
             .parallels([5, 21])
-            .scale(2000)
+            .scale(1000)
             .translate([width / 2, height / 2]);
 
           function adjustProject(region, projection){
@@ -58,7 +57,7 @@
 
             switch(region) {
               case "North":
-                proj = projection.center([0, 16]);
+                proj = projection.center([0, 17.5]);
                 break;
               case "Northeast":
                 proj = projection.center([0, 16]);
@@ -67,6 +66,7 @@
                 proj = projection.center([0, 14]);
                 break;
               case "Bangkok":
+                proj = projection.center([0.2, 13.8]);
                 proj = projection.scale(6000);
                 break;
               case "East":
@@ -193,14 +193,12 @@
 
           // Modify filter so that it is local
           var submitFilters = _.clone($scope.filters);
-          submitFilters.filters['attr']  = $scope.attr;
-          submitFilters.filters['vspec'] = { vtype: "map", x: "region", y: $scope.attr, date_time: "date_time" };
-          if ($scope.region) {
-            submitFilters['region'] = $scope.region;
-          }
+          submitFilters['attr']  = $scope.attr;
+          submitFilters['vspec'] = { vtype: "map", x: "region", y: $scope.attr, date_time: "date_time" };
+          submitFilters['region'] = $scope.region;
 
           $scope.service.metric_by_region(submitFilters, function(data){
-            console.log(data);
+            // console.log(data);
             if (data.length === 0)
               return;
 
@@ -212,7 +210,7 @@
             };
             var avg = sum/data.length;
 
-            console.log(regionMapping);
+            // console.log(regionMapping);
 
             var threshold = 95.0;
 

@@ -24,4 +24,5 @@
 //= require underscore
 //= require radialProgress
 //= require metisMenu.min
+//= require bootstrap-multiselect
 //= require_tree .

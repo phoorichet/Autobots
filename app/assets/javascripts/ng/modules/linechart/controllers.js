@@ -12,15 +12,80 @@
         $scope.width   = attributes.width;
         $scope.height  = attributes.height;
         $scope.region  = attributes.region || null;
-        $scope.stack   = attributes.stack || null
+        $scope.site    = attributes.site   || null;
+        $scope.apn     = attributes.apn    || null;
+        $scope.sgsn    = attributes.sgsn   || null;
+        $scope.stack   = attributes.stack  || null;
         $scope.attr    = attributes.attr;
         $scope.filters = Filters;
         $scope.service = Api[attributes.service];
+
+        // $('.multiselect').multiselect();
+
+        $scope.panel = {
+          region_options : ['All', 'North', 'Northeast', 'East', 'Central', 'Bangkok', 'South'],
+          site_options: ['All', 'CWD', 'SUK', 'TLS'],
+          apn_options: ["All", "internet", "3GGSNSUK11H", "3GGSNCWD7N", "3GGSNCWD5N", "3GGSNSUK8N", "3GGSNSUK9N", "3GGSNCWD2N", "3GGSNSUK7N", "3GGSNSUK4N", "3GGSNCWD8N", "3GGSNSUK6N", "3GGSNSUK3N", "3GGSNCWD11H", "3GGSNSUK5N", "3GGSNCWD3N", "3GGSNCWD6N", "3GGSNSUK2N", "3GGSNCWD4N"],
+          stack_options: [ {key: 'None', value: null}, {key: 'RNC', value: 'rncname'}, {key: 'GGSN', value: 'apn'}, {key: 'region', value: 'region'} ],
+          sgsn_options: ['All', '3SGSNBPL1H', '3SGSNBPL2H', '3SGSNBPL3H', '3SGSNCMI1H', '3SGSNCWD2H', '3SGSNPLK1H', '3SGSNSNI1H', '3SGSNSUK1H', '3SGSNSUK2H', '3SGSNTWA2H', '3SGSNTWA3H']
+        };
+
+      }
+
+      $scope.setRegionFilter = function(region) {
+        $scope.region = region === "All" ? null : region;
+      };
+
+      $scope.setSiteFilter = function(site) {
+        $scope.site = site === "All" ? null : site;
+      };
+
+      $scope.setApnFilter = function(apn) {
+        $scope.apn = apn === "All" ? null : apn;
+      };
+
+      $scope.setStackFilter = function(stack){
+        $scope.stack = stack;
+      }
+
+      $scope.setSgsnFilter = function(sgsn){
+        $scope.sgsn = sgsn === "All" ? null : sgsn;
       }
 
       $scope.$watchCollection('filters', function(newValue, oldValue){
+        console.log("Changed filters");
         $scope.updateViz(newValue);
       });
+
+      $scope.$watch('region', function(newValue, oldValue){
+        if(newValue !== oldValue){
+          $scope.updateViz(newValue);
+        }
+      }); 
+
+      $scope.$watch('site', function(newValue, oldValue){
+        if(newValue !== oldValue){
+          $scope.updateViz(newValue);
+        }
+      });   
+
+      $scope.$watch('apn', function(newValue, oldValue){
+        if(newValue !== oldValue){
+          $scope.updateViz(newValue);
+        }
+      });      
+
+      $scope.$watch('sgsn', function(newValue, oldValue){
+        if(newValue !== oldValue){
+          $scope.updateViz(newValue);
+        }
+      });      
+
+      $scope.$watch('stack', function(newValue, oldValue){
+        if(newValue !== oldValue){
+          $scope.updateViz(newValue);
+        }
+      });      
 
       $scope.updateViz = function(filters){
         var formatPercent = d3.format(".2f");
@@ -29,9 +94,10 @@
         // Local filters
         submitFilters['attr']  = $scope.attr;
         submitFilters['vspec'] = { vtype: "line", x: "date_time", y: $scope.attr, date_time: "date_time", stack: $scope.stack };
+        submitFilters['filters'] = { region: $scope.region, apn: $scope.apn, sgsn: $scope.sgsn, site: $scope.site };
 
         $scope.service.metric(submitFilters, function(data){
-          // console.log(data);
+          console.log(submitFilters);
           
           data.forEach(function(d) {
             d.date = new Date(d.x);

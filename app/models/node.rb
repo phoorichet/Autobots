@@ -3,7 +3,7 @@ class Node < ActiveRecord::Base
   scope :asc_type,       -> { order(node_type: :asc) }
 
   # Return nodes and link mapping
-  def self.get_force(options, select_statement, group_statement)
+  def self.get_force(options)
     nodes = []
     nodeIndexMapping = Hash.new
     index = 0

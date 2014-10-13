@@ -1,4 +1,68 @@
 <div class="robot-linechart-wrapper">  
+  
+  <!-- Sites -->
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      Site: {{ site || "All" }} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li ng-repeat="item in panel.site_options track by $index" ng-click="setSiteFilter(item)">
+        <a>{{ item }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- APN && GGSN -->
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      GGSN: {{ apn || "All" }} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li ng-repeat="item in panel.apn_options track by $index" ng-click="setApnFilter(item)">
+        <a>{{ item }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Regions -->
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      Region: {{ region || "All" }} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li ng-repeat="item in panel.region_options track by $index" ng-click="setRegionFilter(item)">
+        <a>{{ item }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Regions -->
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      SGSN: {{ sgsn || "All" }} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <!-- time options -->
+      <li ng-repeat="item in panel.sgsn_options track by $index" ng-click="setSgsnFilter(item)">
+        <a>{{ item }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Separate RCN check box -->
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      Stack: {{ stack || "None" }} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <!-- time options -->
+      <li ng-repeat="item in panel.stack_options track by $index" ng-click="setStackFilter(item.value)">
+        <a>{{ item.key }}</a>
+      </li>
+    </ul>
+  </div>
+
+
   <h4>{{ attr }}</h4>
   <p>From {{ filters.time.from.date | date:'medium' }} --> To {{ filters.time.to.date | date:'medium' }}</p>
   <div class="viz"></div>

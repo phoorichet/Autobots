@@ -35,7 +35,12 @@
             format = d3.time.format("%Y-%m-%d"),
             monthLabelFormat = d3.time.format("%b %a %d");
 
-        $scope.service.force($scope.filters, function(data){
+        var submitFilters = _.clone($scope.filters);
+        // Local filters
+        submitFilters['attr']  = $scope.attr;
+        submitFilters['vspec'] = { vtype: "networkmap" };
+
+        $scope.service.force(submitFilters, function(data){
           console.log(data);
           var uniqueGroup1 = d3.set(data.links.map(function(d){ return d.metric_value })).values().sort();          
           console.log(uniqueGroup1);

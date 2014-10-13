@@ -10,8 +10,8 @@
     "underscore": "latest",
     "topojson": "latest",
     "angular": "latest",
-    "angular-templates": "latest",
     "angular-ui-router": "latest",
-    "angular-resource": "latest"
+    "angular-resource": "latest",
+    "bootstrap-multiselect": "latest"
   }
 }
