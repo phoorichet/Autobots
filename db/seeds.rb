@@ -2240,3 +2240,49 @@ create_link("3SGSNSUK2H",  "3GGSNTLS1H")
 create_link("3SGSNSUK2H",  "3GGSNTLS2H")
 
 puts "Link has #{Link.count} in the table"
+
+
+def create_visualization(params)
+  Visualization.find_or_create_by(params)
+end
+
+create_visualization(name: "Line",    view_path: "line");
+create_visualization(name: "Bar",     view_path: "bar");
+create_visualization(name: "Thaimap", view_path: "thaimap");
+create_visualization(name: "Sankey",  view_path: "sankey");
+create_visualization(name: "Force",   view_path: "force");
+create_visualization(name: "Heatmap", view_path: "heatmap");
+
+def create_service(params)
+  Service.find_or_create_by(params)
+end 
+
+create_service({"id"=>6, "name"=>"Facebook", "setttings"=>"", "user_id"=>1, "model_name"=>"MetricHttp"})
+create_service({"id"=>8, "name"=>"Instagram", "setttings"=>"", "user_id"=>1, "model_name"=>"MetricHttp"})
+create_service({"id"=>7, "name"=>"Twitter", "setttings"=>"", "user_id"=>1, "model_name"=>"MetricHttp"})
+create_service({"id"=>9, "name"=>"Ping", "setttings"=>"",  "user_id"=>1, "model_name"=>"MetricPing"})
+create_service({"id"=>11, "name"=>"Speedtest", "setttings"=>"",  "user_id"=>1, "model_name"=>"MetricSpeedtest"})
+create_service({"id"=>10, "name"=>"Youtube", "setttings"=>"", "user_id"=>1, "model_name"=>"MetricYoutube"})
+
+
+def create_metric(params)
+  Metric.find_or_create_by(params)
+end
+
+create_metric({"id"=>17, "name"=>"HTTP Success Rate", "settings"=>"", "attr"=>"http_succ_rate", "transform"=>"", "service_id"=>6, "visualization_id"=>1, "resource_name"=>nil, "unit"=>"%"})
+create_metric({"id"=>10, "name"=>"Avg Packet Loss Rate", "settings"=>"", "attr"=>"avg_packet_loss_rate", "transform"=>"", "service_id"=>9, "visualization_id"=>1, "resource_name"=>nil, "unit"=>nil})
+create_metric({"id"=>13, "name"=>"Youtube Quality Rate", "settings"=>"", "attr"=>"youtube_qual_rate", "transform"=>"", "service_id"=>10, "visualization_id"=>1, "resource_name"=>nil, "unit"=>nil})
+create_metric({"id"=>16, "name"=>"Latency Rate", "settings"=>"", "attr"=>"speedtest_lt_300k_rate", "transform"=>"", "service_id"=>11,  "visualization_id"=>1, "resource_name"=>nil, "unit"=>nil})
+create_metric({"id"=>14, "name"=>"UL 1M Rate", "settings"=>"", "attr"=>"speedtest_ul_1m_rate", "transform"=>"", "service_id"=>11,  "visualization_id"=>1, "resource_name"=>nil, "unit"=>nil})
+create_metric({"id"=>15, "name"=>"DL 2M Rate", "settings"=>"", "attr"=>"speedtest_dl_2m_rate", "transform"=>"", "service_id"=>11,  "visualization_id"=>3, "resource_name"=>nil, "unit"=>nil})
+create_metric({"id"=>11, "name"=>"Avg RTT Success Rate", "settings"=>"", "attr"=>"avg_rtt_succ_rate", "transform"=>"", "service_id"=>9,  "visualization_id"=>1, "resource_name"=>nil, "unit"=>nil})
+create_metric({"id"=>18, "name"=>"HTTP Succ Rate", "settings"=>"", "attr"=>"http_succ_rate", "transform"=>"", "service_id"=>6, "visualization_id"=>5, "resource_name"=>nil, "unit"=>"%"})
+create_metric({"id"=>9, "name"=>"HTTP Success Rate", "settings"=>"", "attr"=>"http_succ_rate", "transform"=>"", "service_id"=>8,  "visualization_id"=>1, "resource_name"=>nil, "unit"=>"%"})
+create_metric({"id"=>7, "name"=>"HTTP Download TP", "settings"=>"", "attr"=>"throughput_download_app", "transform"=>"", "service_id"=>6,  "visualization_id"=>3, "resource_name"=>nil, "unit"=>"%"})
+create_metric({"id"=>8, "name"=>"HTTP Success Rate", "settings"=>"", "attr"=>"throughput_download_app", "transform"=>"", "service_id"=>7,  "visualization_id"=>3, "resource_name"=>nil, "unit"=>""})
+create_metric({"id"=>12, "name"=>"Youtube Success Rate", "settings"=>"", "attr"=>"youtube_rate", "transform"=>"", "service_id"=>10, "visualization_id"=>1, "resource_name"=>nil, "unit"=>""}))
+create_metric({"id"=>19, "name"=>"Thai map", "settings"=>"", "attr"=>"http_succ_rate", "transform"=>"", "service_id"=>6,  "visualization_id"=>6, "resource_name"=>nil, "unit"=>""})
+
+
+
+

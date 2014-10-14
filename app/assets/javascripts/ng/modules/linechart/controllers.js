@@ -18,7 +18,8 @@
         $scope.stack   = attributes.stack  || null;
         $scope.attr    = attributes.attr;
         $scope.filters = Filters;
-        $scope.service = Api[attributes.service];
+        $scope.service = attributes.service;
+        $scope.serviceApi = Api[attributes.service];
 
         // $('.multiselect').multiselect();
 
@@ -96,7 +97,7 @@
         submitFilters['vspec'] = { vtype: "line", x: "date_time", y: $scope.attr, date_time: "date_time", stack: $scope.stack };
         submitFilters['filters'] = { region: $scope.region, apn: $scope.apn, sgsn: $scope.sgsn, site: $scope.site };
 
-        $scope.service.metric(submitFilters, function(data){
+        $scope.serviceApi.metric(submitFilters, function(data){
           console.log(submitFilters);
           
           data.forEach(function(d) {

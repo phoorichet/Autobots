@@ -1,7 +1,9 @@
-require "rockey/config/mixin"
+require "locke/config/mixin"
 
 class MetricSpeedtest < ActiveRecord::Base
-  include Rockey::Config::Mixin
+  include Locke::Config::Mixin
+  include Locke::Dsl::Qdsl
+  
   # Filter scopes
   scope :east,      -> { where("region = ?", "East") }
   scope :northeast, -> { where("region = ?", "Northeast") }

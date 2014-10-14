@@ -13,7 +13,8 @@
         $scope.height  = attributes.height;
         $scope.attr    = attributes.attr;
         $scope.filters = Filters;
-        $scope.service = Api[attributes.service];
+        $scope.service = attributes.service;
+        $scope.serviceApi = Api[attributes.service];
 
         // Set the metric attributes
         $scope.filters['attr'] = $scope.attr;
@@ -40,13 +41,13 @@
         submitFilters['attr']  = $scope.attr;
         submitFilters['vspec'] = { vtype: "networkmap" };
 
-        $scope.service.force(submitFilters, function(data){
-          console.log(data);
+        $scope.serviceApi.force(submitFilters, function(data){
+          // console.log(data);
+          
           var uniqueGroup1 = d3.set(data.links.map(function(d){ return d.metric_value })).values().sort();          
-          console.log(uniqueGroup1);
-
+          
           var test = data.links.filter(function(d) { return (d.metric_value < 80.0 ) });
-          console.log(test);
+          
           
           /* ######### D3 goes here ###### */
           var formatNumber = d3.format(",.0f"),

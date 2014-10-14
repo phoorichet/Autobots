@@ -32,6 +32,8 @@ module Api
         results = results.where("apn =  ?",     filters[:apn]) if filters[:apn] 
         results = results.where("site = ?",  filters[:site]) if filters[:site] 
 
+        results = results.where("serviceinfo = ?",  "FACEBOOK") 
+
         respond_with results
 
       end

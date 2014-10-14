@@ -14,7 +14,8 @@
         $scope.region  = attributes.region || null;
         $scope.attr    = attributes.attr;
         $scope.filters = Filters;
-        $scope.service = Api[attributes.service];
+        $scope.service = attributes.service;
+        $scope.serviceApi = Api[attributes.service];
       }
 
       $scope.$watchCollection('filters', function(newValue, oldValue){
@@ -22,7 +23,9 @@
       });
 
       $scope.$watchCollection('region', function(newValue, oldValue){
-        $scope.updateViz(newValue);
+        if (newValue !== oldValue) {
+          $scope.updateViz(newValue);
+        }
       });      
 
       $scope.updateViz = function(filters){
@@ -35,7 +38,7 @@
 
 
         d3.json("/assets/data/tha_provinces.json", function(error, tha) {
-          // console.log(tha);
+          console.log($scope.filters);
 
           var container = $scope.element.find(".viz");
 
@@ -197,7 +200,7 @@
           submitFilters['vspec'] = { vtype: "map", x: "region", y: $scope.attr, date_time: "date_time" };
           submitFilters['region'] = $scope.region;
 
-          $scope.service.metric_by_region(submitFilters, function(data){
+          $scope.serviceApi.metric_by_region(submitFilters, function(data){
             // console.log(data);
             if (data.length === 0)
               return;

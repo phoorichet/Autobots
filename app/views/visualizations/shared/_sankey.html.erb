@@ -1,4 +1,3 @@
-<p>This is line partial view</p>
-<div ng-controller="VizSankeyCtrl as vizCtrl" ng-init="init( '<%= @metric.service.name %>', '<%= @metric.attr %>' )">
-  <div id="viz" class="viz-text"></div>
-</div>
+<timepicker-panel></timepicker-panel>
+
+<networkmap-panel service="<%= @metric.service.name %>" attr="<%= @metric.attr %>" width="960" height="700"></networkmap-panel>
