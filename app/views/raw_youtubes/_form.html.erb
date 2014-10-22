@@ -1,0 +1,105 @@
+<%= form_for(@raw_youtube) do |f| %>
+  <% if @raw_youtube.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@raw_youtube.errors.count, "error") %> prohibited this raw_youtube from being saved:</h2>
+
+      <ul>
+      <% @raw_youtube.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :imei %><br>
+    <%= f.text_field :imei %>
+  </div>
+  <div class="field">
+    <%= f.label :imsi %><br>
+    <%= f.text_field :imsi %>
+  </div>
+  <div class="field">
+    <%= f.label :script_name %><br>
+    <%= f.text_field :script_name %>
+  </div>
+  <div class="field">
+    <%= f.label :operator %><br>
+    <%= f.text_field :operator %>
+  </div>
+  <div class="field">
+    <%= f.label :technology %><br>
+    <%= f.text_field :technology %>
+  </div>
+  <div class="field">
+    <%= f.label :avg_rssi %><br>
+    <%= f.text_field :avg_rssi %>
+  </div>
+  <div class="field">
+    <%= f.label :avg_rxlen %><br>
+    <%= f.text_field :avg_rxlen %>
+  </div>
+  <div class="field">
+    <%= f.label :avg_ecio %><br>
+    <%= f.text_field :avg_ecio %>
+  </div>
+  <div class="field">
+    <%= f.label :cell_id %><br>
+    <%= f.number_field :cell_id %>
+  </div>
+  <div class="field">
+    <%= f.label :lac %><br>
+    <%= f.number_field :lac %>
+  </div>
+  <div class="field">
+    <%= f.label :start_time %><br>
+    <%= f.datetime_select :start_time %>
+  </div>
+  <div class="field">
+    <%= f.label :stop_time %><br>
+    <%= f.datetime_select :stop_time %>
+  </div>
+  <div class="field">
+    <%= f.label :duration_time %><br>
+    <%= f.text_field :duration_time %>
+  </div>
+  <div class="field">
+    <%= f.label :data_download_transfer %><br>
+    <%= f.number_field :data_download_transfer %>
+  </div>
+  <div class="field">
+    <%= f.label :throughput_download_app %><br>
+    <%= f.text_field :throughput_download_app %>
+  </div>
+  <div class="field">
+    <%= f.label :throughput_download_rlc %><br>
+    <%= f.text_field :throughput_download_rlc %>
+  </div>
+  <div class="field">
+    <%= f.label :result %><br>
+    <%= f.text_field :result %>
+  </div>
+  <div class="field">
+    <%= f.label :result_detail %><br>
+    <%= f.text_field :result_detail %>
+  </div>
+  <div class="field">
+    <%= f.label :youtube_video_duration %><br>
+    <%= f.number_field :youtube_video_duration %>
+  </div>
+  <div class="field">
+    <%= f.label :lat %><br>
+    <%= f.text_field :lat %>
+  </div>
+  <div class="field">
+    <%= f.label :lon %><br>
+    <%= f.text_field :lon %>
+  </div>
+  <div class="field">
+    <%= f.label :apn %><br>
+    <%= f.text_field :apn %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

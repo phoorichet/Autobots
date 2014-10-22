@@ -1,0 +1,61 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  connecting_time_1: 1.5
+  time_to_first_byte_1: 1.5
+  result_1: MyString
+  result_detail_1: MyString
+  imei: MyString
+  imsi: MyString
+  script_name: MyString
+  service: MyString
+  service_info: MyString
+  agv_rssi: 1.5
+  avg_rxlev: 1.5
+  avg_ecio: 1.5
+  cell_id: 1
+  lac: 1
+  start_date: 2014-10-22 10:40:35
+  stop_date: 2014-10-22 10:40:35
+  duration_time: 1.5
+  data_download_transfer: 1
+  max_download: 1.5
+  max_download_overall: 1.5
+  min_download: 1.5
+  throughput_download_ip: 1.5
+  throughput_download_app: 1.5
+  throughput_download_rlc: 1.5
+  result: MyString
+  lat: 1.5
+  lon: 1.5
+  apn: MyString
+
+two:
+  connecting_time_1: 1.5
+  time_to_first_byte_1: 1.5
+  result_1: MyString
+  result_detail_1: MyString
+  imei: MyString
+  imsi: MyString
+  script_name: MyString
+  service: MyString
+  service_info: MyString
+  agv_rssi: 1.5
+  avg_rxlev: 1.5
+  avg_ecio: 1.5
+  cell_id: 1
+  lac: 1
+  start_date: 2014-10-22 10:40:35
+  stop_date: 2014-10-22 10:40:35
+  duration_time: 1.5
+  data_download_transfer: 1
+  max_download: 1.5
+  max_download_overall: 1.5
+  min_download: 1.5
+  throughput_download_ip: 1.5
+  throughput_download_app: 1.5
+  throughput_download_rlc: 1.5
+  result: MyString
+  lat: 1.5
+  lon: 1.5
+  apn: MyString

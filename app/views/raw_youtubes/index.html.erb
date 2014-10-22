@@ -1,0 +1,69 @@
+<h1>Listing raw_youtubes</h1>
+
+<table class="table table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>Imei</th>
+      <th>Imsi</th>
+      <th>Script name</th>
+      <th>Operator</th>
+      <th>Technology</th>
+      <th>Avg rssi</th>
+      <th>Avg rxlen</th>
+      <th>Avg ecio</th>
+      <th>Cell</th>
+      <th>Lac</th>
+      <th>Start time</th>
+      <th>Stop time</th>
+      <th>Duration time</th>
+      <th>Data download transfer</th>
+      <th>Throughput download app</th>
+      <th>Throughput download rlc</th>
+      <th>Result</th>
+      <th>Result detail</th>
+      <th>Youtube video duration</th>
+      <th>Lat</th>
+      <th>Lon</th>
+      <th>Apn</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @raw_youtubes.each do |raw_youtube| %>
+      <tr>
+        <td><%= raw_youtube.imei %></td>
+        <td><%= raw_youtube.imsi %></td>
+        <td><%= raw_youtube.script_name %></td>
+        <td><%= raw_youtube.operator %></td>
+        <td><%= raw_youtube.technology %></td>
+        <td><%= raw_youtube.avg_rssi %></td>
+        <td><%= raw_youtube.avg_rxlen %></td>
+        <td><%= raw_youtube.avg_ecio %></td>
+        <td><%= raw_youtube.cell_id %></td>
+        <td><%= raw_youtube.lac %></td>
+        <td><%= raw_youtube.start_time %></td>
+        <td><%= raw_youtube.stop_time %></td>
+        <td><%= raw_youtube.duration_time %></td>
+        <td><%= raw_youtube.data_download_transfer %></td>
+        <td><%= raw_youtube.throughput_download_app %></td>
+        <td><%= raw_youtube.throughput_download_rlc %></td>
+        <td><%= raw_youtube.result %></td>
+        <td><%= raw_youtube.result_detail %></td>
+        <td><%= raw_youtube.youtube_video_duration %></td>
+        <td><%= raw_youtube.lat %></td>
+        <td><%= raw_youtube.lon %></td>
+        <td><%= raw_youtube.apn %></td>
+        <td><%= link_to 'Show', raw_youtube %></td>
+        <td><%= link_to 'Edit', edit_raw_youtube_path(raw_youtube) %></td>
+        <td><%= link_to 'Destroy', raw_youtube, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= paginate @raw_youtubes, :theme => 'twitter-bootstrap-3' %>

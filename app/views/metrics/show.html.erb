@@ -1,38 +1,85 @@
 <p id="notice"><%= notice %></p>
-<p>
-  <strong>Name:</strong>
-  <%= @metric.name %>
-</p>
+<h2><%= @metric.service.name %></h2>
 
-<p>
+
+<div class="row">
+  <div class="col-lg-2">
+    <p><strong>Metric Name</strong></p>
+  </div>
+  <div class="col-lg-10">
+    <p><%= @metric.name %></p>
+  </div>
+</div>
+
+<!-- <p>
   <strong>Settings:</strong>
   <%= @metric.settings %>
 </p>
+ -->
 
-<p>
-  <strong>Service name:</strong>
-  <%= @metric.service.name %>
-</p>
 
-<p>
-  <strong>Attr:</strong>
-  <%= @metric.attr %>
-</p>
+<div class="row">
+  <div class="col-lg-2">
+    <p><strong>Attribute</strong></p>
+  </div>
+  <div class="col-lg-10">
+    <p><%= @metric.attr %></p>
+  </div>
+</div>
 
-<p>
-  <strong>Unit:</strong>
-  <%= @metric.unit %>
-</p>
+<div class="row">
+  <div class="col-lg-2">
+    <p><strong>Unit</strong></p>
+  </div>
+  <div class="col-lg-10">
+    <p><%= @metric.unit %></p>
+  </div>
+</div>
 
-<p>
+<!-- <p>
   <strong>Transform:</strong>
   <%= @metric.transform %>
 </p>
+ -->
 
-<p>
-  <strong>Partial view</strong>
-  <%= render "visualizations/shared/" + @metric.visualization.view_path %>
-</p>
+ <br/>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Filters</div>
+  <div class="panel-body">
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Multiple</th>
+          <th>Data</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @metric.filters.each do |filter| %>
+          <tr>
+            <td><%= filter.name %></td>
+            <td><%= filter.description %></td>
+            <td><%= filter.multiple %></td>
+            <td><%= filter.data %></td>
+            <td><%= link_to 'Edit', edit_metric_filter_path(@metric, filter) %></td>
+            <td><%= link_to 'Destroy', [filter.metric, filter] , method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to 'New Filter', new_metric_filter_path(@metric) %>
+  </div>
+</div>
+
+
+<%= render "visualizations/shared/" + @metric.visualization.view_path %>
+
 <br/>
 
 <%= link_to 'Edit', edit_service_metric_path(@metric.service, @metric) %> |

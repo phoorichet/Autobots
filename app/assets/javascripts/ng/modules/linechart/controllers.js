@@ -109,10 +109,11 @@
 
         /* ######### D3 goes here ###### */
           
-        var margin = {top: 20, right: 20, bottom: 30, left: 50},
+        var margin = {top: 50, right: 300, bottom: 30, left: 50},
             width = $scope.width - margin.left - margin.right,
             height = $scope.height - margin.top - margin.bottom,
-            threshold = 85;
+            threshold = 85,
+            dateFormat = d3.time.format("%x %X");
 
         var x = d3.time.scale()
               .domain(d3.extent(data, function(d){ return d.date; }))
@@ -175,6 +176,7 @@
               .style("text-anchor", "end")
               .text("%");
 
+        // Draw threshold line 
         svg.append("line")
               .attr("class", "threshold-line")
               .style('opacity', 1)
@@ -187,13 +189,15 @@
                 .ease("linear")
                 .style('opacity', 1);
 
-        svg.append("text")
-              .attr("x", width)
-              .attr("y", y(threshold))
-              .attr("dy", "-0.3em")
-              .style("text-anchor", "end")
-              .text("Threshold 85%");
+        // Draw threshold text at the end of the line
+        // svg.append("text")
+        //       .attr("x", width)
+        //       .attr("y", y(threshold))
+        //       .attr("dy", "-0.3em")
+        //       .style("text-anchor", "end")
+        //       .text("Threshold 85%");
 
+        // Draw a stack of lines
         var lineGroups = svg.selectAll('groups')
               .data(groups)
             .enter().append('g')
@@ -204,25 +208,55 @@
             .attr("d", function(d) { return line(d.values); })
             .style("stroke", function(d) { return color(d.name); });
 
+        // draw legend
+        var legendSpace = 450 / lineGroups.length; // 450/number of issues (ex. 40) 
+        lineGroups.append("rect")
+              .attr("width", 10)
+              .attr("height", 10)
+              .attr("x", width + (margin.right/3) - 15) 
+              .attr("y", function (d, i) { return i*(20); })  // spacing
+              // .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.y) + ")"; })
+              .attr("fill",function(d) {
+                // return d.visible ? color(d.name) : "#F1F1F2"; // If array key "visible" = true then color rect, if not then make it grey 
+                return color(d.name); // If array key "visible" = true then color rect, if not then make it grey 
+              })
+              .attr("class", "legend-box")
+
         lineGroups.append("text")
-              .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
-              .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.y) + ")"; })
-              .attr("x", 3)
-              .attr("dy", ".35em")
+              .attr("class", "focus-legend")
+              .attr("x", width + (margin.right/3) - 60 )
+              .attr("y", function (d, i) { return i*(20); })  // spacing
+              .attr("dy", ".65em");
+
+        lineGroups.append("text")
+              .attr("x", width + (margin.right/3))
+              .attr("y", function (d, i) { return i*(20); })  // spacing
+              .attr("dy", ".65em")
               .text(function(d) { return d.name; });
 
+        // lineGroups.append("text")
+        //       .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+        //       .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.y) + ")"; })
+        //       .attr("x", 3)
+        //       .attr("dy", ".35em")
+        //       .text(function(d) { return d.name; });
+        
 
-        // var totalLength = rnc.node().getTotalLength();
+        // Create focusgroup
+        // var focusLegend = lineGroups.select("g")
+        //       .data(groups)
+        //     .enter().append('g')
+        //       .attr("class", "focus-legend");
 
-        // rnc.attr("stroke-dasharray", totalLength + " " + totalLength)
-        //     .attr("stroke-dashoffset",  function() { return this.getTotalLength(); })
-        //     .transition()
-        //       .duration(1500)
-        //       .ease("linear")
-        //       .attr("stroke-dashoffset", 0);
+        // focusLegend.append("text")
+        //       .attr("class", function(d) { return "tooltip" + " " + d.name; })
+        //       .attr("x", width + (margin.right/3) - 10)
+        //       .attr("y", function(d, i) { return i*20; })
+        //       .attr("dy", ".65em");
+
 
         var dots = svg.append('g')
-            .attr('class', 'dot-group');
+              .attr('class', 'dot-group');
         
         dots.selectAll(".dot")
               .data(data)
@@ -238,16 +272,47 @@
               .duration(500)
               .each(blink);
 
-        var focus = svg.append("g")
-              .attr("class", "focus")
+        var focuses = svg.append("g")
+              .attr("class", "focus-group");
+
+        focuses.selectAll(".focus")
+              .data(groups)
+            .enter().append("circle")
+              .attr("r", 4.5)
+              .attr("class", function(d){ return "focus "+ d.name; })
               .style("display", "none");
 
-        focus.append("circle")
-              .attr("r", 4.5);
+ 
 
-        focus.append("text")
-              .attr("x", 9)
-              .attr("dy", "-.35em");
+        // var focus = svg.append("g")
+        //       .attr("class", "focus")
+        //       .style("display", "none");
+
+        // focus.append("circle")
+        //       .attr("r", 4.5);
+
+        // focus.append("text")
+        //       .attr("x", 9)
+        //       .attr("dy", "-.35em");
+
+        // Hover line 
+        var hoverLineGroup = svg.append("g") 
+                  .attr("class", "hover-line");
+
+        var hoverLine = hoverLineGroup // Create line with basic attributes
+              .append("line")
+                  .attr("id", "hover-line")
+                  .attr("x1", 10).attr("x2", 10) 
+                  .attr("y1", 0).attr("y2", height + 10)
+                  .style("pointer-events", "none") // Stop line interferring with cursor
+                  .style("opacity", 1e-6); // Set opacity to zero 
+
+        var hoverDate = hoverLineGroup
+              .append('text')
+                  .attr("class", "hover-text")
+                  .attr("y", -20) // hover date text position
+                  .attr("x", width/3) // hover date text position
+                  .style("fill", "#E6E7E8");
 
         svg.append("rect")
               .attr("class", "overlay")
@@ -256,20 +321,64 @@
               .on("mouseover", function() { focus.style("display", null); })
               .on("mouseout", function() { focus.style("display", "none"); })
               .on("mousemove", mousemove)
+              .on("mouseout", function() {
+                  hoverDate
+                      .text(null) // on mouseout remove text for hover date
+
+                  d3.select("#hover-line")
+                      .style("opacity", 1e-6); // On mouse out making line invisible
+              })
               .on("click", function() { console.log(d3.mouse(this)); });
 
-        var bisectDate = d3.bisector(function(d) { return d.date; }).left,
-              dateFormat = d3.time.format("%a %b %H:%M");
+        var bisectDate = d3.bisector(function(d) { return d.date; }).left;
 
         function mousemove() {
+          // http://bl.ocks.org/DStruths/9c042e3a6b66048b5bd4
+          var mouse_x = d3.mouse(this)[0]; // Finding mouse x position on rect
+          var graph_x = x.invert(mouse_x); // Mapping mouse x to domain x
+          
+          d3.select("#hover-line") // select hover-line and changing attributes to mouse position
+              .attr("x1", mouse_x) 
+              .attr("x2", mouse_x)
+              .style("opacity", 1); // Making line visible
+
           if(data.length > 0){
             var x0 = x.invert(d3.mouse(this)[0]),
                 i = bisectDate(data, x0, 1),
                 d0 = data[i - 1],
                 d1 = data[i],
                 d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-            focus.attr("transform", "translate(" + x(d.date) + "," + y(d.y) + ")");
-            focus.select("text").text(formatPercent(d.y) + " % " + d.stack + " " + dateFormat(d.date));
+
+            var dd = groups.map(function(v){
+                var i = bisectDate(v.values, x0, 1),
+                    d0 = v.values[i - 1],
+                    d1 = v.values[i];
+
+                if (d0 === undefined || d1 === undefined){
+                  return {"y": "N/A"};
+                }
+                    
+                var d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+              return d;
+            });
+
+            // console.log(dd);
+
+            hoverDate.text(dateFormat(d.date));
+
+            d3.selectAll(".focus")
+                .data(dd)
+                .attr("transform", function(d){ return "translate(" + x(d.date) + "," + y(d.y) + ")" })
+                .style("display", null);
+                // .select("text").text()            
+
+            // focus.attr("transform", "translate(" + x(d.date) + "," + y(d.y) + ")");
+            // focus.select("text").text(formatPercent(d.y) + " % " + d.stack + " " + dateFormat(d.date));
+
+            d3.selectAll(".focus-legend")
+                .data(dd)
+                .text(function(v){ return formatPercent(v.y); });
+
           }
         }
           /* ######### end D3 ###### */

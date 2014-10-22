@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @filter.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @filter.description %>
+</p>
+
+<p>
+  <strong>Multiple:</strong>
+  <%= @filter.multiple %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @filter.data %>
+</p>
+
+<p>
+  <strong>Metric:</strong>
+  <%= @filter.metric_id %>
+</p>
+
+<%= link_to 'Edit', edit_metric_filter_path(@filter.metric, @filter) %> |
+<%= link_to 'Back', service_metric_path(@filter.metric.service, @filter.metric) %>

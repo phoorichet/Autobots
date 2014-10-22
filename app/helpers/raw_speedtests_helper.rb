@@ -1,0 +1,2 @@
+module RawSpeedtestsHelper
+end

@@ -1,0 +1,81 @@
+<h1>Listing raw_https</h1>
+
+<table class="table table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>Connecting time 1</th>
+      <th>Time to first byte 1</th>
+      <th>Result 1</th>
+      <th>Result detail 1</th>
+      <th>Imei</th>
+      <th>Imsi</th>
+      <th>Script name</th>
+      <th>Service</th>
+      <th>Service info</th>
+      <th>Agv rssi</th>
+      <th>Avg rxlev</th>
+      <th>Avg ecio</th>
+      <th>Cell</th>
+      <th>Lac</th>
+      <th>Start time</th>
+      <th>Stop time</th>
+      <th>Duration time</th>
+      <th>Data download transfer</th>
+      <th>Max download</th>
+      <th>Max download overall</th>
+      <th>Min download</th>
+      <th>Throughput download ip</th>
+      <th>Throughput download app</th>
+      <th>Throughput download rlc</th>
+      <th>Result</th>
+      <th>Lat</th>
+      <th>Lon</th>
+      <th>Apn</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @raw_https.each do |raw_http| %>
+      <tr>
+        <td><%= raw_http.connecting_time_1 %></td>
+        <td><%= raw_http.time_to_first_byte_1 %></td>
+        <td><%= raw_http.result_1 %></td>
+        <td><%= raw_http.result_detail_1 %></td>
+        <td><%= raw_http.imei %></td>
+        <td><%= raw_http.imsi %></td>
+        <td><%= raw_http.script_name %></td>
+        <td><%= raw_http.service %></td>
+        <td><%= raw_http.service_info %></td>
+        <td><%= raw_http.agv_rssi %></td>
+        <td><%= raw_http.avg_rxlev %></td>
+        <td><%= raw_http.avg_ecio %></td>
+        <td><%= raw_http.cell_id %></td>
+        <td><%= raw_http.lac %></td>
+        <td><%= raw_http.start_time %></td>
+        <td><%= raw_http.stop_time %></td>
+        <td><%= raw_http.duration_time %></td>
+        <td><%= raw_http.data_download_transfer %></td>
+        <td><%= raw_http.max_download %></td>
+        <td><%= raw_http.max_download_overall %></td>
+        <td><%= raw_http.min_download %></td>
+        <td><%= raw_http.throughput_download_ip %></td>
+        <td><%= raw_http.throughput_download_app %></td>
+        <td><%= raw_http.throughput_download_rlc %></td>
+        <td><%= raw_http.result %></td>
+        <td><%= raw_http.lat %></td>
+        <td><%= raw_http.lon %></td>
+        <td><%= raw_http.apn %></td>
+        <td><%= link_to 'Show', raw_http %></td>
+        <td><%= link_to 'Edit', edit_raw_http_path(raw_http) %></td>
+        <td><%= link_to 'Destroy', raw_http, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= paginate @raw_https, :theme => 'twitter-bootstrap-3' %>

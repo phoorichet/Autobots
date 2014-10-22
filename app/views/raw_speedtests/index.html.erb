@@ -1,0 +1,67 @@
+<h1>Listing raw_speedtests</h1>
+
+<table class="table table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>Imei</th>
+      <th>Imsi</th>
+      <th>Technology</th>
+      <th>Datetime</th>
+      <th>Download</th>
+      <th>Upload</th>
+      <th>Latency</th>
+      <th>Server</th>
+      <th>Server name</th>
+      <th>Avg ecio</th>
+      <th>Avg rssi</th>
+      <th>Mcc</th>
+      <th>Mcc</th>
+      <th>Lac</th>
+      <th>Cell</th>
+      <th>Script name</th>
+      <th>Operator</th>
+      <th>Result</th>
+      <th>Set server</th>
+      <th>Set server name</th>
+      <th>Apn</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @raw_speedtests.each do |raw_speedtest| %>
+      <tr>
+        <td><%= raw_speedtest.imei %></td>
+        <td><%= raw_speedtest.imsi %></td>
+        <td><%= raw_speedtest.technology %></td>
+        <td><%= raw_speedtest.datetime %></td>
+        <td><%= raw_speedtest.download %></td>
+        <td><%= raw_speedtest.upload %></td>
+        <td><%= raw_speedtest.latency %></td>
+        <td><%= raw_speedtest.server_id %></td>
+        <td><%= raw_speedtest.server_name %></td>
+        <td><%= raw_speedtest.avg_ecio %></td>
+        <td><%= raw_speedtest.avg_rssi %></td>
+        <td><%= raw_speedtest.mcc %></td>
+        <td><%= raw_speedtest.mcc %></td>
+        <td><%= raw_speedtest.lac %></td>
+        <td><%= raw_speedtest.cell_id %></td>
+        <td><%= raw_speedtest.script_name %></td>
+        <td><%= raw_speedtest.operator %></td>
+        <td><%= raw_speedtest.result %></td>
+        <td><%= raw_speedtest.set_server_id %></td>
+        <td><%= raw_speedtest.set_server_name %></td>
+        <td><%= raw_speedtest.apn %></td>
+        <td><%= link_to 'Show', raw_speedtest %></td>
+        <td><%= link_to 'Edit', edit_raw_speedtest_path(raw_speedtest) %></td>
+        <td><%= link_to 'Destroy', raw_speedtest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= paginate @raw_speedtests, :theme => 'twitter-bootstrap-3' %>

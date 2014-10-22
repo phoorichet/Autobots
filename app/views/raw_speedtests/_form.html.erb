@@ -1,0 +1,101 @@
+<%= form_for(@raw_speedtest) do |f| %>
+  <% if @raw_speedtest.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@raw_speedtest.errors.count, "error") %> prohibited this raw_speedtest from being saved:</h2>
+
+      <ul>
+      <% @raw_speedtest.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :imei %><br>
+    <%= f.text_field :imei %>
+  </div>
+  <div class="field">
+    <%= f.label :imsi %><br>
+    <%= f.text_field :imsi %>
+  </div>
+  <div class="field">
+    <%= f.label :technology %><br>
+    <%= f.text_field :technology %>
+  </div>
+  <div class="field">
+    <%= f.label :datetime %><br>
+    <%= f.datetime_select :datetime %>
+  </div>
+  <div class="field">
+    <%= f.label :download %><br>
+    <%= f.text_field :download %>
+  </div>
+  <div class="field">
+    <%= f.label :upload %><br>
+    <%= f.text_field :upload %>
+  </div>
+  <div class="field">
+    <%= f.label :latency %><br>
+    <%= f.number_field :latency %>
+  </div>
+  <div class="field">
+    <%= f.label :server_id %><br>
+    <%= f.number_field :server_id %>
+  </div>
+  <div class="field">
+    <%= f.label :server_name %><br>
+    <%= f.text_field :server_name %>
+  </div>
+  <div class="field">
+    <%= f.label :avg_ecio %><br>
+    <%= f.text_field :avg_ecio %>
+  </div>
+  <div class="field">
+    <%= f.label :avg_rssi %><br>
+    <%= f.text_field :avg_rssi %>
+  </div>
+  <div class="field">
+    <%= f.label :mcc %><br>
+    <%= f.number_field :mcc %>
+  </div>
+  <div class="field">
+    <%= f.label :mcc %><br>
+    <%= f.number_field :mcc %>
+  </div>
+  <div class="field">
+    <%= f.label :lac %><br>
+    <%= f.number_field :lac %>
+  </div>
+  <div class="field">
+    <%= f.label :cell_id %><br>
+    <%= f.number_field :cell_id %>
+  </div>
+  <div class="field">
+    <%= f.label :script_name %><br>
+    <%= f.text_field :script_name %>
+  </div>
+  <div class="field">
+    <%= f.label :operator %><br>
+    <%= f.text_field :operator %>
+  </div>
+  <div class="field">
+    <%= f.label :result %><br>
+    <%= f.text_field :result %>
+  </div>
+  <div class="field">
+    <%= f.label :set_server_id %><br>
+    <%= f.number_field :set_server_id %>
+  </div>
+  <div class="field">
+    <%= f.label :set_server_name %><br>
+    <%= f.text_field :set_server_name %>
+  </div>
+  <div class="field">
+    <%= f.label :apn %><br>
+    <%= f.text_field :apn %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

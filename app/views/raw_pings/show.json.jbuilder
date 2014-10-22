@@ -1,0 +1,1 @@
+json.extract! @raw_ping, :id, :imei, :imsi, :technology, :datetime, :packet_sent, :packet_received, :packet_lost, :rtt_min, :rtt_max, :rtt_mdev, :apn, :apn_mcc, :apn_mnc, :ip, :lac, :cell_id, :script_name, :packet_size, :created_at, :updated_at

@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  imei: MyString
+  imsi: MyString
+  technology: MyString
+  datetime: 2014-10-22 14:15:34
+  packet_sent: 1
+  packet_received: 1
+  packet_lost: 1
+  rtt_min: 1.5
+  rtt_max: 1.5
+  rtt_mdev: 1.5
+  apn: MyString
+  apn_mcc: 1
+  apn_mnc: 1
+  ip: MyString
+  lac: 1
+  cell_id: 1
+  script_name: MyString
+  packet_size: 1
+
+two:
+  imei: MyString
+  imsi: MyString
+  technology: MyString
+  datetime: 2014-10-22 14:15:34
+  packet_sent: 1
+  packet_received: 1
+  packet_lost: 1
+  rtt_min: 1.5
+  rtt_max: 1.5
+  rtt_mdev: 1.5
+  apn: MyString
+  apn_mcc: 1
+  apn_mnc: 1
+  ip: MyString
+  lac: 1
+  cell_id: 1
+  script_name: MyString
+  packet_size: 1

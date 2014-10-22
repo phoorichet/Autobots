@@ -1,0 +1,89 @@
+<%= form_for(@raw_ping) do |f| %>
+  <% if @raw_ping.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@raw_ping.errors.count, "error") %> prohibited this raw_ping from being saved:</h2>
+
+      <ul>
+      <% @raw_ping.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :imei %><br>
+    <%= f.text_field :imei %>
+  </div>
+  <div class="field">
+    <%= f.label :imsi %><br>
+    <%= f.text_field :imsi %>
+  </div>
+  <div class="field">
+    <%= f.label :technology %><br>
+    <%= f.text_field :technology %>
+  </div>
+  <div class="field">
+    <%= f.label :datetime %><br>
+    <%= f.datetime_select :datetime %>
+  </div>
+  <div class="field">
+    <%= f.label :packet_sent %><br>
+    <%= f.number_field :packet_sent %>
+  </div>
+  <div class="field">
+    <%= f.label :packet_received %><br>
+    <%= f.number_field :packet_received %>
+  </div>
+  <div class="field">
+    <%= f.label :packet_lost %><br>
+    <%= f.number_field :packet_lost %>
+  </div>
+  <div class="field">
+    <%= f.label :rtt_min %><br>
+    <%= f.text_field :rtt_min %>
+  </div>
+  <div class="field">
+    <%= f.label :rtt_max %><br>
+    <%= f.text_field :rtt_max %>
+  </div>
+  <div class="field">
+    <%= f.label :rtt_mdev %><br>
+    <%= f.text_field :rtt_mdev %>
+  </div>
+  <div class="field">
+    <%= f.label :apn %><br>
+    <%= f.text_field :apn %>
+  </div>
+  <div class="field">
+    <%= f.label :apn_mcc %><br>
+    <%= f.number_field :apn_mcc %>
+  </div>
+  <div class="field">
+    <%= f.label :apn_mnc %><br>
+    <%= f.number_field :apn_mnc %>
+  </div>
+  <div class="field">
+    <%= f.label :ip %><br>
+    <%= f.text_field :ip %>
+  </div>
+  <div class="field">
+    <%= f.label :lac %><br>
+    <%= f.number_field :lac %>
+  </div>
+  <div class="field">
+    <%= f.label :cell_id %><br>
+    <%= f.number_field :cell_id %>
+  </div>
+  <div class="field">
+    <%= f.label :script_name %><br>
+    <%= f.text_field :script_name %>
+  </div>
+  <div class="field">
+    <%= f.label :packet_size %><br>
+    <%= f.number_field :packet_size %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

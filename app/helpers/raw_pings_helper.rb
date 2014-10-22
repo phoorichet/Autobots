@@ -1,0 +1,2 @@
+module RawPingsHelper
+end

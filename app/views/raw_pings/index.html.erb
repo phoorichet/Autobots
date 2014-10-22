@@ -1,0 +1,61 @@
+<h1>Listing raw_pings</h1>
+
+<table class="table table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>Imei</th>
+      <th>Imsi</th>
+      <th>Technology</th>
+      <th>Datetime</th>
+      <th>Packet sent</th>
+      <th>Packet received</th>
+      <th>Packet lost</th>
+      <th>Rtt min</th>
+      <th>Rtt max</th>
+      <th>Rtt mdev</th>
+      <th>Apn</th>
+      <th>Apn mcc</th>
+      <th>Apn mnc</th>
+      <th>Ip</th>
+      <th>Lac</th>
+      <th>Cell</th>
+      <th>Script name</th>
+      <th>Packet size</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @raw_pings.each do |raw_ping| %>
+      <tr>
+        <td><%= raw_ping.imei %></td>
+        <td><%= raw_ping.imsi %></td>
+        <td><%= raw_ping.technology %></td>
+        <td><%= raw_ping.datetime %></td>
+        <td><%= raw_ping.packet_sent %></td>
+        <td><%= raw_ping.packet_received %></td>
+        <td><%= raw_ping.packet_lost %></td>
+        <td><%= raw_ping.rtt_min %></td>
+        <td><%= raw_ping.rtt_max %></td>
+        <td><%= raw_ping.rtt_mdev %></td>
+        <td><%= raw_ping.apn %></td>
+        <td><%= raw_ping.apn_mcc %></td>
+        <td><%= raw_ping.apn_mnc %></td>
+        <td><%= raw_ping.ip %></td>
+        <td><%= raw_ping.lac %></td>
+        <td><%= raw_ping.cell_id %></td>
+        <td><%= raw_ping.script_name %></td>
+        <td><%= raw_ping.packet_size %></td>
+        <td><%= link_to 'Show', raw_ping %></td>
+        <td><%= link_to 'Edit', edit_raw_ping_path(raw_ping) %></td>
+        <td><%= link_to 'Destroy', raw_ping, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= paginate @raw_pings, :theme => 'twitter-bootstrap-3' %>

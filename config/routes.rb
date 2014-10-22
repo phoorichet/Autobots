@@ -1,5 +1,15 @@
 Autobots::Application.routes.draw do
 
+  resources :raw_speedtests
+
+  resources :raw_pings
+
+  resources :raw_youtubes
+
+  resources :raw_https
+
+  resources :filters
+
   resources :links
 
   resources :nodes
@@ -14,6 +24,10 @@ Autobots::Application.routes.draw do
 
   resources :services do
     resources :metrics
+  end
+
+  resources :metrics do
+    resources :filters
   end
 
   resources :metric_youtubes

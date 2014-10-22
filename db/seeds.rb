@@ -2280,7 +2280,7 @@ create_metric({"id"=>18, "name"=>"HTTP Succ Rate", "settings"=>"", "attr"=>"http
 create_metric({"id"=>9, "name"=>"HTTP Success Rate", "settings"=>"", "attr"=>"http_succ_rate", "transform"=>"", "service_id"=>8,  "visualization_id"=>1, "resource_name"=>nil, "unit"=>"%"})
 create_metric({"id"=>7, "name"=>"HTTP Download TP", "settings"=>"", "attr"=>"throughput_download_app", "transform"=>"", "service_id"=>6,  "visualization_id"=>3, "resource_name"=>nil, "unit"=>"%"})
 create_metric({"id"=>8, "name"=>"HTTP Success Rate", "settings"=>"", "attr"=>"throughput_download_app", "transform"=>"", "service_id"=>7,  "visualization_id"=>3, "resource_name"=>nil, "unit"=>""})
-create_metric({"id"=>12, "name"=>"Youtube Success Rate", "settings"=>"", "attr"=>"youtube_rate", "transform"=>"", "service_id"=>10, "visualization_id"=>1, "resource_name"=>nil, "unit"=>""}))
+create_metric({"id"=>12, "name"=>"Youtube Success Rate", "settings"=>"", "attr"=>"youtube_rate", "transform"=>"", "service_id"=>10, "visualization_id"=>1, "resource_name"=>nil, "unit"=>""})
 create_metric({"id"=>19, "name"=>"Thai map", "settings"=>"", "attr"=>"http_succ_rate", "transform"=>"", "service_id"=>6,  "visualization_id"=>6, "resource_name"=>nil, "unit"=>""})
 
 

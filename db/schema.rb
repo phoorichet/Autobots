@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140915071733) do
+ActiveRecord::Schema.define(version: 20141022073111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "filters", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.boolean  "multiple"
+    t.string   "data"
+    t.integer  "metric_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "links", force: true do |t|
     t.string   "source"
@@ -192,6 +202,114 @@ ActiveRecord::Schema.define(version: 20140915071733) do
     t.datetime "updated_at"
     t.string   "coverage_region"
     t.string   "site"
+  end
+
+  create_table "raw_https", force: true do |t|
+    t.float    "connecting_time_1"
+    t.float    "time_to_first_byte_1"
+    t.string   "result_1"
+    t.string   "result_detail_1"
+    t.string   "imei"
+    t.string   "imsi"
+    t.string   "script_name"
+    t.string   "service"
+    t.string   "service_info"
+    t.float    "agv_rssi"
+    t.float    "avg_rxlev"
+    t.float    "avg_ecio"
+    t.integer  "cell_id"
+    t.integer  "lac"
+    t.datetime "start_time"
+    t.datetime "stop_time"
+    t.float    "duration_time"
+    t.integer  "data_download_transfer"
+    t.float    "max_download"
+    t.float    "max_download_overall"
+    t.float    "min_download"
+    t.float    "throughput_download_ip"
+    t.float    "throughput_download_app"
+    t.float    "throughput_download_rlc"
+    t.string   "result"
+    t.float    "lat"
+    t.float    "lon"
+    t.string   "apn"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "raw_pings", force: true do |t|
+    t.string   "imei"
+    t.string   "imsi"
+    t.string   "technology"
+    t.datetime "datetime"
+    t.integer  "packet_sent"
+    t.integer  "packet_received"
+    t.integer  "packet_lost"
+    t.float    "rtt_min"
+    t.float    "rtt_max"
+    t.float    "rtt_mdev"
+    t.string   "apn"
+    t.integer  "apn_mcc"
+    t.integer  "apn_mnc"
+    t.string   "ip"
+    t.integer  "lac"
+    t.integer  "cell_id"
+    t.string   "script_name"
+    t.integer  "packet_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "raw_speedtests", force: true do |t|
+    t.string   "imei"
+    t.string   "imsi"
+    t.string   "technology"
+    t.datetime "datetime"
+    t.float    "download"
+    t.float    "upload"
+    t.integer  "latency"
+    t.integer  "server_id"
+    t.string   "server_name"
+    t.float    "avg_ecio"
+    t.float    "avg_rssi"
+    t.integer  "mcc"
+    t.integer  "lac"
+    t.integer  "cell_id"
+    t.string   "script_name"
+    t.string   "operator"
+    t.string   "result"
+    t.integer  "set_server_id"
+    t.string   "set_server_name"
+    t.string   "apn"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "raw_youtubes", force: true do |t|
+    t.string   "imei"
+    t.string   "imsi"
+    t.string   "script_name"
+    t.string   "operator"
+    t.string   "technology"
+    t.float    "avg_rssi"
+    t.float    "avg_rxlen"
+    t.float    "avg_ecio"
+    t.integer  "cell_id"
+    t.integer  "lac"
+    t.datetime "start_time"
+    t.datetime "stop_time"
+    t.float    "duration_time"
+    t.integer  "data_download_transfer"
+    t.float    "throughput_download_app"
+    t.float    "throughput_download_rlc"
+    t.string   "result"
+    t.string   "result_detail"
+    t.integer  "youtube_video_duration"
+    t.float    "lat"
+    t.float    "lon"
+    t.string   "apn"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "rncs", force: true do |t|

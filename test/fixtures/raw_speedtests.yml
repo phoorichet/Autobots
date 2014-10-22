@@ -1,0 +1,47 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  imei: MyString
+  imsi: MyString
+  technology: MyString
+  datetime: 2014-10-22 14:31:11
+  download: 1.5
+  upload: 1.5
+  latency: 1
+  server_id: 1
+  server_name: MyString
+  avg_ecio: 1.5
+  avg_rssi: 1.5
+  mcc: 1
+  mcc: 1
+  lac: 1
+  cell_id: 1
+  script_name: MyString
+  operator: MyString
+  result: MyString
+  set_server_id: 1
+  set_server_name: MyString
+  apn: MyString
+
+two:
+  imei: MyString
+  imsi: MyString
+  technology: MyString
+  datetime: 2014-10-22 14:31:11
+  download: 1.5
+  upload: 1.5
+  latency: 1
+  server_id: 1
+  server_name: MyString
+  avg_ecio: 1.5
+  avg_rssi: 1.5
+  mcc: 1
+  mcc: 1
+  lac: 1
+  cell_id: 1
+  script_name: MyString
+  operator: MyString
+  result: MyString
+  set_server_id: 1
+  set_server_name: MyString
+  apn: MyString

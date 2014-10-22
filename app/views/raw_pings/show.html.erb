@@ -1,0 +1,94 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Imei:</strong>
+  <%= @raw_ping.imei %>
+</p>
+
+<p>
+  <strong>Imsi:</strong>
+  <%= @raw_ping.imsi %>
+</p>
+
+<p>
+  <strong>Technology:</strong>
+  <%= @raw_ping.technology %>
+</p>
+
+<p>
+  <strong>Datetime:</strong>
+  <%= @raw_ping.datetime %>
+</p>
+
+<p>
+  <strong>Packet sent:</strong>
+  <%= @raw_ping.packet_sent %>
+</p>
+
+<p>
+  <strong>Packet received:</strong>
+  <%= @raw_ping.packet_received %>
+</p>
+
+<p>
+  <strong>Packet lost:</strong>
+  <%= @raw_ping.packet_lost %>
+</p>
+
+<p>
+  <strong>Rtt min:</strong>
+  <%= @raw_ping.rtt_min %>
+</p>
+
+<p>
+  <strong>Rtt max:</strong>
+  <%= @raw_ping.rtt_max %>
+</p>
+
+<p>
+  <strong>Rtt mdev:</strong>
+  <%= @raw_ping.rtt_mdev %>
+</p>
+
+<p>
+  <strong>Apn:</strong>
+  <%= @raw_ping.apn %>
+</p>
+
+<p>
+  <strong>Apn mcc:</strong>
+  <%= @raw_ping.apn_mcc %>
+</p>
+
+<p>
+  <strong>Apn mnc:</strong>
+  <%= @raw_ping.apn_mnc %>
+</p>
+
+<p>
+  <strong>Ip:</strong>
+  <%= @raw_ping.ip %>
+</p>
+
+<p>
+  <strong>Lac:</strong>
+  <%= @raw_ping.lac %>
+</p>
+
+<p>
+  <strong>Cell:</strong>
+  <%= @raw_ping.cell_id %>
+</p>
+
+<p>
+  <strong>Script name:</strong>
+  <%= @raw_ping.script_name %>
+</p>
+
+<p>
+  <strong>Packet size:</strong>
+  <%= @raw_ping.packet_size %>
+</p>
+
+<%= link_to 'Edit', edit_raw_ping_path(@raw_ping) %> |
+<%= link_to 'Back', raw_pings_path %>

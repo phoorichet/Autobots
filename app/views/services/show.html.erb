@@ -1,63 +1,60 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @service.name %>
-</p>
 
-<p>
+<h2><%= @service.name %></h2>
+
+<!-- <p>
   <strong>Setttings:</strong>
   <%= @service.setttings %>
-</p>
+</p> -->
 
-<p>
+<!-- <p>
   <strong>Model Name:</strong>
   <%= @service.model_name %>
-</p>
+</p> -->
 
 
-<p>
-  <strong>Metrics:</strong>
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">Metrics</div>
+  <div class="panel-body">
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Service</th>
+          <th>Attr</th>
+          <th>Visualization</th>
+          <th>Unit</th>
+          <!-- <th>Transform</th>
+          <th>Settings</th> -->
+          <!-- <th></th> -->
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
 
+      <tbody>
+        <% @service.metrics.each do |metric| %>
+          <tr>
+            <td><%= link_to metric.name, [metric.service, metric] %></td>
+            <td><%= metric.service.name %></td>
+            <td><%= metric.attr %></td>
+            <td><%= metric.visualization.name %></td>
+            <td><%= metric.unit %></td>
+            <!-- <td><%= metric.transform %></td>
+            <td><%= metric.settings %></td> -->
+            <!-- <td><%= link_to 'Show', [metric.service, metric] %></td> -->
+            <td><%= link_to 'Edit', edit_service_metric_path(@service, metric) %></td>
+            <td><%= link_to 'Destroy', [metric.service, metric], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-<table class="table table-hover table-condensed">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Settings</th>
-      <th>Attr</th>
-      <th>Unit</th>
-      <th>Transform</th>
-      <th>Service</th>
-      <th>Visualization</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @service.metrics.each do |metric| %>
-      <tr>
-        <td><%= metric.name %></td>
-        <td><%= metric.settings %></td>
-        <td><%= metric.attr %></td>
-        <td><%= metric.unit %></td>
-        <td><%= metric.transform %></td>
-        <td><%= metric.service.name %></td>
-        <td><%= metric.visualization.name %></td>
-        <td><%= link_to 'Show', [metric.service, metric] %></td>
-        <td><%= link_to 'Edit', edit_service_metric_path(@service, metric) %></td>
-        <td><%= link_to 'Destroy', [metric.service, metric], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Metric', new_service_metric_path(@service) %>
+    <br>
+    <%= link_to 'New Metric', new_service_metric_path(@service) %>
+  </div>
+</div>
 
 
 <br/>
