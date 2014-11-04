@@ -119,8 +119,7 @@ module Locke::Dsl::Qdsl
 
       order_stm = "#{@criteria[:order]}"
 
-      @model.select(select_stm)
-            .group(group_stm)
+      @model.select(select_stm) #.group(group_stm)
             .order(order_stm)
             # .where(where_stm)
             # .where("#{@criteria[:xaxis]} >= ?", @criteria[:from] || DateTime.now)

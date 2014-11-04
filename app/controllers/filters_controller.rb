@@ -5,7 +5,7 @@ class FiltersController < ApplicationController
   # GET /filters
   # GET /filters.json
   def index
-    @filters = Filter.all
+    @filters = @metric.filters.all
   end
 
   # GET /filters/1
@@ -70,7 +70,7 @@ class FiltersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def filter_params
-      params.require(:filter).permit(:name, :description, :multiple, :data, :metric_id)
+      params.require(:filter).permit(:field, :description, :operation, :operand, :operand_type)
     end
 
     # Get metric

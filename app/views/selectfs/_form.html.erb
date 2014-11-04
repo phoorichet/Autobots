@@ -1,0 +1,35 @@
+<%= form_for([@selectf.metric, @selectf], html: {class: "form-horizontal"}) do |f| %>
+  <% if @selectf.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@selectf.errors.count, "error") %> prohibited this selectf from being saved:</h2>
+
+      <ul>
+      <% @selectf.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="form-group field">
+    <%= f.label :field, class: "col-lg-2" %>
+    <div class="col-lg-10">
+      
+      <%= f.select :field, options_for_select(@selectf.metric.service.model_name.constantize.attribute_names.map {|d| [d, d]}, selected: @selectf.field), {} , class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group field">
+    <%= f.label :selected, class: "col-lg-2" %>
+    <div class="col-lg-10">
+      <%= f.check_box :selected, class: "" %>  
+    </div>
+  </div>
+
+  <div class="form-group actions">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

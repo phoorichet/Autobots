@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Field:</strong>
+  <%= @selectf.field %>
+</p>
+
+<p>
+  <strong>Selected:</strong>
+  <%= @selectf.selected %>
+</p>
+
+<!-- <p>
+  <strong>Metric:</strong>
+  <%= @selectf.metric_id %>
+</p>
+ -->
+<%= link_to 'Edit', edit_metric_selectf_path(@selectf.metric, @selectf) %> |
+<%= link_to 'Back', service_metric_path(@selectf.metric.service, @selectf.metric) %>

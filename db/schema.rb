@@ -11,19 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141022073111) do
+ActiveRecord::Schema.define(version: 20141104045548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "filters", force: true do |t|
-    t.string   "name"
     t.string   "description"
-    t.boolean  "multiple"
-    t.string   "data"
     t.integer  "metric_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "operand"
+    t.string   "operation"
+    t.string   "field"
+    t.string   "operand_type"
   end
 
   create_table "links", force: true do |t|
@@ -192,6 +193,9 @@ ActiveRecord::Schema.define(version: 20141022073111) do
     t.integer  "visualization_id"
     t.string   "resource_name"
     t.string   "unit"
+    t.string   "mapf"
+    t.string   "reducef"
+    t.string   "groupf"
   end
 
   create_table "nodes", force: true do |t|
@@ -319,6 +323,14 @@ ActiveRecord::Schema.define(version: 20141022073111) do
     t.datetime "updated_at"
   end
 
+  create_table "selectfs", force: true do |t|
+    t.string   "field"
+    t.boolean  "selected"
+    t.integer  "metric_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "services", force: true do |t|
     t.string   "name"
     t.string   "setttings"
@@ -371,6 +383,14 @@ ActiveRecord::Schema.define(version: 20141022073111) do
     t.string   "setting"
     t.string   "type_viz"
     t.string   "config_file"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vspecs", force: true do |t|
+    t.string   "name"
+    t.string   "value"
+    t.integer  "metric_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

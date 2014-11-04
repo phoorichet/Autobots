@@ -3,10 +3,11 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Field</th>
+      <th>Operation</th>
+      <th>Operand</th>
+      <th>Operand Type</th>
       <th>Description</th>
-      <th>Multiple</th>
-      <th>Data</th>
       <th>Metric</th>
       <th></th>
       <th></th>
@@ -17,10 +18,11 @@
   <tbody>
     <% @filters.each do |filter| %>
       <tr>
-        <td><%= filter.name %></td>
+        <td><%= filter.field %></td>
+        <td><%= filter.operation %></td>
+        <td><%= filter.operand %></td>
+        <td><%= filter.operand_type %></td>
         <td><%= filter.description %></td>
-        <td><%= filter.multiple %></td>
-        <td><%= filter.data %></td>
         <td><%= filter.metric_id %></td>
         <td><%= link_to 'Show', filter %></td>
         <td><%= link_to 'Edit', edit_filter_path(filter) %></td>

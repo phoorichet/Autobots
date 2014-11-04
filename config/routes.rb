@@ -1,5 +1,9 @@
 Autobots::Application.routes.draw do
 
+  # resources :selectfs
+
+  # resources :vspecs
+
   resources :raw_speedtests
 
   resources :raw_pings
@@ -28,6 +32,8 @@ Autobots::Application.routes.draw do
 
   resources :metrics do
     resources :filters
+    resources :vspecs
+    resources :selectfs
   end
 
   resources :metric_youtubes
@@ -54,6 +60,7 @@ Autobots::Application.routes.draw do
         end
 
         member do
+          get 'mapreduce'
         end
       end
 

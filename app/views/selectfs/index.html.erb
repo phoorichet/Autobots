@@ -1,0 +1,31 @@
+<h1>Listing selectfs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Selected</th>
+      <th>Metric</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @selectfs.each do |selectf| %>
+      <tr>
+        <td><%= selectf.field %></td>
+        <td><%= selectf.selected %></td>
+        <td><%= selectf.metric_id %></td>
+        <td><%= link_to 'Show', selectf %></td>
+        <td><%= link_to 'Edit', edit_selectf_path(selectf) %></td>
+        <td><%= link_to 'Destroy', [selectf.metric, selectf], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Selectf', new_selectf_path %>

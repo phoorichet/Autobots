@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  field: MyString
+  selected: false
+  metric_id: 1
+
+two:
+  field: MyString
+  selected: false
+  metric_id: 1

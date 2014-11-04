@@ -22,6 +22,14 @@
                       },
                       isArray: true
                     },
+                    mapreduce: {
+                      method: 'GET',
+                      params: {
+                        // collectionCtrl: 'metric2'
+                        memberCtrl: 'mapreduce'
+                      },
+                      isArray: true
+                    },
                     metric_by_region: {
                       method: 'GET',
                       params: {

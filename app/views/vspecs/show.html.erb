@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @vspec.name %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @vspec.value %>
+</p>
+
+<p>
+  <strong>Metric:</strong>
+  <%= @vspec.metric_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_metric_vspec_path(@vspec.metric, @vspec) %> |
+<%= link_to 'Back', service_metric_path(@vspec.metric.service, @vspec.metric) %>

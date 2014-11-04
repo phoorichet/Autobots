@@ -79,6 +79,19 @@ module ApiHelper
       }
   end
 
+  def build_time(params)
+    timeobj = JSON.parse(params[:time])
+    return {
+      :start       => long_to_date(timeobj["from"]["time"]),
+      :stop        => long_to_date(timeobj["to"]["time"]),
+    }
+  end
+
+  def build_vspec(params)
+    vspec   = JSON.parse(params[:vspec])
+    return vspec.symbolize_keys
+  end
+
   # Create a string for SELECT cause with hash params.
   def build_select(params)
       return "date_time, #{params[:group]} as group, #{params[:function]}(#{params[:metric_attr]}) as value"

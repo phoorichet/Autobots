@@ -1,0 +1,31 @@
+<h1>Listing vspecs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+      <th>Metric</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @vspecs.each do |vspec| %>
+      <tr>
+        <td><%= vspec.name %></td>
+        <td><%= vspec.value %></td>
+        <td><%= vspec.metric_id %></td>
+        <td><%= link_to 'Show', vspec %></td>
+        <td><%= link_to 'Edit', edit_vspec_path(vspec) %></td>
+        <td><%= link_to 'Destroy', vspec, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Vspec', new_vspec_path %>

@@ -9,6 +9,7 @@
        */
       $scope.initialize = function(element, attributes){
         $scope.element = element;
+        $scope.metricId = attributes.metricid;
         $scope.width   = attributes.width;
         $scope.height  = attributes.height;
         $scope.region  = attributes.region || null;
@@ -17,6 +18,7 @@
         $scope.sgsn    = attributes.sgsn   || null;
         $scope.stack   = attributes.stack  || null;
         $scope.attr    = attributes.attr;
+        $scope.vspecs  = JSON.parse(attributes.vspecs);
         $scope.filters = Filters;
         $scope.service = attributes.service;
         $scope.serviceApi = Api[attributes.service];
@@ -88,23 +90,41 @@
         }
       });      
 
+      $scope.makeVspecs = function(){
+        var opts = {};
+
+        _.each($scope.vspecs, function(d){
+          opts[d.name] = d.value;
+        })
+
+        return {
+          vtype: 'line',
+          x: opts['x-axis'],
+          y: opts['y-axis'],
+          time_series_attribute: opts['time_series_attribute'],
+          stack: $scope.stack,
+        };
+      }
+
       $scope.updateViz = function(filters){
         var formatPercent = d3.format(".2f");
 
         var submitFilters = _.clone($scope.filters);
         // Local filters
+        submitFilters['id'] = $scope.metricId;
         submitFilters['attr']  = $scope.attr;
-        submitFilters['vspec'] = { vtype: "line", x: "date_time", y: $scope.attr, date_time: "date_time", stack: $scope.stack };
+        submitFilters['vspec'] = $scope.makeVspecs();
         submitFilters['filters'] = { region: $scope.region, apn: $scope.apn, sgsn: $scope.sgsn, site: $scope.site };
+        console.log(submitFilters);
 
-        $scope.serviceApi.metric(submitFilters, function(data){
-          console.log(submitFilters);
+        $scope.serviceApi.mapreduce(submitFilters, function(data){
+          console.log(data);
           
           data.forEach(function(d) {
-            d.date = new Date(d.x);
-            if ($scope.stack === null) {
-              d.stack = "all";
-            }
+            d.groups.date = new Date(d.groups.date_time);
+            // if ($scope.stack === null) {
+            //   d.stack = "all";
+            // }
           });
 
         /* ######### D3 goes here ###### */
@@ -116,8 +136,10 @@
             dateFormat = d3.time.format("%x %X");
 
         var x = d3.time.scale()
-              .domain(d3.extent(data, function(d){ return d.date; }))
+              .domain(d3.extent(data, function(d){ return d.groups.date; }))
               .range([0, width]);
+
+        // console.log(d3.extent(data, function(d){ return d.groups.date; }));
 
         var y = d3.scale.linear()
               // .domain(d3.extent(data, function(d){ return d[attr]; }))
@@ -134,22 +156,25 @@
               .orient("left");
 
         var line = d3.svg.line()
-              .x(function(d){ return x(d.date); })
-              .y(function(d){ return y(d.y); });
+              .x(function(d){ return x(d.groups.date); })
+              .y(function(d){ return y(d.values.y); });
 
-        var uniqueGroups = d3.set(data.map(function(v){ return v.stack; })).values().sort();
+        var uniqueGroups = d3.set(data.map(function(v){ return v.groups.stack; })).values().sort();
 
         var color = d3.scale.category10()
               .domain(uniqueGroups);
 
+        // Create a group where each member has unique name attribute.
         var groups = color.domain().map(function(name){
           return {
             name: name,
-            values: data.filter(function(d){ return d.stack === name }).map(function(d){
-              return { date: d.date, y: d.y }
+            values: data.filter(function(d){ return d.groups.stack === name }).map(function(d){
+              return d;
             })
           }
         });
+
+        console.log(groups);
 
         var container = $scope.element.find(".viz");
 
@@ -265,7 +290,7 @@
               .attr("cx", line.x())
               .attr("cy", line.y())
               .attr("r", 1)
-              .classed("below-threshold", function(d) { return d.y < threshold ? true : false ; });
+              .classed("below-threshold", function(d) { return d.values.y < threshold ? true : false ; });
 
         svg.selectAll(".below-threshold")
             .transition()
@@ -318,19 +343,18 @@
               .attr("class", "overlay")
               .attr("width", width)
               .attr("height", height)
-              .on("mouseover", function() { focus.style("display", null); })
-              .on("mouseout", function() { focus.style("display", "none"); })
+              // .on("mouseover", function() { focus.style("display", null); })
+              // .on("mouseout", function() { focus.style("display", "none"); })
               .on("mousemove", mousemove)
               .on("mouseout", function() {
-                  hoverDate
-                      .text(null) // on mouseout remove text for hover date
+                  hoverDate.text(null) // on mouseout remove text for hover date
 
                   d3.select("#hover-line")
                       .style("opacity", 1e-6); // On mouse out making line invisible
               })
               .on("click", function() { console.log(d3.mouse(this)); });
 
-        var bisectDate = d3.bisector(function(d) { return d.date; }).left;
+        var bisectDate = d3.bisector(function(d) { return d.groups.date; }).left;
 
         function mousemove() {
           // http://bl.ocks.org/DStruths/9c042e3a6b66048b5bd4
@@ -347,7 +371,7 @@
                 i = bisectDate(data, x0, 1),
                 d0 = data[i - 1],
                 d1 = data[i],
-                d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+                d = x0 - d0.groups.date > d1.groups.date - x0 ? d1 : d0;
 
             var dd = groups.map(function(v){
                 var i = bisectDate(v.values, x0, 1),
@@ -358,17 +382,17 @@
                   return {"y": "N/A"};
                 }
                     
-                var d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+                var d = x0 - d0.groups.date > d1.groups.date - x0 ? d1 : d0;
               return d;
             });
 
             // console.log(dd);
 
-            hoverDate.text(dateFormat(d.date));
+            hoverDate.text(dateFormat(d.groups.date));
 
             d3.selectAll(".focus")
                 .data(dd)
-                .attr("transform", function(d){ return "translate(" + x(d.date) + "," + y(d.y) + ")" })
+                .attr("transform", function(d){ return "translate(" + x(d.groups.date) + "," + y(d.values.y) + ")" })
                 .style("display", null);
                 // .select("text").text()            
 
@@ -377,7 +401,7 @@
 
             d3.selectAll(".focus-legend")
                 .data(dd)
-                .text(function(v){ return formatPercent(v.y); });
+                .text(function(v){ return formatPercent(v.values.y); });
 
           }
         }

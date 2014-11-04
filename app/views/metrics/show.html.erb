@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <h2><%= @metric.service.name %></h2>
 
-
+<%= link_to 'Edit', edit_service_metric_path(@metric.service, @metric) %>
 <div class="row">
   <div class="col-lg-2">
     <p><strong>Metric Name</strong></p>
@@ -11,12 +11,38 @@
   </div>
 </div>
 
-<!-- <p>
-  <strong>Settings:</strong>
-  <%= @metric.settings %>
-</p>
- -->
+<div class="row">
+  <div class="col-lg-2">
+    <p><strong>Map Function</strong></p>
+  </div>
+  <div class="col-lg-10">
+    <div class="well">
+      <code><%= @metric.mapf %></code>
+    </div>
+  </div>
+</div>
 
+<div class="row">
+  <div class="col-lg-2">
+    <p><strong>Group Function</strong></p>
+  </div>
+  <div class="col-lg-10">
+    <div class="well">
+      <code><%= @metric.groupf %></code>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-2">
+    <p><strong>Reduce Function</strong></p>
+  </div>
+  <div class="col-lg-10">
+    <div class="well">
+      <code><%= @metric.reducef %></code>
+    </div>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-lg-2">
@@ -36,13 +62,36 @@
   </div>
 </div>
 
-<!-- <p>
-  <strong>Transform:</strong>
-  <%= @metric.transform %>
-</p>
- -->
+<div class="panel panel-default">
+  <div class="panel-heading">Selects</div>
+  <div class="panel-body">
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Selected</th>
+          <th>Metric</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
 
- <br/>
+      <tbody>
+        <% @metric.selectfs.each do |selectf| %>
+          <tr>
+            <td><%= selectf.field %></td>
+            <td><%= selectf.selected %></td>
+            <td><%= selectf.metric_id %></td>
+            <td><%= link_to 'Edit', edit_metric_selectf_path(selectf.metric, selectf) %></td>
+            <td><%= link_to 'Destroy', [selectf.metric, selectf], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= link_to 'New Selectf', new_metric_selectf_path(@metric) %>
+ </div>
+</div>
 
 <div class="panel panel-default">
   <div class="panel-heading">Filters</div>
@@ -50,10 +99,11 @@
     <table class="table table-hover table-condensed">
       <thead>
         <tr>
-          <th>Name</th>
+          <th>Field</th>
+          <th>Operation</th>
+          <th>Operand</th>
+          <th>Operand Type</th>
           <th>Description</th>
-          <th>Multiple</th>
-          <th>Data</th>
           <th></th>
           <th></th>
         </tr>
@@ -62,11 +112,12 @@
       <tbody>
         <% @metric.filters.each do |filter| %>
           <tr>
-            <td><%= filter.name %></td>
+            <td><%= filter.field %></td>
+            <td><%= filter.operation %></td>
+            <td><%= filter.operand %></td>
+            <td><%= filter.operand_type %></td>
             <td><%= filter.description %></td>
-            <td><%= filter.multiple %></td>
-            <td><%= filter.data %></td>
-            <td><%= link_to 'Edit', edit_metric_filter_path(@metric, filter) %></td>
+            <td><%= link_to 'Edit', edit_metric_filter_path(filter.metric, filter) %></td>
             <td><%= link_to 'Destroy', [filter.metric, filter] , method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
@@ -74,6 +125,35 @@
     </table>
 
     <%= link_to 'New Filter', new_metric_filter_path(@metric) %>
+  </div>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">Vspecs</div>
+  <div class="panel-body">
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Value</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @metric.vspecs.each do |vspec| %>
+          <tr>
+            <td><%= vspec.name %></td>
+            <td><%= vspec.value %></td>
+            <td><%= link_to 'Edit', edit_metric_vspec_path(vspec.metric, vspec) %></td>
+            <td><%= link_to 'Destroy', [vspec.metric, vspec], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to 'New Vspec', new_metric_vspec_path(@metric) %>
   </div>
 </div>
 

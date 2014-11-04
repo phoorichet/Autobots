@@ -1,5 +1,4 @@
 <%= form_for([@filter.metric, @filter], html: {class: "form-horizontal"}) do |f| %>
-
   <% if @filter.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@filter.errors.count, "error") %> prohibited this filter from being saved:</h2>
@@ -12,22 +11,44 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group field">
+    <%= f.label :field, class: "col-lg-2" %>
+    <div class="col-lg-10">
+      
+      <%= f.select :field, options_for_select(@filter.metric.service.model_name.constantize.attribute_names.map {|d| [d, d]}, selected: @filter.field), {} , class: "form-control" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
+
+  <div class="form-group field">
+    <%= f.label :operation, class: "col-lg-2" %>
+    <div class="col-lg-10">
+      
+      <%= f.select :operation, options_for_select([['>', '>'], ['<', '<'], ['=', '=']], selected: @filter.operation), {} , class: "form-control" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :multiple %><br>
-    <%= f.check_box :multiple %>
+
+  <div class="form-group field">
+    <%= f.label :operand, class: "col-lg-2" %>
+    <div class="col-lg-10">
+      <%= f.text_field :operand %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :data %><br>
-    <%= f.text_field :data %>
+
+  <div class="form-group field">
+    <%= f.label :operand_type, class: "col-lg-2" %>
+    <div class="col-lg-10">
+      
+      <%= f.select :operand_type, options_for_select([['integer', 'integer'], ['float', 'float'], ['string', 'string']], selected: @filter.operand_type), {} , class: "form-control" %>
+    </div>
   </div>
+
+  <div class="form-group field">
+    <%= f.label :description, class: "col-lg-2" %>
+    <div class="col-lg-10">
+      <%= f.text_area :description %>
+    </div>
+  </div>
+
 <!--   <div class="field">
     <%= f.label :metric_id %><br>
     <%= f.number_field :metric_id %>
