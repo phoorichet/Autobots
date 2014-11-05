@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mobile_code: MyString
+  mini_box: 1
+  imei: MyString
+  serial_no: MyString
+  mobile_no: MyString
+  region: MyString
+  rncname: MyString
+  building_id: MyString
+  location: MyString
+
+two:
+  mobile_code: MyString
+  mini_box: 1
+  imei: MyString
+  serial_no: MyString
+  mobile_no: MyString
+  region: MyString
+  rncname: MyString
+  building_id: MyString
+  location: MyString

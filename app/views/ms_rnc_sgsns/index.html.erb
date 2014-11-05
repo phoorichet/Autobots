@@ -1,0 +1,29 @@
+<h1>Listing ms_rnc_sgsns</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rnc name</th>
+      <th>Sgsn name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ms_rnc_sgsns.each do |ms_rnc_sgsn| %>
+      <tr>
+        <td><%= ms_rnc_sgsn.rnc_name %></td>
+        <td><%= ms_rnc_sgsn.sgsn_name %></td>
+        <td><%= link_to 'Show', ms_rnc_sgsn %></td>
+        <td><%= link_to 'Edit', edit_ms_rnc_sgsn_path(ms_rnc_sgsn) %></td>
+        <td><%= link_to 'Destroy', ms_rnc_sgsn, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ms rnc sgsn', new_ms_rnc_sgsn_path %>

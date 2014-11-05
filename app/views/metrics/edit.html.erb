@@ -3,4 +3,4 @@
 <%= render 'form' %>
 
 <%= link_to 'Show', [@metric.service, @metric ]%> |
-<%= link_to 'Back', service_metrics_path(@metric.service) %>
+<%= link_to 'Back', service_metric_path(@metric.service, @metric) %>

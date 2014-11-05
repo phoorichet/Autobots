@@ -62,7 +62,7 @@ module Api
         #                       .stack(vspec[:stack])
         #                       .run
 
-        # addtional criteria
+        # Required criteria
         results = RawHttp.facebook
         results = results.select(metric.selectfs.map{|d| d.field})
         results = results.where("#{time_series_attribute} >= ?", options[:start]) if options[:start]
@@ -83,14 +83,41 @@ module Api
           results = results.where("#{d.field} #{d.operation} ?", operand)
         end
 
-        results = results.where("region =  ?",  filters[:region]) if filters[:region] 
-        results = results.where("sgsn_name =  ?",    filters[:sgsn]) if filters[:sgsn] 
+        # Addtional criteria
+        # results = results.where("region =  ?",  filters[:region]) if filters[:region] 
+        # results = results.where("sgsn_name =  ?",    filters[:sgsn]) if filters[:sgsn] 
         results = results.where("apn =  ?",     filters[:apn]) if filters[:apn] 
-        results = results.where("site = ?",  filters[:site]) if filters[:site] 
+        results = results.where("apn LIKE ?", "%#{filters[:site]}%") if filters[:site] 
 
+        # ---------
+        # Hack to make region and sgsn filters work
+        region_imeis = nil
+        if filters[:region]
+          region       = filters[:region]
+          region_imeis = MsLocation.select(:imei).region(region).pluck(:imei)
+          results = results.where(imei: region_imeis)
+        end
+
+        sgsn_imeis = nil
+        if filters[:sgsn]
+          sgsn = filters[:sgsn]
+          rnc_names   = MsRncSgsn.select(:rnc_name).sgsn(sgsn).pluck(:rnc_name)
+          sgsn_imeis  = MsLocation.select(:imei).rncs(rnc_names).pluck(:imei)
+          results = results.where(imei: sgsn_imeis)
+        end
+        # end Hack
+        # ---------
+
+        # Kinda dangerous to use eval here. Must grant only admin user to 
+        # be able to add/change mapf, groupf, and reducef functions
         results = results.map(&eval(metric.mapf))
                         .group_by(&eval(metric.groupf))
-                        .map(&lambda{ |d| return {:groups => d[0], values: d[1].reduce(&eval(metric.reducef)) } })
+                        .map(&lambda{ |d| 
+                          return {
+                            groups: d[0], 
+                            values: d[1].reduce(eval(metric.reducef_init_value), &eval(metric.reducef)) 
+                          } 
+                        })
 
         respond_with results
 

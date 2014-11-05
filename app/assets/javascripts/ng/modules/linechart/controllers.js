@@ -168,13 +168,12 @@
         var groups = color.domain().map(function(name){
           return {
             name: name,
-            values: data.filter(function(d){ return d.groups.stack === name }).map(function(d){
-              return d;
-            })
+            // values: data.filter(function(d){ return d.groups.stack === name }).map(function(d){
+            values: data.filter(function(d){ return d.groups.stack === name })
           }
         });
 
-        console.log(groups);
+        // console.log(groups);
 
         var container = $scope.element.find(".viz");
 

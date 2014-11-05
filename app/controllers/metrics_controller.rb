@@ -71,7 +71,7 @@ class MetricsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def metric_params
-      params.require(:metric).permit(:name, :settings, :model_name, :attr, :unit, :transform, :service_id, :visualization_id, :mapf, :reducef, :groupf)
+      params.require(:metric).permit(:name, :settings, :model_name, :attr, :unit, :transform, :service_id, :visualization_id, :mapf, :reducef, :groupf, :reducef_init_value)
     end
 
     # Get service that has the service

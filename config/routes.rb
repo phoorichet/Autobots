@@ -1,5 +1,9 @@
 Autobots::Application.routes.draw do
 
+  resources :ms_rnc_sgsns
+
+  resources :ms_locations
+
   # resources :selectfs
 
   # resources :vspecs

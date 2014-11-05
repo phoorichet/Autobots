@@ -1,0 +1,53 @@
+<%= form_for(@ms_location) do |f| %>
+  <% if @ms_location.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ms_location.errors.count, "error") %> prohibited this ms_location from being saved:</h2>
+
+      <ul>
+      <% @ms_location.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :mobile_code %><br>
+    <%= f.text_field :mobile_code %>
+  </div>
+  <div class="field">
+    <%= f.label :mini_box %><br>
+    <%= f.number_field :mini_box %>
+  </div>
+  <div class="field">
+    <%= f.label :imei %><br>
+    <%= f.text_field :imei %>
+  </div>
+  <div class="field">
+    <%= f.label :serial_no %><br>
+    <%= f.text_field :serial_no %>
+  </div>
+  <div class="field">
+    <%= f.label :mobile_no %><br>
+    <%= f.text_field :mobile_no %>
+  </div>
+  <div class="field">
+    <%= f.label :region %><br>
+    <%= f.text_field :region %>
+  </div>
+  <div class="field">
+    <%= f.label :rncname %><br>
+    <%= f.text_field :rncname %>
+  </div>
+  <div class="field">
+    <%= f.label :building_id %><br>
+    <%= f.text_field :building_id %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

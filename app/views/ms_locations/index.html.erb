@@ -1,0 +1,43 @@
+<h1>Listing ms_locations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mobile code</th>
+      <th>Mini box</th>
+      <th>Imei</th>
+      <th>Serial no</th>
+      <th>Mobile no</th>
+      <th>Region</th>
+      <th>Rncname</th>
+      <th>Building</th>
+      <th>Location</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ms_locations.each do |ms_location| %>
+      <tr>
+        <td><%= ms_location.mobile_code %></td>
+        <td><%= ms_location.mini_box %></td>
+        <td><%= ms_location.imei %></td>
+        <td><%= ms_location.serial_no %></td>
+        <td><%= ms_location.mobile_no %></td>
+        <td><%= ms_location.region %></td>
+        <td><%= ms_location.rncname %></td>
+        <td><%= ms_location.building_id %></td>
+        <td><%= ms_location.location %></td>
+        <td><%= link_to 'Show', ms_location %></td>
+        <td><%= link_to 'Edit', edit_ms_location_path(ms_location) %></td>
+        <td><%= link_to 'Destroy', ms_location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ms location', new_ms_location_path %>

@@ -44,6 +44,16 @@
 
 <div class="row">
   <div class="col-lg-12">
+    <% @metric = Metric.find(22) %>
+    <linechart-panel 
+      service="<%= @metric.service.name %>" 
+      metricid="<%= @metric.id %>" 
+      attr="<%= @metric.attr %>" 
+      vspecs="<%= @metric.vspecs.to_json %>"
+      width="1000" height="300">
+    <div></div>
+  </linechart-panel>
+
     <linechart-panel service="Facebook"  attr="http_succ_rate" width="780" height="250"></linechart-panel>
     <linechart-panel service="Facebook" attr="http_succ_rate" stack="region" width="780" height="250"></linechart-panel>
     <linechart-panel service="Facebook" attr="http_succ_rate" stack="sgsn_name" width="780" height="250"></linechart-panel>

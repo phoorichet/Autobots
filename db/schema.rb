@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141104045548) do
+ActiveRecord::Schema.define(version: 20141105083114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,6 +196,28 @@ ActiveRecord::Schema.define(version: 20141104045548) do
     t.string   "mapf"
     t.string   "reducef"
     t.string   "groupf"
+    t.string   "reducef_init_value"
+  end
+
+  create_table "ms_locations", force: true do |t|
+    t.string   "mobile_code"
+    t.integer  "mini_box"
+    t.string   "imei"
+    t.string   "serial_no"
+    t.string   "mobile_no"
+    t.string   "region"
+    t.string   "rncname"
+    t.string   "building_id"
+    t.string   "location"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ms_rnc_sgsns", force: true do |t|
+    t.string   "rnc_name"
+    t.string   "sgsn_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "nodes", force: true do |t|

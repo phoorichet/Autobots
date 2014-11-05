@@ -20,19 +20,25 @@
   <div class="form-group field">
     <%= f.label :mapf, class: "col-sm-2" %>
     <div class="col-sm-10">
-    <%= f.text_field :mapf, class: "form-control" %>
+    <%= f.text_area :mapf, class: "form-control", rows: "5" %>
     </div>
   </div>
   <div class="form-group field">
     <%= f.label :groupf, class: "col-sm-2" %>
     <div class="col-sm-10">
-    <%= f.text_field :groupf, class: "form-control" %>
+    <%= f.text_area :groupf, class: "form-control", rows: "5"  %>
+    </div>
+  </div>
+    <div class="form-group field">
+    <%= f.label :reducef_init_value, class: "col-sm-2" %>
+    <div class="col-sm-10">
+    <%= f.text_area :reducef_init_value, class: "form-control", rows: "3"  %>
     </div>
   </div>
   <div class="form-group field">
     <%= f.label :reducef, class: "col-sm-2" %>
     <div class="col-sm-10">
-    <%= f.text_field :reducef, class: "form-control" %>
+    <%= f.text_area :reducef, class: "form-control", rows: "8"  %>
     </div>
   </div>
   <div class="form-group field">

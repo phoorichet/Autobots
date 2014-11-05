@@ -1,0 +1,25 @@
+<%= form_for(@ms_rnc_sgsn) do |f| %>
+  <% if @ms_rnc_sgsn.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ms_rnc_sgsn.errors.count, "error") %> prohibited this ms_rnc_sgsn from being saved:</h2>
+
+      <ul>
+      <% @ms_rnc_sgsn.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :rnc_name %><br>
+    <%= f.text_field :rnc_name %>
+  </div>
+  <div class="field">
+    <%= f.label :sgsn_name %><br>
+    <%= f.text_field :sgsn_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
