@@ -53,6 +53,6 @@ test:
 
 production:
   adapter: oracle_enhanced
-  database: "(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=tcp)(HOST=10.15.34.83)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=autobots)))"
+  database: "(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=tcp)(HOST=10.15.34.83)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=robot)))"
   username: autobots
   password: $upersecre7
