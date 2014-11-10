@@ -18,7 +18,7 @@
         $scope.sgsn    = attributes.sgsn   || null;
         $scope.stack   = attributes.stack  || null;
         $scope.attr    = attributes.attr;
-        $scope.vspecs  = JSON.parse(attributes.vspecs);
+        // $scope.vspecs  = JSON.parse(attributes.vspecs);
         $scope.filters = Filters;
         $scope.service = attributes.service;
         $scope.serviceApi = Api[attributes.service];
@@ -113,7 +113,7 @@
         // Local filters
         submitFilters['id'] = $scope.metricId;
         submitFilters['attr']  = $scope.attr;
-        submitFilters['vspec'] = $scope.makeVspecs();
+        // submitFilters['vspec'] = $scope.makeVspecs();
         submitFilters['filters'] = { region: $scope.region, apn: $scope.apn, sgsn: $scope.sgsn, site: $scope.site };
         console.log(submitFilters);
 

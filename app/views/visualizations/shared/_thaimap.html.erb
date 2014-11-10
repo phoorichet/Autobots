@@ -1,3 +1,9 @@
 <timepicker-panel></timepicker-panel>
 
-<regionmap-panel service="Facebook" attr="http_succ_rate" width="480" height="500"></regionmap-panel>
+<regionmap-panel 
+    service="<%= @metric.service.name %>" 
+    metricid="<%= @metric.id %>" 
+    attr="<%= @metric.attr %>" 
+    width="480" height="500">
+  <div></div>
+</regionmap-panel>

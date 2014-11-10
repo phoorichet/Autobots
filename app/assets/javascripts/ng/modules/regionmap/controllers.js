@@ -9,6 +9,7 @@
        */
       $scope.initialize = function(element, attributes){
         $scope.element = element;
+        $scope.metricId = attributes.metricid;
         $scope.width   = attributes.width;
         $scope.height  = attributes.height;
         $scope.region  = attributes.region || null;
@@ -196,24 +197,26 @@
 
           // Modify filter so that it is local
           var submitFilters = _.clone($scope.filters);
+          submitFilters['id'] = $scope.metricId;
           submitFilters['attr']  = $scope.attr;
-          submitFilters['vspec'] = { vtype: "map", x: "region", y: $scope.attr, date_time: "date_time" };
+          // submitFilters['vspec'] = { vtype: "map", x: "region", y: $scope.attr, date_time: "date_time" };
           submitFilters['region'] = $scope.region;
+          submitFilters['filters'] = { region: $scope.region, apn: $scope.apn, sgsn: $scope.sgsn, site: $scope.site };
 
-          $scope.serviceApi.metric_by_region(submitFilters, function(data){
-            // console.log(data);
+          $scope.serviceApi.mapreduce_join_mslocation(submitFilters, function(data){
+            console.log(data);
             if (data.length === 0)
               return;
 
             var sum = 0;
             var regionMapping = {};
             for (var i = data.length - 1; i >= 0; i--) {
-              regionMapping[data[i].x] = data[i].y; 
-              sum += data[i].y;
+              regionMapping[data[i].groups.stack] = data[i].values.y; 
+              sum += data[i].values.y;
             };
             var avg = sum/data.length;
 
-            // console.log(regionMapping);
+            console.log(regionMapping);
 
             var threshold = 95.0;
 

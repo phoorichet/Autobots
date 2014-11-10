@@ -30,6 +30,14 @@
                       },
                       isArray: true
                     },
+                    mapreduce_join_mslocation: {
+                      method: 'GET',
+                      params: {
+                        // collectionCtrl: 'metric2'
+                        memberCtrl: 'mapreduce_join_mslocation'
+                      },
+                      isArray: true
+                    },
                     metric_by_region: {
                       method: 'GET',
                       params: {
@@ -61,7 +69,23 @@
                         collectionCtrl: 'metric'
                       },
                       isArray: true
-                    }
+                    },
+                    mapreduce: {
+                      method: 'GET',
+                      params: {
+                        // collectionCtrl: 'metric2'
+                        memberCtrl: 'mapreduce'
+                      },
+                      isArray: true
+                    },
+                    mapreduce_join_mslocation: {
+                      method: 'GET',
+                      params: {
+                        // collectionCtrl: 'metric2'
+                        memberCtrl: 'mapreduce_join_mslocation'
+                      },
+                      isArray: true
+                    },
                   }),
         Instagram: $resource('/api/v1/instagrams/:collectionCtrl:id/:memberCtrl', {
                     id: '@id',
@@ -79,7 +103,23 @@
                         collectionCtrl: 'metric'
                       },
                       isArray: true
-                    }
+                    },
+                    mapreduce: {
+                      method: 'GET',
+                      params: {
+                        // collectionCtrl: 'metric2'
+                        memberCtrl: 'mapreduce'
+                      },
+                      isArray: true
+                    },
+                    mapreduce_join_mslocation: {
+                      method: 'GET',
+                      params: {
+                        // collectionCtrl: 'metric2'
+                        memberCtrl: 'mapreduce_join_mslocation'
+                      },
+                      isArray: true
+                    },
                   }),
         Ping: $resource('/api/v1/pings/:collectionCtrl:id/:memberCtrl', {
                     id: '@id',
@@ -97,7 +137,23 @@
                         collectionCtrl: 'metric'
                       },
                       isArray: true
-                    }
+                    },
+                    mapreduce: {
+                      method: 'GET',
+                      params: {
+                        // collectionCtrl: 'metric2'
+                        memberCtrl: 'mapreduce'
+                      },
+                      isArray: true
+                    },
+                    mapreduce_join_mslocation: {
+                      method: 'GET',
+                      params: {
+                        // collectionCtrl: 'metric2'
+                        memberCtrl: 'mapreduce_join_mslocation'
+                      },
+                      isArray: true
+                    },
                   }),
         Speedtest: $resource('/api/v1/speedtests/:collectionCtrl:id/:memberCtrl', {
                     id: '@id',
@@ -115,7 +171,23 @@
                         collectionCtrl: 'metric'
                       },
                       isArray: true
-                    }
+                    },
+                    mapreduce: {
+                      method: 'GET',
+                      params: {
+                        // collectionCtrl: 'metric2'
+                        memberCtrl: 'mapreduce'
+                      },
+                      isArray: true
+                    },
+                    mapreduce_join_mslocation: {
+                      method: 'GET',
+                      params: {
+                        // collectionCtrl: 'metric2'
+                        memberCtrl: 'mapreduce_join_mslocation'
+                      },
+                      isArray: true
+                    },
                   }),
         Youtube: $resource('/api/v1/youtubes/:collectionCtrl:id/:memberCtrl', {
                     id: '@id',
@@ -133,7 +205,23 @@
                         collectionCtrl: 'metric'
                       },
                       isArray: true
-                    }
+                    },
+                    mapreduce: {
+                      method: 'GET',
+                      params: {
+                        // collectionCtrl: 'metric2'
+                        memberCtrl: 'mapreduce'
+                      },
+                      isArray: true
+                    },
+                    mapreduce_join_mslocation: {
+                      method: 'GET',
+                      params: {
+                        // collectionCtrl: 'metric2'
+                        memberCtrl: 'mapreduce_join_mslocation'
+                      },
+                      isArray: true
+                    },
                   }),
         Adhoc: $resource('/api/v1/adhocs/:collectionCtrl:id/:memberCtrl', {
                     id: '@id',

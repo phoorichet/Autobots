@@ -13,6 +13,9 @@ class RawPing < ActiveRecord::Base
   #datetime, updated_at: datetime)
   
   set_default :export_attr, [:packet_sent, :packet_received, :packet_lost, 
-                            :rtt_min, :rtt_max, :rtt_mdev, :packet_size
+                            :rtt_min, :rtt_max, :rtt_mdev, :packet_size,
+                            :imei, :imsi, :technology, :datetime, :apn,
+                            :apn_mcc, :apn_mcc, :ip, :lac, :cell_id, :script_name,
+                            :packet_size, :percent_loss
                             ]
 end

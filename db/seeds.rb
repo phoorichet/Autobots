@@ -2282,7 +2282,6 @@ create_metric({"id"=>7, "name"=>"HTTP Download TP", "settings"=>"", "attr"=>"thr
 create_metric({"id"=>8, "name"=>"HTTP Success Rate", "settings"=>"", "attr"=>"throughput_download_app", "transform"=>"", "service_id"=>7,  "visualization_id"=>3, "resource_name"=>nil, "unit"=>""})
 create_metric({"id"=>12, "name"=>"Youtube Success Rate", "settings"=>"", "attr"=>"youtube_rate", "transform"=>"", "service_id"=>10, "visualization_id"=>1, "resource_name"=>nil, "unit"=>""})
 create_metric({"id"=>19, "name"=>"Thai map", "settings"=>"", "attr"=>"http_succ_rate", "transform"=>"", "service_id"=>6,  "visualization_id"=>6, "resource_name"=>nil, "unit"=>""})
-
-
+create_metric({"id"=>22, "name"=>"TestMapReduce", "settings"=>nil, "attr"=>"connecting_time_1", "transform"=>nil, "service_id"=>6, "visualization_id"=>1, "resource_name"=>nil, "unit"=>"", "mapf"=>"lambda { |d| \r\n   passed = d.data_download_transfer > 40000 && d.result == \"Success\" \r\n   return {\r\n:success=> passed == true ? 1 : 0, \r\n:fail => passed == false ? 1 : 0, \r\n:date_time => d.start_time.change(min: 0), \r\n:apn => d.apn \r\n  } \r\n}", "reducef"=>"lambda { |sum, item| \r\n  sum_succ=(sum[:success] + item[:success]); sum_fail=(sum[:fail] + item[:fail]); return {:success => sum_succ, :fail => sum_fail, :y => (sum_succ+sum_fail) == 0 ? 0 : 100*sum_succ.to_f/(sum_succ+sum_fail) }\r\n}", "groupf"=>"lambda { |d| \r\n\r\n  return { date_time: d[:date_time].change(min: 0), stack: d[:apn] } \r\n\r\n}", "reducef_init_value"=>" { :success => 0, :fail => 0, :y => 0.0 } "})
 
 

@@ -65,6 +65,7 @@ Autobots::Application.routes.draw do
 
         member do
           get 'mapreduce'
+          get 'mapreduce_join_mslocation'
         end
       end
 
@@ -75,6 +76,8 @@ Autobots::Application.routes.draw do
         end
 
         member do
+          get 'mapreduce'
+          get 'mapreduce_join_mslocation'
         end
       end
 
@@ -85,6 +88,8 @@ Autobots::Application.routes.draw do
         end
 
         member do
+          get 'mapreduce'
+          get 'mapreduce_join_mslocation'
         end
       end
 
@@ -95,6 +100,8 @@ Autobots::Application.routes.draw do
         end
 
         member do
+          get 'mapreduce'
+          get 'mapreduce_join_mslocation'
         end
       end
 
@@ -105,6 +112,8 @@ Autobots::Application.routes.draw do
         end
 
         member do
+          get 'mapreduce'
+          get 'mapreduce_join_mslocation'
         end
       end
 
@@ -115,6 +124,8 @@ Autobots::Application.routes.draw do
         end
 
         member do
+          get 'mapreduce'
+          get 'mapreduce_join_mslocation'
         end
       end
 

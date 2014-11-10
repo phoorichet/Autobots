@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @vspec %> |
-<%= link_to 'Back', vspecs_path %>
+<%= link_to 'Show', [@vspec.metric, @vspec] %> |
+<%= link_to 'Back', service_metric_path(@vspec.metric.service, @vspec.metric) %>
