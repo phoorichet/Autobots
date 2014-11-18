@@ -122,6 +122,9 @@
 
         $scope.serviceApi.mapreduce(submitFilters, function(data){
           console.log(data);
+
+          var spinner = $scope.element.find("#robot-spinner");
+          spinner.remove();
           
           data.forEach(function(d) {
             d.groups.date = new Date(d.groups.date_time);

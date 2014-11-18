@@ -1,6 +1,6 @@
 <div class="robot-linechart-wrapper">  
 
-  <h4>{{ service }}</h4>
+  <h4>{{ service }} <i id="robot-spinner" class="fa fa-spinner fa-spin"></i></h4>
   <h5>{{ name }} - <i class="robot-description-text">{{ description }}</i></h5>
   <p>From <i class="robot-date-time-text">{{ filters.time.from.date | date:'medium' }}</i> <i class="fa fa-angle-double-right"></i> To <i class="robot-date-time-text">{{ filters.time.to.date | date:'medium' }}</i></p>
   

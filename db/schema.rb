@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141118045318) do
+ActiveRecord::Schema.define(version: 20141118103947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -240,7 +240,7 @@ ActiveRecord::Schema.define(version: 20141118045318) do
     t.string   "imsi"
     t.string   "script_name"
     t.string   "service"
-    t.string   "service_info"
+    t.string   "serviceinfo"
     t.float    "agv_rssi"
     t.float    "avg_rxlev"
     t.float    "avg_ecio"
@@ -319,7 +319,7 @@ ActiveRecord::Schema.define(version: 20141118045318) do
     t.string   "operator"
     t.string   "technology"
     t.float    "avg_rssi"
-    t.float    "avg_rxlen"
+    t.float    "avg_rxlev"
     t.float    "avg_ecio"
     t.integer  "cell_id"
     t.integer  "lac"

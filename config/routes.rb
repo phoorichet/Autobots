@@ -4,17 +4,13 @@ Autobots::Application.routes.draw do
 
   resources :ms_locations
 
-  # resources :selectfs
+  resources :raw_speedtests, :only => [:index, :show]
 
-  # resources :vspecs
+  resources :raw_pings, :only => [:index, :show]
 
-  resources :raw_speedtests
+  resources :raw_youtubes, :only => [:index, :show]
 
-  resources :raw_pings
-
-  resources :raw_youtubes
-
-  resources :raw_https
+  resources :raw_https, :only => [:index, :show]
 
   resources :filters
 

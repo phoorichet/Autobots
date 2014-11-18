@@ -9,7 +9,7 @@
       <th>Operator</th>
       <th>Technology</th>
       <th>Avg rssi</th>
-      <th>Avg rxlen</th>
+      <th>Avg rxlev</th>
       <th>Avg ecio</th>
       <th>Cell</th>
       <th>Lac</th>
@@ -25,9 +25,6 @@
       <th>Lat</th>
       <th>Lon</th>
       <th>Apn</th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -40,7 +37,7 @@
         <td><%= raw_youtube.operator %></td>
         <td><%= raw_youtube.technology %></td>
         <td><%= raw_youtube.avg_rssi %></td>
-        <td><%= raw_youtube.avg_rxlen %></td>
+        <td><%= raw_youtube.avg_rxlev %></td>
         <td><%= raw_youtube.avg_ecio %></td>
         <td><%= raw_youtube.cell_id %></td>
         <td><%= raw_youtube.lac %></td>
@@ -56,9 +53,6 @@
         <td><%= raw_youtube.lat %></td>
         <td><%= raw_youtube.lon %></td>
         <td><%= raw_youtube.apn %></td>
-        <td><%= link_to 'Show', raw_youtube %></td>
-        <td><%= link_to 'Edit', edit_raw_youtube_path(raw_youtube) %></td>
-        <td><%= link_to 'Destroy', raw_youtube, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

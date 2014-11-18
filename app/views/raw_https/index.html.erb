@@ -31,9 +31,6 @@
       <th>Lat</th>
       <th>Lon</th>
       <th>Apn</th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -48,7 +45,7 @@
         <td><%= raw_http.imsi %></td>
         <td><%= raw_http.script_name %></td>
         <td><%= raw_http.service %></td>
-        <td><%= raw_http.service_info %></td>
+        <td><%= raw_http.serviceinfo %></td>
         <td><%= raw_http.agv_rssi %></td>
         <td><%= raw_http.avg_rxlev %></td>
         <td><%= raw_http.avg_ecio %></td>
@@ -68,9 +65,6 @@
         <td><%= raw_http.lat %></td>
         <td><%= raw_http.lon %></td>
         <td><%= raw_http.apn %></td>
-        <td><%= link_to 'Show', raw_http %></td>
-        <td><%= link_to 'Edit', edit_raw_http_path(raw_http) %></td>
-        <td><%= link_to 'Destroy', raw_http, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -21,9 +21,6 @@
       <th>Cell</th>
       <th>Script name</th>
       <th>Packet size</th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -48,9 +45,6 @@
         <td><%= raw_ping.cell_id %></td>
         <td><%= raw_ping.script_name %></td>
         <td><%= raw_ping.packet_size %></td>
-        <td><%= link_to 'Show', raw_ping %></td>
-        <td><%= link_to 'Edit', edit_raw_ping_path(raw_ping) %></td>
-        <td><%= link_to 'Destroy', raw_ping, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

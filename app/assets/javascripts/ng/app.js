@@ -17,19 +17,18 @@
     'autobot.linechart'
   ]);
 
+  // autobotsApp.config(function($stateProvider, $urlRouterProvider) {
+  //   $stateProvider
+  //     .state('start', {
+  //       url: '/start',
+  //       templateUrl: 'partials/start.html',
+  //       controller: function($scope, $stateParams) {
+  //         console.log('-------------Yo!');
+  //       }
+  //     })
 
-  autobotsApp.config(function($stateProvider, $urlRouterProvider) {
-    $stateProvider
-      .state('start', {
-        url: '/start',
-        templateUrl: 'partials/start.html',
-        controller: function($scope, $stateParams) {
-          console.log('-------------Yo!');
-        }
-      })
-
-    $urlRouterProvider.when('','/'); //Set default state when the page is loaded
-  });
+  //   $urlRouterProvider.when('','/'); //Set default state when the page is loaded
+  // });
 
   // Angular and Turbolink
   // http://stackoverflow.com/questions/14797935/using-angularjs-with-turbolinks

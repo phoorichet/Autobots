@@ -24,9 +24,6 @@
       <th>Set server</th>
       <th>Set server name</th>
       <th>Apn</th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -54,9 +51,6 @@
         <td><%= raw_speedtest.set_server_id %></td>
         <td><%= raw_speedtest.set_server_name %></td>
         <td><%= raw_speedtest.apn %></td>
-        <td><%= link_to 'Show', raw_speedtest %></td>
-        <td><%= link_to 'Edit', edit_raw_speedtest_path(raw_speedtest) %></td>
-        <td><%= link_to 'Destroy', raw_speedtest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
