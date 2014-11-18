@@ -147,6 +147,7 @@ module Api
 
         select_list = metric.selectfs.map{|d| "#{RawHttp.table_name}.#{d.field}"}
         select_list << "#{MsLocation.table_name}.region"
+        select_list << "#{MsLocation.table_name}.rncname"
         # Required criteria
         results = RawHttp.facebook
         results = results.select(select_list)

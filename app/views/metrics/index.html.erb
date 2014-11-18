@@ -4,36 +4,34 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Settings</th>
-      <th>Attr</th>
-      <th>Transform</th>
       <th>Service</th>
       <th>Visualization</th>
-      <th></th>
-      <th></th>
-      <th></th>
+<% if can? :manage, @metric %>        
+      <th>Actions</th>
+<% end %>
     </tr>
   </thead>
 
   <tbody>
     <% @metrics.each do |metric| %>
       <tr>
-        <td><%= metric.name %></td>
-        <td><%= metric.settings %></td>
-        <td><%= metric.attr %></td>
-        <td><%= metric.transform %></td>
-        <td><%= metric.service_id %></td>
-        <td><%= metric.visualization_id %></td>
-        <td><%= link_to 'Show', [metric.service, metric] %></td>
-        <td><%= link_to 'Edit', edit_service_metric_path(metric.service, metric) %></td>
-        <td><%= link_to 'Destroy', [metric.service, metric], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to metric.name, [metric.service, metric] %></td>
+        <td><%= metric.service.name %></td>
+        <td><%= metric.visualization.name %></td>
+<% if can? :manage, @metric %>        
+        <td>
+          <%= link_to 'Edit', edit_service_metric_path(metric.service, metric) %>
+          <%= link_to 'Destroy', [metric.service, metric], method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+<% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
+<% if can? :manage, @metric %>
 <%= link_to 'New Metric', new_service_metric_path %>
+<% end %>
 <br/>
 <%= link_to 'Back to Services', services_path %>

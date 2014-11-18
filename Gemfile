@@ -82,4 +82,5 @@ group :production do
   # gem 'ruby-oci8', '~> 2.1.0'
 end
 
-
+# Manage authorization
+gem "cancan"

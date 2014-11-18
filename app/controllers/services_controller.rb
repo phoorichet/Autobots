@@ -4,7 +4,7 @@ class ServicesController < ApplicationController
   # GET /services
   # GET /services.json
   def index
-    @services = current_user.services.order(:name)
+    @services = Service.order(:name)
   end
 
   # GET /services/1
@@ -15,16 +15,19 @@ class ServicesController < ApplicationController
   # GET /services/new
   def new
     @service = current_user.services.new
+    authorize! :manage, @service
   end
 
   # GET /services/1/edit
   def edit
+    authorize! :manage, @service
   end
 
   # POST /services
   # POST /services.json
   def create
-    @service = current_user.services.new(service_params)
+    @service = Service.new(service_params)
+    authorize! :manage, @service
 
     respond_to do |format|
       if @service.save
@@ -40,6 +43,8 @@ class ServicesController < ApplicationController
   # PATCH/PUT /services/1
   # PATCH/PUT /services/1.json
   def update
+    authorize! :manage, @service
+
     respond_to do |format|
       if @service.update(service_params)
         format.html { redirect_to @service, notice: 'Service was successfully updated.' }
@@ -54,6 +59,8 @@ class ServicesController < ApplicationController
   # DELETE /services/1
   # DELETE /services/1.json
   def destroy
+    authorize! :manage, @service
+
     @service.destroy
     respond_to do |format|
       format.html { redirect_to services_url }
@@ -64,7 +71,7 @@ class ServicesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_service
-      @service = current_user.services.find(params[:id])
+      @service = Service.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

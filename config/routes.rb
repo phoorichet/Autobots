@@ -160,6 +160,7 @@ Autobots::Application.routes.draw do
 
   get 'heatmap' => 'static_pages#heatmap'
   get 'dashboards' => 'static_pages#dashboards'
+  get 'access_denied' => 'static_pages#access_denied'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

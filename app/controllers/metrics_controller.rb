@@ -11,22 +11,24 @@ class MetricsController < ApplicationController
   # GET /metrics/1
   # GET /metrics/1.json
   def show
-    gon.metric = @metric.attributes
   end
 
   # GET /metrics/new
   def new
     @metric = @service.metrics.new
+    authorize! :manage, @metric
   end
 
   # GET /metrics/1/edit
   def edit
+    authorize! :manage, @metric
   end
 
   # POST /metrics
   # POST /metrics.json
   def create
     @metric = @service.metrics.new(metric_params)
+    authorize! :manage, @metric
 
     respond_to do |format|
       if @metric.save
@@ -42,6 +44,7 @@ class MetricsController < ApplicationController
   # PATCH/PUT /metrics/1
   # PATCH/PUT /metrics/1.json
   def update
+    authorize! :manage, @metric
     respond_to do |format|
       if @metric.update(metric_params)
         format.html { redirect_to [@metric.service], notice: 'Metric was successfully updated.' }
@@ -56,7 +59,10 @@ class MetricsController < ApplicationController
   # DELETE /metrics/1
   # DELETE /metrics/1.json
   def destroy
+    authorize! :manage, @metric
+
     @metric.destroy
+
     respond_to do |format|
       format.html { redirect_to service_metrics_url }
       format.json { head :no_content }
@@ -71,7 +77,7 @@ class MetricsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def metric_params
-      params.require(:metric).permit(:name, :settings, :model_name, :attr, :unit, :transform, :service_id, :visualization_id, :mapf, :reducef, :groupf, :reducef_init_value)
+      params.require(:metric).permit(:name, :settings, :model_name, :attr, :unit, :transform, :service_id, :visualization_id, :mapf, :reducef, :groupf, :reducef_init_value, :description)
     end
 
     # Get service that has the service

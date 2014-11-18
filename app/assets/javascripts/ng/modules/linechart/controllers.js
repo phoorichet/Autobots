@@ -8,20 +8,23 @@
        * Initialize  all the variables
        */
       $scope.initialize = function(element, attributes){
-        $scope.element = element;
-        $scope.metricId = attributes.metricid;
-        $scope.width   = attributes.width;
-        $scope.height  = attributes.height;
-        $scope.region  = attributes.region || null;
-        $scope.site    = attributes.site   || null;
-        $scope.apn     = attributes.apn    || null;
-        $scope.sgsn    = attributes.sgsn   || null;
-        $scope.stack   = attributes.stack  || null;
-        $scope.attr    = attributes.attr;
-        // $scope.vspecs  = JSON.parse(attributes.vspecs);
-        $scope.filters = Filters;
-        $scope.service = attributes.service;
-        $scope.serviceApi = Api[attributes.service];
+        $scope.element     = element;
+        
+        $scope.name        = attributes.name;
+        $scope.description = attributes.description;
+        $scope.metricId    = attributes.metricid;
+        $scope.width       = attributes.width;
+        $scope.height      = attributes.height;
+        $scope.region      = attributes.region || null;
+        $scope.site        = attributes.site   || null;
+        $scope.apn         = attributes.apn    || null;
+        $scope.sgsn        = attributes.sgsn   || null;
+        $scope.stack       = attributes.stack  || null;
+        $scope.attr        = attributes.attr;
+        
+        $scope.filters     = Filters;
+        $scope.service     = attributes.service;
+        $scope.serviceApi  = Api[attributes.service];
 
         // $('.multiselect').multiselect();
 

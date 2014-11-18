@@ -26,3 +26,30 @@
 .main {
   background-color: #fff;
 }
+
+.robot-action-icon {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.highlight {
+  background-color: yellow;
+}
+.robot-timepicker-wrapper {
+  // margin-top: 25px;
+  position: absolute;
+  right: 20px;
+  min-width: 200px;
+}
+.robot-info-time {
+  font-size: 11px;
+  /*font-style: italic;*/
+}
+
+.robot-date-time-text {
+  color: darken(#428bca, 6.5%);
+}
+
+.robot-description-text {
+
+}

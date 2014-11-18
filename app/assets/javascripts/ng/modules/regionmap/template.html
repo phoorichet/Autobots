@@ -1,4 +1,8 @@
 <div class="robot-regionmap-wrapper">  
+  <h4>{{ service }}</h4>
+  <h5>{{ name }} - <i class="robot-description-text">{{ description }}</i></h5>
+  <p>From <i class="robot-date-time-text">{{ filters.time.from.date | date:'medium' }}</i> <i class="fa fa-angle-double-right"></i> To <i class="robot-date-time-text">{{ filters.time.to.date | date:'medium' }}</i></p>
+
   <div class="dropdown">
     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
       {{ region || "Thailand" }}
@@ -14,16 +18,14 @@
       <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="region = 'South';">South</a></li>
     </ul>
   </div>
-  <!-- <h3>{{ region || "Thailand"}}</h3> -->
-  <h4>{{ service }} : {{ attr }}</h4>
-  <p>From {{ filters.time.from.date | date:'medium' }} --> To {{ filters.time.to.date | date:'medium' }}</p>
+
   <div class="row">
     <div class="col-lg-12 text-center">
       <div class="viz"></div>
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-offset-4 col-lg-4 text-center">
+    <div class="col-lg-offset-5 col-lg-2 text-center">
       <div class="viz-radial radial"></div>  
     </div>
   </div>

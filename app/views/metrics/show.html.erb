@@ -1,13 +1,25 @@
 <p id="notice"><%= notice %></p>
 <h2><%= @metric.service.name %></h2>
 
+<% if can? :manage, @metric %>
 <%= link_to 'Edit', edit_service_metric_path(@metric.service, @metric) %>
+
+
 <div class="row">
   <div class="col-lg-2">
     <p><strong>Metric Name</strong></p>
   </div>
   <div class="col-lg-10">
     <p><%= @metric.name %></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-2">
+    <p><strong>Description</strong></p>
+  </div>
+  <div class="col-lg-10">
+    <p><%= @metric.description %></p>
   </div>
 </div>
 
@@ -168,10 +180,14 @@
   </div>
 </div>
 
+<% end %>
 
 <%= render "visualizations/shared/" + @metric.visualization.view_path %>
 
 <br/>
 
+<% if can? :manage, @metric %>
 <%= link_to 'Edit', edit_service_metric_path(@metric.service, @metric) %> |
-<%= link_to 'Back', service_metrics_path(@metric.service) %>
+<% end %>
+
+<%= link_to 'Back', service_path(@metric.service) %>

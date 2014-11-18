@@ -130,6 +130,8 @@ module Api
 
         select_list = metric.selectfs.map{|d| "#{RawYoutube.table_name}.#{d.field}"}
         select_list << "#{MsLocation.table_name}.region"
+        select_list << "#{MsLocation.table_name}.rncname"
+        
         # Required criteria
         results = RawYoutube
         results = results.select(select_list)

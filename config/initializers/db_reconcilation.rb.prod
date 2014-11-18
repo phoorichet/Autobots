@@ -1,7 +1,7 @@
-ails.application.config.after_initialize do
+Rails.application.config.after_initialize do
   # initialization code goes here
   
-    if ENV["RAILS_ENV"] == 'development'
+  if ENV["RAILS_ENV"] == 'development'
     puts "---> Changing database configuration for development.."
     RawHttp.table_name      = 'RAWROBOT.DATASESSION'
     RawPing.table_name      = 'RAWROBOT.PINGSESSION'

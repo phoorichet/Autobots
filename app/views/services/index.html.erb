@@ -6,22 +6,29 @@
     <tr>
       <th>Name</th>
       <th>Model</th>
+<% if can? :manage, @service %>
       <th>Setttings</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Actions</th>
+<% end %>
     </tr>
   </thead>
 
   <tbody>
     <% @services.each do |service| %>
       <tr>
-        <td><%= service.name %></td>
+        <td><%= link_to service.name, service %></td>
         <td><%= service.model_name %></td>
+<% if can? :manage, @service %>  
         <td><%= service.setttings %></td>
-        <td><%= link_to 'Show', service %></td>
-        <td><%= link_to 'Edit', edit_service_path(service) %></td>
-        <td><%= link_to 'Destroy', service, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to(edit_service_path(service), class: "robot-action-icon") do %>
+            <i class="fa fa-pencil-square-o"></i>
+          <% end -%> 
+          <%= link_to(service_path(service), method: :delete, data: { confirm: 'Are you sure?' }, class: "robot-action-icon") do %>
+            <i class="fa fa-trash-o"></i>
+          <% end -%> 
+        </td>
+<% end %>
       </tr>
     <% end %>
   </tbody>
@@ -29,4 +36,6 @@
 
 <br>
 
-<%= link_to 'New Service', new_service_path %>
+<% if can? :manage, @service %>
+  <%= link_to 'New Service', new_service_path %>
+<% end %>

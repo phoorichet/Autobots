@@ -16,16 +16,19 @@ class FiltersController < ApplicationController
   # GET /filters/new
   def new
     @filter = @metric.filters.new
+    authorize! :manage, @filter
   end
 
   # GET /filters/1/edit
   def edit
+    authorize! :manage, @filter
   end
 
   # POST /filters
   # POST /filters.json
   def create
     @filter = @metric.filters.new(filter_params)
+    authorize! :manage, @filter
 
     respond_to do |format|
       if @filter.save
@@ -41,6 +44,8 @@ class FiltersController < ApplicationController
   # PATCH/PUT /filters/1
   # PATCH/PUT /filters/1.json
   def update
+    authorize! :manage, @filter
+    
     respond_to do |format|
       if @filter.update(filter_params)
         format.html { redirect_to [@filter.metric, @filter], notice: 'Filter was successfully updated.' }
@@ -55,6 +60,8 @@ class FiltersController < ApplicationController
   # DELETE /filters/1
   # DELETE /filters/1.json
   def destroy
+    authorize! :manage, @filter
+
     @filter.destroy
     respond_to do |format|
       format.html { redirect_to [@metric.service, @metric] }

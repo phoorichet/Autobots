@@ -3,7 +3,7 @@ echo "----> Modifying Gemfile"
 cp Gemfile.prod Gemfile
 
 echo "----> Modifying Database"
-cp config/initializers/db_reconcilation.rb.prd config/initializers/db_reconcilation.rb
+cp config/initializers/db_reconcilation.rb.prod config/initializers/db_reconcilation.rb
 
 
 echo "----> Done!!"

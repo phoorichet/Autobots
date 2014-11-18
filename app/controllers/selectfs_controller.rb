@@ -16,16 +16,20 @@ class SelectfsController < ApplicationController
   # GET /selectfs/new
   def new
     @selectf = @metric.selectfs.new
+    authorize! :manage, @selectf
   end
 
   # GET /selectfs/1/edit
   def edit
+    authorize! :manage, @selectf
   end
 
   # POST /selectfs
   # POST /selectfs.json
   def create
     @selectf = @metric.selectfs.new(selectf_params)
+
+    authorize! :manage, @selectf
 
     respond_to do |format|
       if @selectf.save
@@ -41,6 +45,8 @@ class SelectfsController < ApplicationController
   # PATCH/PUT /selectfs/1
   # PATCH/PUT /selectfs/1.json
   def update
+    authorize! :manage, @selectf
+
     respond_to do |format|
       if @selectf.update(selectf_params)
         format.html { redirect_to [@selectf.metric, @selectf ], notice: 'Selectf was successfully updated.' }
@@ -55,6 +61,8 @@ class SelectfsController < ApplicationController
   # DELETE /selectfs/1
   # DELETE /selectfs/1.json
   def destroy
+    authorize! :manage, @selectf
+
     @selectf.destroy
     respond_to do |format|
       format.html { redirect_to [@metric.service, @metric] }

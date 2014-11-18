@@ -1,18 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-
 <h2><%= @service.name %></h2>
-
-<!-- <p>
-  <strong>Setttings:</strong>
-  <%= @service.setttings %>
-</p> -->
-
-<!-- <p>
-  <strong>Model Name:</strong>
-  <%= @service.model_name %>
-</p> -->
-
 
 <div class="panel panel-default">
   <div class="panel-heading">Metrics</div>
@@ -24,12 +12,10 @@
           <th>Service</th>
           <th>Attr</th>
           <th>Visualization</th>
+<% if can? :manage, @service %>
           <th>Unit</th>
-          <!-- <th>Transform</th>
-          <th>Settings</th> -->
-          <!-- <th></th> -->
-          <th></th>
-          <th></th>
+          <th>Actions</th>
+<% end %>
         </tr>
       </thead>
 
@@ -40,23 +26,31 @@
             <td><%= metric.service.name %></td>
             <td><%= metric.attr %></td>
             <td><%= metric.visualization.name %></td>
+<% if can? :manage, @service %>              
             <td><%= metric.unit %></td>
-            <!-- <td><%= metric.transform %></td>
-            <td><%= metric.settings %></td> -->
-            <!-- <td><%= link_to 'Show', [metric.service, metric] %></td> -->
-            <td><%= link_to 'Edit', edit_service_metric_path(@service, metric) %></td>
-            <td><%= link_to 'Destroy', [metric.service, metric], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td>
+              <%= link_to(edit_service_metric_path(@service, metric), class: 'robot-action-icon') do %>
+                <i class="fa fa-pencil-square-o"></i>
+              <% end-%>
+              <%= link_to([metric.service, metric], method: :delete, data: { confirm: 'Are you sure?' }, class: 'robot-action-icon') do %>
+                <i class="fa fa-trash-o"></i>
+              <% end-%>
+            </td>
+<% end %>
           </tr>
         <% end %>
       </tbody>
     </table>
 
     <br>
+<% if can? :manage, @service %>     
     <%= link_to 'New Metric', new_service_metric_path(@service) %>
+<% end %>    
   </div>
 </div>
 
-
-<br/>
-<%= link_to 'Edit', edit_service_path(@service) %> |
-<%= link_to 'Back', services_path %>
+<% if can? :manage, @service %>  
+  <br/>
+  <%= link_to 'Edit', edit_service_path(@service) %> |
+  <%= link_to 'Back', services_path %>
+<% end %> 

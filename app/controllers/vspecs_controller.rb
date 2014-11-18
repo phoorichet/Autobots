@@ -16,16 +16,19 @@ class VspecsController < ApplicationController
   # GET /vspecs/new
   def new
     @vspec = @metric.vspecs.new
+    authorize! :manage, @vspec
   end
 
   # GET /vspecs/1/edit
   def edit
+    authorize! :manage, @vspec
   end
 
   # POST /vspecs
   # POST /vspecs.json
   def create
     @vspec = @metric.vspecs.new(vspec_params)
+    authorize! :manage, @vspec
 
     respond_to do |format|
       if @vspec.save
@@ -41,6 +44,8 @@ class VspecsController < ApplicationController
   # PATCH/PUT /vspecs/1
   # PATCH/PUT /vspecs/1.json
   def update
+    authorize! :manage, @vspec
+
     respond_to do |format|
       if @vspec.update(vspec_params)
         format.html { redirect_to [@vspec.metric, @vspec], notice: 'Vspec was successfully updated.' }
@@ -55,6 +60,7 @@ class VspecsController < ApplicationController
   # DELETE /vspecs/1
   # DELETE /vspecs/1.json
   def destroy
+    authorize! :manage, @vspec
     metric = @vspec.metric
     @vspec.destroy
     respond_to do |format|
