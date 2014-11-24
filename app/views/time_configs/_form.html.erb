@@ -11,57 +11,112 @@
     </div>
   <% end %>
 
+  <div class="form-group field">
+    <div class="row">
+      <div class="col-lg-2">
+        <%= f.label :name %>
+      </div>
+      <div class="col-lg-10">
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+  
 
   <div class="form-group field">
-    <%= f.label :name, class: "col-sm-2" %>
-    <div class="col-sm-10">
-    <%= f.text_field :name, class: "form-control" %>
+    <div class="row">
+      <div class="col-lg-2">
+        <%= f.label :description %>
+      </div>
+      <div class="col-lg-10">
+        <%= f.text_area :description, class: "form-control" %>
+      </div>
     </div>
   </div>
 
   <div class="form-group field">
-    <%= f.label :description, class: "col-sm-2" %>
-    <div class="col-sm-10">
-    <%= f.text_field :description, class: "form-control" %>
+    <div class="row">
+      <div class="col-lg-2">
+        <%= f.label :start %>  
+      </div>
+      <div class="col-lg-10">
+        <%= f.text_field :start, class: "form-control" %>
+      </div>
     </div>
   </div>
 
   <div class="form-group field">
-    <%= f.label :start, class: "col-sm-2" %>
-    <div class="col-sm-10">
-    <%= f.text_field :start, class: "form-control" %>
+    <div class="row">
+      <div class="col-lg-2">
+        <%= f.label :time_unit %>    
+      </div>
+    
+      <div class="col-lg-10">
+        
+        <%= f.select :time_unit, options_for_select([['Minutes', 'm'], ['Hours', 'h'], ['Days', 'd'], ['Months', 'M']], selected: @time_config.time_unit), {} , class: "form-control" %>
+      </div>
     </div>
   </div>
 
   <div class="form-group field">
-    <%= f.label :stop, class: "col-sm-2" %>
-    <div class="col-sm-10">
-    <%= f.text_field :stop, class: "form-control" %>
+    <div class="row">
+      <div class="col-lg-2">
+        <%= f.label :to %>    
+      </div>
+    
+      <div class="col-lg-10">
+        <%= f.text_field :stop, class: "form-control" %>
+      </div>
     </div>
   </div>
 
   <div class="form-group field">
-    <%= f.label :interval, class: "col-sm-2" %>
-    <div class="col-sm-10">
-    <%= f.text_field :interval, class: "form-control" %>
+    <div class="row">
+      <div class="col-lg-2">
+        <%= f.label :interval %>
+      </div>
+      <div class="col-lg-10">
+        <%= f.text_field :interval, class: "form-control" %>
+      </div>
     </div>
   </div>
 
   <div class="form-group field">
-    <%= f.label :time_type, class: "col-sm-2" %>
-    <div class="col-sm-10">
-      <%= f.label :time_type, "Realtime", :value => "_realtime"  %>
-      <%= f.radio_button :time_type, "_realtime", :checked => @time_config.time_type == "_realtime" %>
-      <%= f.label :time_type, "Relative", :value => "_relative" %>
-      <%= f.radio_button :time_type, "_relative", :checked => @time_config.time_type == "_relative" %>
-      <%= f.label :time_type, "Interval", :value => "_interval" %>
-      <%= f.radio_button :time_type, "_interval", :checked => @time_config.time_type == "_interval" %>
+    <div class="row">
+      <div class="col-lg-2">
+        <%= f.label :time_type %>
+      </div>
+      <div class="col-lg-10">
+        <%= f.radio_button :time_type, "_realtime", :checked => @time_config.time_type == "_realtime" %>
+        <%= f.label :time_type, "Realtime", :value => "_realtime"  %>
+        <br/>
+        <%= f.radio_button :time_type, "_relative", :checked => @time_config.time_type == "_relative" %>
+        <%= f.label :time_type, "Relative", :value => "_relative" %>
+        <br/>
+        <%= f.radio_button :time_type, "_interval", :checked => @time_config.time_type == "_interval" %>
+        <%= f.label :time_type, "Interval", :value => "_interval" %>
+      </div>
+    </div>
+  </div>
+
+   <div class="form-group field">
+    <div class="row">
+      <div class="col-lg-2">
+        <%= f.label :order_id %>
+      </div>
+      <div class="col-lg-10">
+        <%= f.text_field :order_id, class: "form-control" %>
+      </div>
     </div>
   </div>
 
   <div class="form-group actions">
-    <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit "Submit", class: "btn btn-default" %>
+    <div class="row">
+      <div class="col-lg-offset-2 col-lg-10">
+        <%= f.submit "Submit", class: "btn btn-primary" %>
+        <%= link_to 'Cancel', time_configs_path, class: "btn btn-danger" %>
+      </div>
+
     </div>
   </div>
 <% end %>

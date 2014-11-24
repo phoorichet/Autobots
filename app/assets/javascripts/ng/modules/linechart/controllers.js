@@ -397,7 +397,7 @@
 
             d3.selectAll(".focus")
                 .data(dd)
-                .attr("transform", function(d){ return "translate(" + x(d.groups.date) + "," + y(d.values.y) + ")" })
+                .attr("transform", function(d){ return d.groups === undefined ? null : "translate(" + x(d.groups.date) + "," + y(d.values.y) + ")" })
                 .style("display", null);
                 // .select("text").text()            
 
@@ -406,7 +406,7 @@
 
             d3.selectAll(".focus-legend")
                 .data(dd)
-                .text(function(v){ return formatPercent(v.values.y); });
+                .text(function(v){ return v.values === undefined ? null : formatPercent(v.values.y); });
 
           }
         }

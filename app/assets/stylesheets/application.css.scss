@@ -54,3 +54,26 @@
 .robot-description-text {
 
 }
+
+.line {
+  fill: none;
+  stroke-width: 1.5px;
+}
+
+.hover-line { 
+  stroke: #E6E7E8;
+  fill: none;
+  stroke-width: 1px;
+  left: 10px;
+  shape-rendering: crispEdges;
+  opacity: 1e-6;
+}
+
+.legend-box {
+  cursor: pointer;  
+}
+
+.tooltip {
+  /*fill: #000000;*/
+  /*stroke-width: 3px;*/
+}

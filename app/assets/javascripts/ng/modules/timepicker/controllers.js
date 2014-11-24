@@ -31,7 +31,8 @@
 
       $scope.changeRelativeTimepick = function(timeconfig){
         $scope.timepick = timeconfig.name;
-        var startStop = $scope.calculateTime(timeconfig.start, timeconfig.stop);
+        console.log(timeconfig);
+        var startStop = $scope.calculateTime(timeconfig.start + timeconfig.time_unit, timeconfig.stop);
         $scope.timestart = startStop.start;
         $scope.timestop  = startStop.stop;
       }

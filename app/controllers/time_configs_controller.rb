@@ -15,16 +15,19 @@ class TimeConfigsController < ApplicationController
   # GET /time_configs/new
   def new
     @time_config = TimeConfig.new
+    authorize! :manage, @time_config
   end
 
   # GET /time_configs/1/edit
   def edit
+    authorize! :manage, @time_config
   end
 
   # POST /time_configs
   # POST /time_configs.json
   def create
     @time_config = TimeConfig.new(time_config_params)
+    authorize! :manage, @time_config
 
     respond_to do |format|
       if @time_config.save
@@ -40,6 +43,8 @@ class TimeConfigsController < ApplicationController
   # PATCH/PUT /time_configs/1
   # PATCH/PUT /time_configs/1.json
   def update
+    authorize! :manage, @time_config
+
     respond_to do |format|
       if @time_config.update(time_config_params)
         format.html { redirect_to @time_config, notice: 'Time config was successfully updated.' }
@@ -54,6 +59,7 @@ class TimeConfigsController < ApplicationController
   # DELETE /time_configs/1
   # DELETE /time_configs/1.json
   def destroy
+    authorize! :manage, @time_config
     @time_config.destroy
     respond_to do |format|
       format.html { redirect_to time_configs_url }
@@ -69,6 +75,6 @@ class TimeConfigsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_config_params
-      params.require(:time_config).permit(:name, :description, :start, :stop, :interval, :time_type)
+      params.require(:time_config).permit(:name, :description, :start, :stop, :interval, :time_type, :time_unit, :order_id)
     end
 end

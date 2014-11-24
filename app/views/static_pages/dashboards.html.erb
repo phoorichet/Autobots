@@ -1,61 +1,46 @@
 <div class="row">
-  <div class="col-lg-10">
-    <h1 class="robot-page-header">Dashboards</h1>
-  </div>
-  <div class="col-lg-2">
+  <div class="col-lg-12">  
+
     <timepicker-panel></timepicker-panel>
-  </div>
-</div>
+    
+    <div role="tabpanel">
 
-<!-- Networkmap -->
-<!-- <div class="row">
-  <div class="col-lg-12">
-    <networkmap-panel service="Facebook" attr="http_succ_rate" width="960" height="700"></networkmap-panel>
-  </div>
-</div> -->
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <!-- <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li> -->
+        <li role="presentation"><a href="#facebook" aria-controls="facebook" role="tab" data-toggle="tab">facebook</a></li>
+        <li role="presentation"><a href="#instagram" aria-controls="instagram" role="tab" data-toggle="tab">instagram</a></li>
+        <li role="presentation"><a href="#twitter" aria-controls="twitter" role="tab" data-toggle="tab">twitter</a></li>
+        <li role="presentation"><a href="#ping" aria-controls="ping" role="tab" data-toggle="tab">ping</a></li>
+        <li role="presentation"><a href="#speedtest" aria-controls="speedtest" role="tab" data-toggle="tab">speedtest</a></li>
+        <li role="presentation"><a href="#youtube" aria-controls="youtube" role="tab" data-toggle="tab">youtube</a></li>
+      </ul>
 
-<!-- Regionmap -->
-<div class="row">
-  <div class="col-lg-4">
-    <regionmap-panel service="Facebook" region="North" attr="http_succ_rate" width="480" height="500"></regionmap-panel>
-  </div>
-  <div class="col-lg-4">
-    <regionmap-panel service="Facebook" region="Central" attr="http_succ_rate" width="480" height="280"></regionmap-panel>
-  </div>
-  <div class="col-lg-4">
-    <regionmap-panel service="Facebook" region="Northeast" attr="http_succ_rate" width="480" height="280"></regionmap-panel>
-  </div>
-</div>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <!-- <div role="tabpanel" class="tab-pane active" id="home"></div> -->
+        <div role="tabpanel" class="tab-pane" id="facebook">
+          <% @metric1 = Metric.find_by(name: 'TestMapReduce') %>
+          <linechart-panel 
+              name="<%= @metric1.name %>"
+              description="<%= @metric1.description %>"
+              service="<%= @metric1.service.name %>" 
+              metricid="<%= @metric1.id %>" 
+              attr="<%= @metric1.attr %>" 
+              width="1000" height="300">
+            <div></div>
+          </linechart-panel>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="instagram">...</div>
+        <div role="tabpanel" class="tab-pane" id="twitter">...</div>
+        <div role="tabpanel" class="tab-pane" id="ping">...</div>
+        <div role="tabpanel" class="tab-pane" id="speedtest">...</div>
+        <div role="tabpanel" class="tab-pane" id="youtube">...</div>
+      </div>
 
-<div class="row">
-  <div class="col-lg-4">
-    <regionmap-panel service="Facebook" region="Bangkok" attr="http_succ_rate" width="480" height="280"></regionmap-panel>
-  </div>
-  <div class="col-lg-4">
-    <regionmap-panel service="Facebook" region="South" attr="http_succ_rate" width="480" height="280"></regionmap-panel>
-  </div>
-  <div class="col-lg-4">
-    <regionmap-panel service="Facebook" region="East" attr="http_succ_rate" width="480" height="280"></regionmap-panel>
-  </div>
-</div>
+    </div>
 
+    
 
-<!-- Line Graph --> 
-
-<div class="row">
-  <div class="col-lg-12">
-    <% @metric = Metric.find(22) %>
-    <linechart-panel 
-      service="<%= @metric.service.name %>" 
-      metricid="<%= @metric.id %>" 
-      attr="<%= @metric.attr %>" 
-      vspecs="<%= @metric.vspecs.to_json %>"
-      width="1000" height="300">
-    <div></div>
-  </linechart-panel>
-
-    <linechart-panel service="Facebook"  attr="http_succ_rate" width="780" height="250"></linechart-panel>
-    <linechart-panel service="Facebook" attr="http_succ_rate" stack="region" width="780" height="250"></linechart-panel>
-    <linechart-panel service="Facebook" attr="http_succ_rate" stack="sgsn_name" width="780" height="250"></linechart-panel>
   </div>
 </div>

@@ -1,4 +1,4 @@
-<h1>Listing time_configs</h1>
+<h1>Listing Time Configurations</h1>
 
 <table class="table table-hover table-condensed">
   <thead>
@@ -6,27 +6,38 @@
       <th>Name</th>
       <th>Description</th>
       <th>Start</th>
+      <th>Unit</th>
       <th>Stop</th>
       <th>Interval</th>
       <th>Time type</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Order id</th>
+<% if can? :manage, @time_configs %>
+      <th>Actions</th>
+<% end %>
     </tr>
   </thead>
 
   <tbody>
     <% @time_configs.each do |time_config| %>
       <tr>
-        <td><%= time_config.name %></td>
+        <td><%= link_to time_config.name, time_config %></td>
         <td><%= time_config.description %></td>
         <td><%= time_config.start %></td>
+        <td><%= time_config.time_unit %></td>
         <td><%= time_config.stop %></td>
         <td><%= time_config.interval %></td>
         <td><%= time_config.time_type %></td>
-        <td><%= link_to 'Show', time_config %></td>
-        <td><%= link_to 'Edit', edit_time_config_path(time_config) %></td>
-        <td><%= link_to 'Destroy', time_config, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= time_config.order_id %></td>
+<% if can? :manage, @time_configs %>        
+        <td>
+          <%= link_to(edit_time_config_path(time_config), class: "robot-action-icon") do %>
+            <i class="fa fa-pencil-square-o"></i>
+          <% end -%> 
+          <%= link_to(time_config_path(time_config), method: :delete, data: { confirm: 'Are you sure?' }, class: "robot-action-icon") do %>
+            <i class="fa fa-trash-o"></i>
+          <% end -%> 
+        </td>
+<% end %>
       </tr>
     <% end %>
   </tbody>
