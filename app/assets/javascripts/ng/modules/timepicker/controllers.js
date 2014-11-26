@@ -21,18 +21,47 @@
         $scope.refreshIntervals = ['1m','5m','15m','30m','1h','2h'];
 
         // default value
-        $scope.interval         = '1m'; 
-        $scope.timepick         = 'Last 1 week'; 
-        var startStop = $scope.calculateTime('7d', 'now');
+        $scope.interval  = '1m'; 
+        $scope.timepick  = 'Last 1 week'; 
+        var startStop    = $scope.calculateTime('7d', 'now');
         $scope.timestart = startStop.start;
         $scope.timestop  = startStop.stop;
         $scope.setTime();
+
+        $scope.to   = {};
+        $scope.date_options   = $scope.generateIntegerArray(1, 31);
+        $scope.month_options  = moment.months().map(function(d, i){ return {name: d, value: i};}) // Create a object pair
+        $scope.year_options   = $scope.generateYear();
+        $scope.hour_options   = $scope.generateIntegerArray(0, 24);
+        $scope.minute_options = $scope.generateIntegerArray(0, 60);
+        $scope.second_options = $scope.generateIntegerArray(0, 60);
+
+        var now = moment();
+
+        $scope.from = {
+          date  : now.date(),
+          month : $scope.month_options.slice(now.month())[0],
+          year  : now.year(),
+          hour  : $scope.hour_options[0],
+          minute: $scope.minute_options[0],
+          second: $scope.second_options[0],
+        };
+
+        $scope.to = {
+          date  : now.date(),
+          month : $scope.month_options.slice(now.month())[0],
+          year  : now.year(),
+          hour  : $scope.hour_options[0],
+          minute: $scope.minute_options[0],
+          second: $scope.second_options[0],
+        };
+
       }
 
       $scope.changeRelativeTimepick = function(timeconfig){
-        $scope.timepick = timeconfig.name;
-        console.log(timeconfig);
-        var startStop = $scope.calculateTime(timeconfig.start + timeconfig.time_unit, timeconfig.stop);
+        // console.log(timeconfig);
+        $scope.timepick  = timeconfig.name;
+        var startStop    = $scope.calculateTime(timeconfig.start + timeconfig.time_unit, timeconfig.stop);
         $scope.timestart = startStop.start;
         $scope.timestop  = startStop.stop;
       }
@@ -50,12 +79,38 @@
         $("#collapseTimepicker").collapse('hide');
       }
 
+      $scope.hideModal = function(){
+        $('#customTimePicker').modal('hide')
+      }
+
       $scope.submitRequest = function(){
         $scope.hideAccordion();
         
         // submit request to change the filter and close modal
         $scope.setTime();
       }
+
+      $scope.changeCustomTime = function(){
+        $scope.hideModal();
+        $scope.hideAccordion();
+
+        console.log($scope.buildTime($scope.from).toDate());
+
+        $scope.timestart = $scope.buildTime($scope.from).toDate();
+        $scope.timestop  = $scope.buildTime($scope.to).toDate();
+
+        Filters.time = { 
+          from: { date: $scope.timestart, time: $scope.timestart.getTime() },
+          to:   { date: $scope.timestop,  time: $scope.timestop.getTime() }
+        };
+        console.log(Filters);
+      };
+
+      $scope.buildTime = function(time){
+        var d   = _.clone(time);
+        d.month = d.month.value;
+        return moment(d);
+      };
 
       /**
        * Calculate actual time object based on the selected criteria
@@ -86,6 +141,25 @@
           to:   { date: $scope.timestop,  time: $scope.timestop.getTime() }
         };
         console.log(Filters);
+      }
+
+
+      /**
+       * Generate one year ahead and afterward
+       * @return {[array of int]} [year list]
+       */
+      $scope.generateYear =  function(){
+        var currentYear =  moment().year();
+        return [currentYear - 1, currentYear, currentYear + 1 ];
+      }
+
+      $scope.generateIntegerArray = function(start, stop){
+        var l = [];
+        for (var i = start; i < stop; i++) {
+          l.push(i);
+        };
+
+        return l;
       }
 
 

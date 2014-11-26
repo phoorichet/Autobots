@@ -5,7 +5,6 @@ module Api
       respond_to :json
 
       def index
-        
         respond_with TimeConfig.all
       end
 
