@@ -329,11 +329,11 @@
 
         // Hover line 
         var hoverLineGroup = main.append("g") 
-                  .attr("class", "hover-line");
+                  .attr("class", "hover-line-group");
 
         var hoverLine = hoverLineGroup // Create line with basic attributes
               .append("line")
-                  .attr("id", "hover-line")
+                  .attr("class", "hover-line")
                   .attr("x1", 10).attr("x2", 10) 
                   .attr("y1", 0).attr("y2", height + 10)
                   .style("pointer-events", "none") // Stop line interferring with cursor
@@ -343,8 +343,7 @@
               .append('text')
                   .attr("class", "hover-text")
                   .attr("y", -20) // hover date text position
-                  .attr("x", width/3) // hover date text position
-                  .style("fill", "#E6E7E8");
+                  .attr("x", width/3); // hover date text position
 
         main.append("rect")
               .attr("class", "overlay")
