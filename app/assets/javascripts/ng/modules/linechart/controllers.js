@@ -61,7 +61,6 @@
       }
 
       $scope.$watchCollection('filters', function(newValue, oldValue){
-        console.log("Changed filters");
         $scope.updateViz(newValue);
       });
 
@@ -261,6 +260,14 @@
               .attr('y2', y(threshold))
               .attr('stroke-dasharray', "5,5");
 
+        // Threshold text
+        main.append('text')
+              .attr('x', 10)
+              .attr('y', y(threshold))
+              .attr("dy", "-.2em")
+              .attr('class', 'threshold-text')
+              .text("threshold=" + threshold);
+
         // Draw a stack of lines
         var lineGroups = main.selectAll('groups')
               .data(groups)
@@ -445,7 +452,8 @@
 
             d3.selectAll(".focus-legend")
                 .data(dd)
-                .text(function(v){ return v.values === undefined ? null : formatPercent(v.values.y); });
+                .text(function(v){ return v.values === undefined ? null : formatPercent(v.values.y); })
+                .classed("legend-below-threshold", function(d) { return d.values.y < threshold ? true : false ; });;
 
           }
         }
