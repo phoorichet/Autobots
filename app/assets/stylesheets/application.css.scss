@@ -77,3 +77,34 @@
   /*fill: #000000;*/
   /*stroke-width: 3px;*/
 }
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  fill: blue;
+  shape-rendering: crispEdges;
+}
+.area {
+  fill: steelblue;
+  clip-path: url(#clip);
+}
+
+.tick text{
+  font-size: 12px;
+}
+
+.tick line{
+  opacity: 0.2;
+}
+
+
+.threshold-line {
+  fill: red;
+}
+
+
+
+
+
+
+

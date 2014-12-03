@@ -55,11 +55,16 @@ module Api
 
         # Required criteria
         results = RawHttp.facebook
+
+        # Field selection
         results = results.select(metric.selectfs.map{|d| d.field})
+
+        # Time filtering
         results = results.where("#{time_series_attribute} >= ?", options[:start]) if options[:start]
         results = results.where("#{time_series_attribute} <  ?", options[:stop]) if options[:stop] 
         results = results.order("#{time_series_attribute} ASC")
 
+        # Stored filtering
         metric.filters.each do |d|
           operand = d.operand
 
@@ -80,7 +85,7 @@ module Api
         results = results.where("apn =  ?",     filters[:apn]) if filters[:apn] 
         results = results.where("apn LIKE ?", "%#{filters[:site]}%") if filters[:site] 
 
-        # ---------
+        # -----------------------------------------
         # Hack to make region and sgsn filters work
         region_imeis = nil
         if filters[:region]
@@ -97,7 +102,7 @@ module Api
           results = results.where(imei: sgsn_imeis)
         end
         # end Hack
-        # ---------
+        # -----------------------------------------
 
         # Kinda dangerous to use eval here. Must grant only admin user to 
         # be able to add/change mapf, groupf, and reducef functions

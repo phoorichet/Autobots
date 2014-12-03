@@ -26,6 +26,8 @@
         $scope.service     = attributes.service;
         $scope.serviceApi  = Api[attributes.service];
 
+        $scope.spinner     = element.find("#robot-spinner");
+
         // $('.multiselect').multiselect();
 
         $scope.panel = {
@@ -110,64 +112,119 @@
       }
 
       $scope.updateViz = function(filters){
-        var formatPercent = d3.format(".2f");
+        // Create static content for the page first
+        var margin = {top: 50, right: 300, bottom: 130, left: 50},
+          margin2 = {top: 400, right: 10, bottom: 20, left: 50},
+          width = $scope.width - margin.left - margin.right,
+          height = $scope.height - margin.top - margin.bottom, //500-50-50 = 400
+          height2 = $scope.height - margin2.top - margin2.bottom, //500-400-20 = 80
+          threshold = 85,
+          dateFormat = d3.time.format("%x %X"),
+          formatPercent = d3.format(".2f");
 
+        var customTimeFormat = d3.time.format.multi([
+          [".%L", function(d) { return d.getMilliseconds(); }],
+          [":%S", function(d) { return d.getSeconds(); }],
+          ["%I:%M", function(d) { return d.getMinutes(); }],
+          ["%I %p", function(d) { return d.getHours(); }],
+          ["%a %d", function(d) { return d.getDay() && d.getDate() != 1; }],
+          ["%b %d", function(d) { return d.getDate() != 1; }],
+          ["%B", function(d) { return d.getMonth(); }],
+          ["%Y", function() { return true; }]
+        ]);
+
+        var container = $scope.element.find(".viz");
+
+        d3.select(container[0]).select('svg').remove(); // clear the existing
+
+        var svg = d3.select(container[0]).append("svg")
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom);
+
+        svg.append("defs").append("clipPath")
+                .attr("id", "clip")
+              .append("rect")
+                .attr("width", width)
+                .attr("height", height);
+
+        var main = svg.append("g")
+              .attr("class", "main")
+              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        // Local filters 
         var submitFilters = _.clone($scope.filters);
-        // Local filters
         submitFilters['id'] = $scope.metricId;
         submitFilters['attr']  = $scope.attr;
-        // submitFilters['vspec'] = $scope.makeVspecs();
         submitFilters['filters'] = { region: $scope.region, apn: $scope.apn, sgsn: $scope.sgsn, site: $scope.site };
-        console.log(submitFilters);
+        // console.log(submitFilters);
+
+        $scope.spinner.removeClass("hide");
 
         $scope.serviceApi.mapreduce(submitFilters, function(data){
-          console.log(data);
+          // console.log(data);
 
-          var spinner = $scope.element.find("#robot-spinner");
-          spinner.remove();
+          $scope.spinner.addClass("hide");
           
           data.forEach(function(d) {
             d.groups.date = new Date(d.groups.date_time);
-            // if ($scope.stack === null) {
-            //   d.stack = "all";
-            // }
           });
 
         /* ######### D3 goes here ###### */
           
-        var margin = {top: 50, right: 300, bottom: 30, left: 50},
-            width = $scope.width - margin.left - margin.right,
-            height = $scope.height - margin.top - margin.bottom,
-            threshold = 85,
-            dateFormat = d3.time.format("%x %X");
-
         var x = d3.time.scale()
               .domain(d3.extent(data, function(d){ return d.groups.date; }))
               .range([0, width]);
 
-        // console.log(d3.extent(data, function(d){ return d.groups.date; }));
+        var x2 = d3.time.scale()
+              .domain(d3.extent(data, function(d){ return d.groups.date; }))
+              .range([0, width]);
 
         var y = d3.scale.linear()
               // .domain(d3.extent(data, function(d){ return d[attr]; }))
               .domain([0, 100]) // Max at 100%
-            .range([height, 0]);
+            .range([height , 0]);
+
+        var y2 = d3.scale.linear()
+              .domain([0, 100])
+            .range([height2, 0]);
 
         var xAxis = d3.svg.axis()
               .scale(x)
               .orient("bottom")
-              .ticks(d3.time.day, 2);
+              .ticks(d3.time.day, 1)
+              .tickFormat(d3.time.format('%e/%m/%y'))
+              .innerTickSize(-height)
+              .outerTickSize(0)
+              .tickPadding(10);
+
+        var xAxis2 = d3.svg.axis()
+              .scale(x2)
+              .orient("bottom")
+              .ticks(d3.time.day, 1);
 
         var yAxis = d3.svg.axis()
               .scale(y)
-              .orient("left");
+              .orient("left")
+              .innerTickSize(-width)
+              .outerTickSize(0)
+              .tickPadding(10);
 
+        var brush = d3.svg.brush()
+              .x(x2)
+              .on("brush", brushed);
+
+        // Bind data here
         var line = d3.svg.line()
               .x(function(d){ return x(d.groups.date); })
               .y(function(d){ return y(d.values.y); });
 
+        var line2 = d3.svg.line()
+              .x(function(d){ return x2(d.groups.date); })
+              .y(function(d){ return y2(d.values.y); });
+
         var uniqueGroups = d3.set(data.map(function(v){ return v.groups.stack; })).values().sort();
 
-        var color = d3.scale.category10()
+        var color = d3.scale.category20()
               .domain(uniqueGroups);
 
         // Create a group where each member has unique name attribute.
@@ -178,25 +235,13 @@
             values: data.filter(function(d){ return d.groups.stack === name })
           }
         });
-
-        // console.log(groups);
-
-        var container = $scope.element.find(".viz");
-
-        d3.select(container[0]).select('svg').remove(); // clear the existing
-
-        var svg = d3.select(container[0]).append("svg")
-              .attr("width", width + margin.left + margin.right)
-              .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-        svg.append("g")
+        
+        main.append("g")
               .attr("class", "x axis")
-              .attr("transform", "translate(0," + height + ")")
+              .attr("transform", "translate(0," + height  + ")")
               .call(xAxis);
 
-        svg.append("g")
+        main.append("g")
               .attr("class", "y axis")
               .call(yAxis)
             .append("text")
@@ -207,36 +252,26 @@
               .text("%");
 
         // Draw threshold line 
-        svg.append("line")
+        main.append("line")
               .attr("class", "threshold-line")
               .style('opacity', 1)
               .attr('x1', 0)
               .attr('y1', y(threshold))
               .attr('x2', width)
               .attr('y2', y(threshold))
-              .transition()
-                .duration(1500)
-                .ease("linear")
-                .style('opacity', 1);
-
-        // Draw threshold text at the end of the line
-        // svg.append("text")
-        //       .attr("x", width)
-        //       .attr("y", y(threshold))
-        //       .attr("dy", "-0.3em")
-        //       .style("text-anchor", "end")
-        //       .text("Threshold 85%");
+              .attr('stroke-dasharray', "5,5");
 
         // Draw a stack of lines
-        var lineGroups = svg.selectAll('groups')
+        var lineGroups = main.selectAll('groups')
               .data(groups)
             .enter().append('g')
               .attr('class', 'groups');
 
         lineGroups.append("path")
-            .attr("class", "line")
+            .attr("class", "lock line")
             .attr("d", function(d) { return line(d.values); })
-            .style("stroke", function(d) { return color(d.name); });
+            .style("stroke", function(d) { return color(d.name); })
+            .style("clip-path", "url(#clip)");
 
         // draw legend
         var legendSpace = 450 / lineGroups.length; // 450/number of issues (ex. 40) 
@@ -264,45 +299,25 @@
               .attr("dy", ".65em")
               .text(function(d) { return d.name; });
 
-        // lineGroups.append("text")
-        //       .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
-        //       .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.y) + ")"; })
-        //       .attr("x", 3)
-        //       .attr("dy", ".35em")
-        //       .text(function(d) { return d.name; });
-        
-
-        // Create focusgroup
-        // var focusLegend = lineGroups.select("g")
-        //       .data(groups)
-        //     .enter().append('g')
-        //       .attr("class", "focus-legend");
-
-        // focusLegend.append("text")
-        //       .attr("class", function(d) { return "tooltip" + " " + d.name; })
-        //       .attr("x", width + (margin.right/3) - 10)
-        //       .attr("y", function(d, i) { return i*20; })
-        //       .attr("dy", ".65em");
-
-
-        var dots = svg.append('g')
-              .attr('class', 'dot-group');
+        var dots = main.append('g')
+              .attr('class', 'dot-group')
+              .style("clip-path", "url(#clip)");
         
         dots.selectAll(".dot")
               .data(data)
             .enter().append("circle")
-              .attr("class", "dot")
+              .attr("class", "lock dot")
               .attr("cx", line.x())
               .attr("cy", line.y())
               .attr("r", 1)
               .classed("below-threshold", function(d) { return d.values.y < threshold ? true : false ; });
 
-        svg.selectAll(".below-threshold")
+        main.selectAll(".below-threshold")
             .transition()
               .duration(500)
               .each(blink);
 
-        var focuses = svg.append("g")
+        var focuses = main.append("g")
               .attr("class", "focus-group");
 
         focuses.selectAll(".focus")
@@ -312,21 +327,8 @@
               .attr("class", function(d){ return "focus "+ d.name; })
               .style("display", "none");
 
- 
-
-        // var focus = svg.append("g")
-        //       .attr("class", "focus")
-        //       .style("display", "none");
-
-        // focus.append("circle")
-        //       .attr("r", 4.5);
-
-        // focus.append("text")
-        //       .attr("x", 9)
-        //       .attr("dy", "-.35em");
-
         // Hover line 
-        var hoverLineGroup = svg.append("g") 
+        var hoverLineGroup = main.append("g") 
                   .attr("class", "hover-line");
 
         var hoverLine = hoverLineGroup // Create line with basic attributes
@@ -344,7 +346,7 @@
                   .attr("x", width/3) // hover date text position
                   .style("fill", "#E6E7E8");
 
-        svg.append("rect")
+        main.append("rect")
               .attr("class", "overlay")
               .attr("width", width)
               .attr("height", height)
@@ -352,14 +354,52 @@
               // .on("mouseout", function() { focus.style("display", "none"); })
               .on("mousemove", mousemove)
               .on("mouseout", function() {
-                  hoverDate.text(null) // on mouseout remove text for hover date
-
+                  hoverDate.text(null); // on mouseout remove text for hover date
                   d3.select("#hover-line")
                       .style("opacity", 1e-6); // On mouse out making line invisible
+
+                  d3.selectAll(".focus").style("display", "none");
               })
               .on("click", function() { console.log(d3.mouse(this)); });
 
         var bisectDate = d3.bisector(function(d) { return d.groups.date; }).left;
+
+        var context = svg.append("g")
+              .attr("class", "context")
+              .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+
+        var contextLine = context.selectAll('context-groups')
+              .data(groups)
+            .enter().append('g')
+              .attr('class', 'context-groups');
+
+        contextLine.append("path")
+              .attr("class", "line")
+              .attr("d", function(d) { return line2(d.values); })
+              .style("stroke", function(d) { return color(d.name); });
+
+        context.append("g")
+              .attr("class", "x axis")
+              .attr("transform", "translate(0," + height2 + ")")
+              .call(xAxis2);
+
+        context.append("g")
+              .attr("class", "x brush")
+              .call(brush)
+            .selectAll("rect")
+              .attr("y", -6)
+              .attr("height", height2 + 7);
+
+        function brushed() {
+          // console.log(brush.extent())
+          x.domain(brush.empty() ? x2.domain() : brush.extent());
+          main.selectAll('.lock.line').attr("d", function(d) { return line(d.values); })
+          dots.selectAll('.lock.dot')
+                .attr("cx", line.x())
+                .attr("cy", line.y())
+                .attr("r", 1)
+          main.select(".x.axis").call(xAxis);
+        }
 
         function mousemove() {
           // http://bl.ocks.org/DStruths/9c042e3a6b66048b5bd4
@@ -410,6 +450,8 @@
 
           }
         }
+
+        
           /* ######### end D3 ###### */
 
         //   // tick();
@@ -432,14 +474,14 @@
 
 
         function blink(){
-          var circle = d3.select(this);
-          (function repeat(){
-              circle = circle.transition()
-                  .attr("r", 5)
-                .transition()
-                  .attr("r", 1)
-                  .each("end", repeat);
-          })();
+          // var circle = d3.select(this);
+          // (function repeat(){
+          //     circle = circle.transition()
+          //         .attr("r", 5)
+          //       .transition()
+          //         .attr("r", 1)
+          //         .each("end", repeat);
+          // })();
         }
 
         }); // end $scope.service.metric

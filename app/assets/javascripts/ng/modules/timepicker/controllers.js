@@ -23,7 +23,7 @@
         // default value
         $scope.interval  = '1m'; 
         $scope.timepick  = 'Last 1 week'; 
-        var startStop    = $scope.calculateTime('7d', 'now');
+        var startStop    = $scope.calculateTime('2M', 'now');
         $scope.timestart = startStop.start;
         $scope.timestop  = startStop.stop;
         $scope.setTime();
