@@ -89,11 +89,13 @@
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
+<% if current_user.admin? %>
                 <li>
                     <%= link_to(visualizations_path) do %>
                         <i class="fa fa-bar-chart-o fa-fw"></i> Visualizations
                     <% end -%>
                 </li>
+<% end %>
               </ul>
             </div>
           </div>

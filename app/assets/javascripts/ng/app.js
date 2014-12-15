@@ -4,6 +4,7 @@
 
   var autobotsApp = angular.module('autobot', [
     'ui.router',
+    // Autobot
     'autobot.api',
     'autobot.filter',
     'autobot.vforce',
@@ -14,7 +15,8 @@
     'autobot.timepicker',
     'autobot.networkmap',
     'autobot.regionmap',
-    'autobot.linechart'
+    'autobot.linechart',
+    'autobot.linechartlocation'
   ]);
 
   // autobotsApp.config(function($stateProvider, $urlRouterProvider) {

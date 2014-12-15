@@ -1,8 +1,10 @@
+'use strict';
+
 (function(){
   
   var module = angular.module('autobot.linechart.controllers', ['autobot.api.services', 'autobot.filter.services']);
 
-  module.controller('LinechartCtrl', ['$scope', 'Api', 'Filters',
+  module.controller('LinechartCtrl', ['$scope', 'Api', 'Filters', 
     function($scope, Api, Filters){
       /**
        * Initialize  all the variables
@@ -31,13 +33,100 @@
         // $('.multiselect').multiselect();
 
         $scope.panel = {
-          region_options : ['All', 'North', 'Northeast', 'East', 'Central', 'Bangkok', 'South'],
-          site_options: ['All', 'CWD', 'SUK', 'TLS'],
-          apn_options: ["All", "internet", "3GGSNSUK11H", "3GGSNCWD7N", "3GGSNCWD5N", "3GGSNSUK8N", "3GGSNSUK9N", "3GGSNCWD2N", "3GGSNSUK7N", "3GGSNSUK4N", "3GGSNCWD8N", "3GGSNSUK6N", "3GGSNSUK3N", "3GGSNCWD11H", "3GGSNSUK5N", "3GGSNCWD3N", "3GGSNCWD6N", "3GGSNSUK2N", "3GGSNCWD4N"],
-          stack_options: [ {key: 'None', value: null}, {key: 'RNC', value: 'rncname'}, {key: 'GGSN', value: 'apn'}, {key: 'region', value: 'region'} ],
-          sgsn_options: ['All', '3SGSNBPL1H', '3SGSNBPL2H', '3SGSNBPL3H', '3SGSNCMI1H', '3SGSNCWD2H', '3SGSNPLK1H', '3SGSNSNI1H', '3SGSNSUK1H', '3SGSNSUK2H', '3SGSNTWA2H', '3SGSNTWA3H']
+          region_options : [
+            {name: 'North', ticked: true}, 
+            {name: 'Northeast', ticked: true}, 
+            {name: 'East', ticked: true}, 
+            {name: 'Central', ticked: true}, 
+            {name: 'Bangkok', ticked: true}, 
+            {name: 'South', ticked: true}
+          ],
+          site_options: [
+            {name: "All", ticked: false}, 
+            {name: 'CWD', ticked: false}, 
+            {name: 'SUK', ticked: false}, 
+            {name: 'TLS', ticked: false}
+          ],
+          apn_options: [
+            {name: "internet", ticked: true}, 
+            {name: "3GGSNSUK11H", ticked: true}, 
+            {name: "3GGSNCWD7N", ticked: true}, 
+            {name: "3GGSNCWD5N", ticked: true}, 
+            {name: "3GGSNSUK8N", ticked: true}, 
+            {name: "3GGSNSUK9N", ticked: true}, 
+            {name: "3GGSNCWD2N", ticked: true}, 
+            {name: "3GGSNSUK7N", ticked: true}, 
+            {name: "3GGSNSUK4N", ticked: true}, 
+            {name: "3GGSNCWD8N", ticked: true}, 
+            {name: "3GGSNSUK6N", ticked: true}, 
+            {name: "3GGSNSUK3N", ticked: true}, 
+            {name: "3GGSNCWD11H", ticked: true}, 
+            {name: "3GGSNSUK5N", ticked: true}, 
+            {name: "3GGSNCWD3N", ticked: true}, 
+            {name: "3GGSNCWD6N", ticked: true}, 
+            {name: "3GGSNSUK2N", ticked: true}, 
+            {name: "3GGSNCWD4N", ticked: true}
+          ],
+          sgsn_options: [
+            {name: '3SGSNBPL1H', ticked: true}, 
+            {name: '3SGSNBPL2H', ticked: true}, 
+            {name: '3SGSNBPL3H', ticked: true}, 
+            {name: '3SGSNCMI1H', ticked: true}, 
+            {name: '3SGSNCWD2H', ticked: true}, 
+            {name: '3SGSNPLK1H', ticked: true}, 
+            {name: '3SGSNSNI1H', ticked: true}, 
+            {name: '3SGSNSUK1H', ticked: true}, 
+            {name: '3SGSNSUK2H', ticked: true}, 
+            {name: '3SGSNTWA2H', ticked: true}, 
+            {name: '3SGSNTWA3H', ticked: true}
+          ],
+          stack_options: [ 
+            {key: 'None', value: null}, 
+            {key: 'RNC', value: 'rncname'}, 
+            {key: 'GGSN', value: 'apn'}, 
+            {key: 'region', value: 'region'} 
+          ],
+
         };
 
+      }
+
+      $scope.refreshSiteFilter = function(){
+        var d = $scope.panel.site_options
+                    .filter(function(d){ return d.ticked === true; })
+                    .map(function(d){ return d.name });
+
+        // Only allow single value for site
+        if(d.length > 0){
+          $scope.site = d[0];
+        }
+      }
+
+      $scope.refreshApnFilter = function(){
+        $scope.apn = $scope.panel.apn_options
+                    .filter(function(d){ return d.ticked === true; })
+                    .map(function(d){ return d.name });
+        // if(d.length > 0){
+        //   $scope.apn = d;
+        // }
+      }
+
+      $scope.refreshRegionFilter = function(){
+        $scope.region = $scope.panel.region_options
+                    .filter(function(d){ return d.ticked === true; })
+                    .map(function(d){ return d.name });
+        // if(d.length > 0){
+        //   $scope.region = d;
+        // }
+      }
+
+      $scope.refreshSgsnFilter = function(){
+        $scope.sgsn = $scope.panel.sgsn_options
+                    .filter(function(d){ return d.ticked === true; })
+                    .map(function(d){ return d.name });
+        // if(d.length > 0) {
+        //   $scope.sgsn = d;
+        // }
       }
 
       $scope.setRegionFilter = function(region) {
@@ -64,7 +153,7 @@
         $scope.updateViz(newValue);
       });
 
-      $scope.$watch('region', function(newValue, oldValue){
+      $scope.$watchCollection('region', function(newValue, oldValue){
         if(newValue !== oldValue){
           $scope.updateViz(newValue);
         }
@@ -76,13 +165,13 @@
         }
       });   
 
-      $scope.$watch('apn', function(newValue, oldValue){
+      $scope.$watchCollection('apn', function(newValue, oldValue){
         if(newValue !== oldValue){
           $scope.updateViz(newValue);
         }
       });      
 
-      $scope.$watch('sgsn', function(newValue, oldValue){
+      $scope.$watchCollection('sgsn', function(newValue, oldValue){
         if(newValue !== oldValue){
           $scope.updateViz(newValue);
         }
@@ -92,23 +181,7 @@
         if(newValue !== oldValue){
           $scope.updateViz(newValue);
         }
-      });      
-
-      $scope.makeVspecs = function(){
-        var opts = {};
-
-        _.each($scope.vspecs, function(d){
-          opts[d.name] = d.value;
-        })
-
-        return {
-          vtype: 'line',
-          x: opts['x-axis'],
-          y: opts['y-axis'],
-          time_series_attribute: opts['time_series_attribute'],
-          stack: $scope.stack,
-        };
-      }
+      });
 
       $scope.updateViz = function(filters){
         // Create static content for the page first
@@ -168,333 +241,345 @@
             d.groups.date = new Date(d.groups.date_time);
           });
 
-        /* ######### D3 goes here ###### */
+          /* ######### D3 goes here ###### */
+            
+          var x = d3.time.scale()
+                .domain(d3.extent(data, function(d){ return d.groups.date; }))
+                .range([0, width]);
+
+          var x2 = d3.time.scale()
+                .domain(d3.extent(data, function(d){ return d.groups.date; }))
+                .range([0, width]);
+
+          var y = d3.scale.linear()
+                // .domain(d3.extent(data, function(d){ return d[attr]; }))
+                .domain([0, 100]) // Max at 100%
+              .range([height , 0]);
+
+          var y2 = d3.scale.linear()
+                .domain([0, 100])
+              .range([height2, 0]);
+
+          var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom")
+                .ticks(d3.time.day, 1)
+                .tickFormat(d3.time.format('%e/%m/%y'))
+                .innerTickSize(-height)
+                .outerTickSize(0)
+                .tickPadding(10);
+
+          var xAxis2 = d3.svg.axis()
+                .scale(x2)
+                .orient("bottom")
+                .ticks(d3.time.day, 1);
+
+          var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left")
+                .innerTickSize(-width)
+                .outerTickSize(0)
+                .tickPadding(10);
+
+          var brush = d3.svg.brush()
+                .x(x2)
+                .on("brush", brushed);
+
+          // Bind data here
+          var line = d3.svg.line()
+                .x(function(d){ return x(d.groups.date); })
+                .y(function(d){ return y(d.values.y); });
+
+          var line2 = d3.svg.line()
+                .x(function(d){ return x2(d.groups.date); })
+                .y(function(d){ return y2(d.values.y); });
+
+          var uniqueGroups = d3.set(data.map(function(v){ return v.groups.stack; })).values().sort();
+
+          var color = d3.scale.category20()
+                .domain(uniqueGroups);
+
+          // Create a group where each member has unique name attribute.
+          var groups = color.domain().map(function(name){
+            return {
+              name: name,
+              // values: data.filter(function(d){ return d.groups.stack === name }).map(function(d){
+              values: data.filter(function(d){ return d.groups.stack === name })
+            }
+          });
           
-        var x = d3.time.scale()
-              .domain(d3.extent(data, function(d){ return d.groups.date; }))
-              .range([0, width]);
+          main.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height  + ")")
+                .call(xAxis);
 
-        var x2 = d3.time.scale()
-              .domain(d3.extent(data, function(d){ return d.groups.date; }))
-              .range([0, width]);
+          main.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+              .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("%");
 
-        var y = d3.scale.linear()
-              // .domain(d3.extent(data, function(d){ return d[attr]; }))
-              .domain([0, 100]) // Max at 100%
-            .range([height , 0]);
+          // Draw threshold line 
+          main.append("line")
+                .attr("class", "threshold-line")
+                .style('opacity', 1)
+                .attr('x1', 0)
+                .attr('y1', y(threshold))
+                .attr('x2', width)
+                .attr('y2', y(threshold))
+                .attr('stroke-dasharray', "5,5");
 
-        var y2 = d3.scale.linear()
-              .domain([0, 100])
-            .range([height2, 0]);
+          // Threshold text
+          main.append('text')
+                .attr('x', 10)
+                .attr('y', y(threshold))
+                .attr("dy", "-.2em")
+                .attr('class', 'threshold-text')
+                .text("threshold=" + threshold);
 
-        var xAxis = d3.svg.axis()
-              .scale(x)
-              .orient("bottom")
-              .ticks(d3.time.day, 1)
-              .tickFormat(d3.time.format('%e/%m/%y'))
-              .innerTickSize(-height)
-              .outerTickSize(0)
-              .tickPadding(10);
+          // Draw a stack of lines
+          var lineGroups = main.selectAll('groups')
+                .data(groups)
+              .enter().append('g')
+                .attr('class', 'groups');
 
-        var xAxis2 = d3.svg.axis()
-              .scale(x2)
-              .orient("bottom")
-              .ticks(d3.time.day, 1);
-
-        var yAxis = d3.svg.axis()
-              .scale(y)
-              .orient("left")
-              .innerTickSize(-width)
-              .outerTickSize(0)
-              .tickPadding(10);
-
-        var brush = d3.svg.brush()
-              .x(x2)
-              .on("brush", brushed);
-
-        // Bind data here
-        var line = d3.svg.line()
-              .x(function(d){ return x(d.groups.date); })
-              .y(function(d){ return y(d.values.y); });
-
-        var line2 = d3.svg.line()
-              .x(function(d){ return x2(d.groups.date); })
-              .y(function(d){ return y2(d.values.y); });
-
-        var uniqueGroups = d3.set(data.map(function(v){ return v.groups.stack; })).values().sort();
-
-        var color = d3.scale.category20()
-              .domain(uniqueGroups);
-
-        // Create a group where each member has unique name attribute.
-        var groups = color.domain().map(function(name){
-          return {
-            name: name,
-            // values: data.filter(function(d){ return d.groups.stack === name }).map(function(d){
-            values: data.filter(function(d){ return d.groups.stack === name })
-          }
-        });
-        
-        main.append("g")
-              .attr("class", "x axis")
-              .attr("transform", "translate(0," + height  + ")")
-              .call(xAxis);
-
-        main.append("g")
-              .attr("class", "y axis")
-              .call(yAxis)
-            .append("text")
-              .attr("transform", "rotate(-90)")
-              .attr("y", 6)
-              .attr("dy", ".71em")
-              .style("text-anchor", "end")
-              .text("%");
-
-        // Draw threshold line 
-        main.append("line")
-              .attr("class", "threshold-line")
-              .style('opacity', 1)
-              .attr('x1', 0)
-              .attr('y1', y(threshold))
-              .attr('x2', width)
-              .attr('y2', y(threshold))
-              .attr('stroke-dasharray', "5,5");
-
-        // Threshold text
-        main.append('text')
-              .attr('x', 10)
-              .attr('y', y(threshold))
-              .attr("dy", "-.2em")
-              .attr('class', 'threshold-text')
-              .text("threshold=" + threshold);
-
-        // Draw a stack of lines
-        var lineGroups = main.selectAll('groups')
-              .data(groups)
-            .enter().append('g')
-              .attr('class', 'groups');
-
-        lineGroups.append("path")
-            .attr("class", "lock line")
-            .attr("d", function(d) { return line(d.values); })
-            .style("stroke", function(d) { return color(d.name); })
-            .style("clip-path", "url(#clip)");
-
-        // draw legend
-        var legendSpace = 450 / lineGroups.length; // 450/number of issues (ex. 40) 
-        lineGroups.append("rect")
-              .attr("width", 10)
-              .attr("height", 10)
-              .attr("x", width + (margin.right/3) - 15) 
-              .attr("y", function (d, i) { return i*(20); })  // spacing
-              // .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.y) + ")"; })
-              .attr("fill",function(d) {
-                // return d.visible ? color(d.name) : "#F1F1F2"; // If array key "visible" = true then color rect, if not then make it grey 
-                return color(d.name); // If array key "visible" = true then color rect, if not then make it grey 
-              })
-              .attr("class", "legend-box")
-
-        lineGroups.append("text")
-              .attr("class", "focus-legend")
-              .attr("x", width + (margin.right/3) - 60 )
-              .attr("y", function (d, i) { return i*(20); })  // spacing
-              .attr("dy", ".65em");
-
-        lineGroups.append("text")
-              .attr("x", width + (margin.right/3))
-              .attr("y", function (d, i) { return i*(20); })  // spacing
-              .attr("dy", ".65em")
-              .text(function(d) { return d.name; });
-
-        var dots = main.append('g')
-              .attr('class', 'dot-group')
+          lineGroups.append("path")
+              .attr("class", "lock line")
+              .attr("d", function(d) { return line(d.values); })
+              .style("stroke", function(d) { return color(d.name); })
               .style("clip-path", "url(#clip)");
-        
-        dots.selectAll(".dot")
-              .data(data)
-            .enter().append("circle")
-              .attr("class", "lock dot")
-              .attr("cx", line.x())
-              .attr("cy", line.y())
-              .attr("r", 1)
-              .classed("below-threshold", function(d) { return d.values.y < threshold ? true : false ; });
 
-        main.selectAll(".below-threshold")
-            .transition()
-              .duration(500)
-              .each(blink);
+          // draw legend
+          var legendSpace = 450 / lineGroups.length; // 450/number of issues (ex. 40) 
+          lineGroups.append("rect")
+                .attr("width", 10)
+                .attr("height", 10)
+                .attr("x", width + (margin.right/3) - 15) 
+                .attr("y", function (d, i) { return i*(20); })  // spacing
+                // .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.y) + ")"; })
+                .attr("fill",function(d) {
+                  // return d.visible ? color(d.name) : "#F1F1F2"; // If array key "visible" = true then color rect, if not then make it grey 
+                  return color(d.name); // If array key "visible" = true then color rect, if not then make it grey 
+                })
+                .attr("class", "legend-box")
 
-        var focuses = main.append("g")
-              .attr("class", "focus-group");
+          lineGroups.append("text")
+                .attr("class", "focus-legend")
+                .attr("x", width + (margin.right/3) - 60 )
+                .attr("y", function (d, i) { return i*(20); })  // spacing
+                .attr("dy", ".65em");
 
-        focuses.selectAll(".focus")
-              .data(groups)
-            .enter().append("circle")
-              .attr("r", 4.5)
-              .attr("class", function(d){ return "focus "+ d.name; })
-              .style("display", "none");
+          lineGroups.append("text")
+                .attr("x", width + (margin.right/3))
+                .attr("y", function (d, i) { return i*(20); })  // spacing
+                .attr("dy", ".65em")
+                .text(function(d) { return d.name; });
 
-        // Hover line 
-        var hoverLineGroup = main.append("g") 
-                  .attr("class", "hover-line-group");
-
-        var hoverLine = hoverLineGroup // Create line with basic attributes
-              .append("line")
-                  .attr("class", "hover-line")
-                  .attr("x1", 10).attr("x2", 10) 
-                  .attr("y1", 0).attr("y2", height + 10)
-                  .style("pointer-events", "none") // Stop line interferring with cursor
-                  .style("opacity", 1e-6); // Set opacity to zero 
-
-        var hoverDate = hoverLineGroup
-              .append('text')
-                  .attr("class", "hover-text")
-                  .attr("y", -20) // hover date text position
-                  .attr("x", width/3); // hover date text position
-
-        main.append("rect")
-              .attr("class", "overlay")
-              .attr("width", width)
-              .attr("height", height)
-              // .on("mouseover", function() { focus.style("display", null); })
-              // .on("mouseout", function() { focus.style("display", "none"); })
-              .on("mousemove", mousemove)
-              .on("mouseout", function() {
-                  hoverDate.text(null); // on mouseout remove text for hover date
-                  d3.select("#hover-line")
-                      .style("opacity", 1e-6); // On mouse out making line invisible
-
-                  d3.selectAll(".focus").style("display", "none");
-              })
-              .on("click", function() { console.log(d3.mouse(this)); });
-
-        var bisectDate = d3.bisector(function(d) { return d.groups.date; }).left;
-
-        var context = svg.append("g")
-              .attr("class", "context")
-              .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
-
-        var contextLine = context.selectAll('context-groups')
-              .data(groups)
-            .enter().append('g')
-              .attr('class', 'context-groups');
-
-        contextLine.append("path")
-              .attr("class", "line")
-              .attr("d", function(d) { return line2(d.values); })
-              .style("stroke", function(d) { return color(d.name); });
-
-        context.append("g")
-              .attr("class", "x axis")
-              .attr("transform", "translate(0," + height2 + ")")
-              .call(xAxis2);
-
-        context.append("g")
-              .attr("class", "x brush")
-              .call(brush)
-            .selectAll("rect")
-              .attr("y", -6)
-              .attr("height", height2 + 7);
-
-        function brushed() {
-          // console.log(brush.extent())
-          x.domain(brush.empty() ? x2.domain() : brush.extent());
-          main.selectAll('.lock.line').attr("d", function(d) { return line(d.values); })
-          dots.selectAll('.lock.dot')
+          var dots = main.append('g')
+                .attr('class', 'dot-group')
+                .style("clip-path", "url(#clip)");
+          
+          dots.selectAll(".dot")
+                .data(data)
+              .enter().append("circle")
+                .attr("class", "lock dot")
                 .attr("cx", line.x())
                 .attr("cy", line.y())
                 .attr("r", 1)
-          main.select(".x.axis").call(xAxis);
-        }
+                .classed("below-threshold", function(d) { return d.values.y < threshold ? true : false ; });
 
-        function mousemove() {
-          // http://bl.ocks.org/DStruths/9c042e3a6b66048b5bd4
-          var mouse_x = d3.mouse(this)[0]; // Finding mouse x position on rect
-          var graph_x = x.invert(mouse_x); // Mapping mouse x to domain x
-          
-          d3.select("#hover-line") // select hover-line and changing attributes to mouse position
-              .attr("x1", mouse_x) 
-              .attr("x2", mouse_x)
-              .style("opacity", 1); // Making line visible
+          main.selectAll(".below-threshold")
+              .transition()
+                .duration(500)
+                .each(blink);
 
-          if(data.length > 0){
-            var x0 = x.invert(d3.mouse(this)[0]),
-                i = bisectDate(data, x0, 1),
-                d0 = data[i - 1],
-                d1 = data[i],
-                d = x0 - d0.groups.date > d1.groups.date - x0 ? d1 : d0;
+          var focuses = main.append("g")
+                .attr("class", "focus-group");
 
-            var dd = groups.map(function(v){
-                var i = bisectDate(v.values, x0, 1),
-                    d0 = v.values[i - 1],
-                    d1 = v.values[i];
+          focuses.selectAll(".focus")
+                .data(groups)
+              .enter().append("circle")
+                .attr("r", 4.5)
+                .attr("class", function(d){ return "focus "+ d.name; })
+                .style("display", "none");
 
-                if (d0 === undefined || d1 === undefined){
-                  return {"y": "N/A"};
-                }
-                    
-                var d = x0 - d0.groups.date > d1.groups.date - x0 ? d1 : d0;
-              return d;
-            });
+          // Hover line 
+          var hoverLineGroup = main.append("g") 
+                    .attr("class", "hover-line-group");
 
-            // console.log(dd);
+          var hoverLine = hoverLineGroup // Create line with basic attributes
+                .append("line")
+                    .attr("class", "hover-line")
+                    .attr("x1", 10).attr("x2", 10) 
+                    .attr("y1", 0).attr("y2", height + 10)
+                    .style("pointer-events", "none") // Stop line interferring with cursor
+                    .style("opacity", 1e-6); // Set opacity to zero 
 
-            hoverDate.text(dateFormat(d.groups.date));
+          var hoverDate = hoverLineGroup
+                .append('text')
+                    .attr("class", "hover-text")
+                    .attr("y", -20) // hover date text position
+                    .attr("x", width/3); // hover date text position
 
-            d3.selectAll(".focus")
-                .data(dd)
-                .attr("transform", function(d){ return d.groups === undefined ? null : "translate(" + x(d.groups.date) + "," + y(d.values.y) + ")" })
-                .style("display", null);
-                // .select("text").text()            
+          main.append("rect")
+                .attr("class", "overlay")
+                .attr("width", width)
+                .attr("height", height)
+                // .on("mouseover", function() { focus.style("display", null); })
+                // .on("mouseout", function() { focus.style("display", "none"); })
+                .on("mousemove", mousemove)
+                .on("mouseout", function() {
+                    hoverDate.text(null); // on mouseout remove text for hover date
+                    d3.select("#hover-line")
+                        .style("opacity", 1e-6); // On mouse out making line invisible
 
-            // focus.attr("transform", "translate(" + x(d.date) + "," + y(d.y) + ")");
-            // focus.select("text").text(formatPercent(d.y) + " % " + d.stack + " " + dateFormat(d.date));
+                    d3.selectAll(".focus").style("display", "none");
+                })
+                .on("click", function() { console.log(d3.mouse(this)); });
 
-            d3.selectAll(".focus-legend")
-                .data(dd)
-                .text(function(v){ return v.values === undefined ? null : formatPercent(v.values.y); })
-                .classed("legend-below-threshold", function(d) { return d.values.y < threshold ? true : false ; });;
+          var bisectDate = d3.bisector(function(d) { return d.groups.date; }).left;
 
+          var context = svg.append("g")
+                .attr("class", "context")
+                .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+
+          var contextLine = context.selectAll('context-groups')
+                .data(groups)
+              .enter().append('g')
+                .attr('class', 'context-groups');
+
+          contextLine.append("path")
+                .attr("class", "line")
+                .attr("d", function(d) { return line2(d.values); })
+                .style("stroke", function(d) { return color(d.name); });
+
+          context.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height2 + ")")
+                .call(xAxis2);
+
+          context.append("g")
+                .attr("class", "x brush")
+                .call(brush)
+              .selectAll("rect")
+                .attr("y", -6)
+                .attr("height", height2 + 7);
+
+          function brushed() {
+            // console.log(brush.extent())
+            x.domain(brush.empty() ? x2.domain() : brush.extent());
+            main.selectAll('.lock.line').attr("d", function(d) { return line(d.values); })
+            dots.selectAll('.lock.dot')
+                  .attr("cx", line.x())
+                  .attr("cy", line.y())
+                  .attr("r", 1)
+            main.select(".x.axis").call(xAxis);
           }
-        }
 
-        
-          /* ######### end D3 ###### */
+          function mousemove() {
+            // http://bl.ocks.org/DStruths/9c042e3a6b66048b5bd4
+            var mouse_x = d3.mouse(this)[0]; // Finding mouse x position on rect
+            var graph_x = x.invert(mouse_x); // Mapping mouse x to domain x
+            
+            d3.select("#hover-line") // select hover-line and changing attributes to mouse position
+                .attr("x1", mouse_x) 
+                .attr("x2", mouse_x)
+                .style("opacity", 1); // Making line visible
 
-        //   // tick();
+            if(data.length > 0){
+              var x0 = x.invert(d3.mouse(this)[0]),
+                  i = bisectDate(data, x0, 1),
+                  d0 = data[i - 1],
+                  d1 = data[i],
+                  d = x0 - d0.groups.date > d1.groups.date - x0 ? d1 : d0;
 
-        //   function tick(){
-        //     setInterval(function(){
-        //       $log.log('tick...' + data.length);
-        //       // redraw path, shift path left
-        //       path.attr("d", line)
-        //           .attr("transform", null)
-        //           .transition()
-        //           // .duration(500)
-        //           .ease("linear")
-        //           // .attr("transform", "translate(" + x(-1) + ")")
-        //           .each("end", tick);
+              var dd = groups.map(function(v){
+                  var i = bisectDate(v.values, x0, 1),
+                      d0 = v.values[i - 1],
+                      d1 = v.values[i];
 
-        //       data.shift();
-        //     }, 1000);
-        //   }
+                  if (d0 === undefined || d1 === undefined){
+                    return {"y": "N/A"};
+                  }
+                      
+                  var d = x0 - d0.groups.date > d1.groups.date - x0 ? d1 : d0;
+                return d;
+              });
+
+              // console.log(dd);
+
+              hoverDate.text(dateFormat(d.groups.date));
+
+              d3.selectAll(".focus")
+                  .data(dd)
+                  .attr("transform", function(d){ return d.groups === undefined ? null : "translate(" + x(d.groups.date) + "," + y(d.values.y) + ")" })
+                  .style("display", null);
+                  // .select("text").text()            
+
+              // focus.attr("transform", "translate(" + x(d.date) + "," + y(d.y) + ")");
+              // focus.select("text").text(formatPercent(d.y) + " % " + d.stack + " " + dateFormat(d.date));
+
+              d3.selectAll(".focus-legend")
+                  .data(dd)
+                  .text(function(v){ return v.values === undefined ? null : formatPercent(v.values.y); })
+                  .classed("legend-below-threshold", function(d) { return d.values.y < threshold ? true : false ; });;
+
+            }
+          }
+
+          
+            /* ######### end D3 ###### */
+
+          //   // tick();
+
+          //   function tick(){
+          //     setInterval(function(){
+          //       $log.log('tick...' + data.length);
+          //       // redraw path, shift path left
+          //       path.attr("d", line)
+          //           .attr("transform", null)
+          //           .transition()
+          //           // .duration(500)
+          //           .ease("linear")
+          //           // .attr("transform", "translate(" + x(-1) + ")")
+          //           .each("end", tick);
+
+          //       data.shift();
+          //     }, 1000);
+          //   }
 
 
-        function blink(){
-          // var circle = d3.select(this);
-          // (function repeat(){
-          //     circle = circle.transition()
-          //         .attr("r", 5)
-          //       .transition()
-          //         .attr("r", 1)
-          //         .each("end", repeat);
-          // })();
-        }
+          function blink(){
+            // var circle = d3.select(this);
+            // (function repeat(){
+            //     circle = circle.transition()
+            //         .attr("r", 5)
+            //       .transition()
+            //         .attr("r", 1)
+            //         .each("end", repeat);
+            // })();
+          }
 
+        }, function(error){
+          $scope.spinner.addClass("hide");
+          svg.append('text')
+              .attr('x', width/2)
+              .attr('y', height/2)
+              .attr('class', 'text-error')
+              .text('Could not load the content!')
+              .append('tspan')
+                .attr('x', width/2+ 16)
+                .attr('y', height/2 + 16)
+                .text(error.statusText);
+
+          console.log(error.statusText);
         }); // end $scope.service.metric
 
       } // UpdateViz
-
 
     }
   ]) // end module

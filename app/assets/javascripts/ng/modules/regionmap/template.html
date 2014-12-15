@@ -1,5 +1,5 @@
 <div class="robot-regionmap-wrapper">  
-  <h4>{{ service }}</h4>
+  <h4>{{ service }} <i id="robot-spinner" class="fa fa-spinner fa-spin"></i></h4>
   <h5>{{ name }} - <i class="robot-description-text">{{ description }}</i></h5>
   <p>From <i class="robot-date-time-text">{{ filters.time.from.date | date:'medium' }}</i> <i class="fa fa-angle-double-right"></i> To <i class="robot-date-time-text">{{ filters.time.to.date | date:'medium' }}</i></p>
 
@@ -9,13 +9,13 @@
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="region = null;">Thailand</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="region = 'Bangkok';">Bangkok</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="region = 'North';">North</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="region = 'Northeast';">Northeast</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="region = 'Central';">Central</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="region = 'East';">East</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="region = 'South';">South</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="region = null;">Thailand</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="region = 'Bangkok';">Bangkok</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="region = 'North';">North</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="region = 'Northeast';">Northeast</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="region = 'Central';">Central</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="region = 'East';">East</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" ng-click="region = 'South';">South</a></li>
     </ul>
   </div>
 

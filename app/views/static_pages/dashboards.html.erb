@@ -8,7 +8,7 @@
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
         <!-- <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li> -->
-        <li role="presentation"><a href="#facebook" aria-controls="facebook" role="tab" data-toggle="tab">facebook</a></li>
+        <li role="presentation" class="active"><a href="#facebook" aria-controls="facebook" role="tab" data-toggle="tab">facebook</a></li>
         <li role="presentation"><a href="#instagram" aria-controls="instagram" role="tab" data-toggle="tab">instagram</a></li>
         <li role="presentation"><a href="#twitter" aria-controls="twitter" role="tab" data-toggle="tab">twitter</a></li>
         <li role="presentation"><a href="#ping" aria-controls="ping" role="tab" data-toggle="tab">ping</a></li>
@@ -19,7 +19,7 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <!-- <div role="tabpanel" class="tab-pane active" id="home"></div> -->
-        <div role="tabpanel" class="tab-pane" id="facebook">
+        <div role="tabpanel" class="tab-pane active" id="facebook">
           <% @metric1 = Metric.find_by(name: 'TestMapReduce') %>
           <linechart-panel 
               name="<%= @metric1.name %>"
@@ -27,7 +27,7 @@
               service="<%= @metric1.service.name %>" 
               metricid="<%= @metric1.id %>" 
               attr="<%= @metric1.attr %>" 
-              width="1000" height="300">
+              width="1000" height="500">
             <div></div>
           </linechart-panel>
         </div>

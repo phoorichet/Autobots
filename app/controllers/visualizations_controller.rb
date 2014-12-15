@@ -15,16 +15,19 @@ class VisualizationsController < ApplicationController
   # GET /visualizations/new
   def new
     @visualization = Visualization.new
+    authorize! :manage, @visualization
   end
 
   # GET /visualizations/1/edit
   def edit
+    authorize! :manage, @visualization
   end
 
   # POST /visualizations
   # POST /visualizations.json
   def create
     @visualization = Visualization.new(visualization_params)
+    authorize! :manage, @visualization
 
     respond_to do |format|
       if @visualization.save
@@ -40,6 +43,7 @@ class VisualizationsController < ApplicationController
   # PATCH/PUT /visualizations/1
   # PATCH/PUT /visualizations/1.json
   def update
+    authorize! :manage, @visualization
     respond_to do |format|
       if @visualization.update(visualization_params)
         format.html { redirect_to @visualization, notice: 'Visualization was successfully updated.' }

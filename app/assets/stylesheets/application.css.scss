@@ -13,6 +13,7 @@
  *= require metis-menu
  *= require radial-progress
  *= require bootstrap-multiselect
+ *= require angular-multi-select
  *= require_tree .
  */
 
@@ -115,6 +116,9 @@
   fill: grey;
 }
 
+.text-error {
+  fill: red;
+}
 
 
 

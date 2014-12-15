@@ -25,4 +25,5 @@
 //= require radialProgress
 //= require metisMenu.min
 //= require bootstrap-multiselect
+//= require angular-multi-select
 //= require_tree .

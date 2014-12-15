@@ -10,10 +10,8 @@
         <tr>
           <th>Name</th>
           <th>Service</th>
-          <th>Attr</th>
           <th>Visualization</th>
 <% if can? :manage, @service %>
-          <th>Unit</th>
           <th>Actions</th>
 <% end %>
         </tr>
@@ -24,10 +22,8 @@
           <tr>
             <td><%= link_to metric.name, [metric.service, metric] %></td>
             <td><%= metric.service.name %></td>
-            <td><%= metric.attr %></td>
             <td><%= metric.visualization.name %></td>
 <% if can? :manage, @service %>              
-            <td><%= metric.unit %></td>
             <td>
               <%= link_to(edit_service_metric_path(@service, metric), class: 'robot-action-icon') do %>
                 <i class="fa fa-pencil-square-o"></i>

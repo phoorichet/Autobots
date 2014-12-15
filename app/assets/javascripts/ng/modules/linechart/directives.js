@@ -13,6 +13,9 @@
         // Init the scope
         scope.initialize(element, attributes);
 
+        // $(document).ready(function() { $("#e1").select2(); });
+        // console.log(element.find("#e1"));
+
         // element.on('click', function(){
         //   var filters = { attr: attributes.metric };
         //   var elem = element.find(".viz");

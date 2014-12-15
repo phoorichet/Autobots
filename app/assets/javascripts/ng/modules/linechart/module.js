@@ -1,5 +1,5 @@
 (function(){
 
-  angular.module('autobot.linechart',['autobot.linechart.controllers', 'autobot.linechart.directives']);
+  angular.module('autobot.linechart',['autobot.linechart.controllers', 'autobot.linechart.directives', 'multi-select']);
   
 }());

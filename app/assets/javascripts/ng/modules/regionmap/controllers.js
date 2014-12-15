@@ -1,3 +1,5 @@
+'use strict';
+
 (function(){
   
   var module = angular.module('autobot.regionmap.controllers', ['autobot.api.services', 'autobot.filter.services']);
@@ -21,6 +23,8 @@
         $scope.filters     = Filters;
         $scope.service     = attributes.service;
         $scope.serviceApi  = Api[attributes.service];
+
+        $scope.spinner     = element.find("#robot-spinner");
       }
 
       $scope.$watchCollection('filters', function(newValue, oldValue){
@@ -33,6 +37,87 @@
         }
       });      
 
+      $scope.mapping = {
+        "Amnat Charoen" : "Northeast", 
+        "Ang Thong": "Central", 
+        "Bangkok Metropolis": "Bangkok", 
+        "Buri Ram": "Northeast", 
+        "Chachoengsao": "East", 
+        "Chai Nat": "Central", 
+        "Chaiyaphum": "Northeast", 
+        "Chanthaburi": "East", 
+        "Chiang Mai": "North", 
+        "Chiang Rai": "North", 
+        "Chon Buri": "East", 
+        "Chumphon": "South", 
+        "Kalasin": "Northeast", 
+        "Kamphaeng Phet": "North", 
+        "Kanchanaburi": "Central", 
+        "Khon Kaen": "Northeast", 
+        "Krabi": "South", 
+        "Lampang": "North", 
+        "Lamphun": "North", 
+        "Loei": "Northeast", 
+        "Lop Buri": "Central", 
+        "Mae Hong Son": "North", 
+        "Maha Sarakham": "Northeast", 
+        "Mukdahan": "Northeast", 
+        "Nakhon Nayok": "East", 
+        "Nakhon Pathom": "Central", 
+        "Nakhon Phanom": "Northeast", 
+        "Nakhon Ratchasima": "Northeast", 
+        "Nakhon Sawan": "North", 
+        "Nakhon Si Thammarat": "South", 
+        "Nan": "North", 
+        "Narathiwat": "South", 
+        "Nong Bua Lam Phu": "Northeast", 
+        "Nong Khai": "Northeast", 
+        "Nonthaburi": "Bangkok", 
+        "Pathum Thani": "Bangkok", 
+        "Pattani": "South", 
+        "Phangnga": "South", 
+        "Phatthalung (Songkhla Lake)": "South", 
+        "Phatthalung": "South", 
+        "Phayao": "North", 
+        "Phetchabun": "North", 
+        "Phetchaburi": "Central", 
+        "Phichit": "North", 
+        "Phitsanulok": "North", 
+        "Phra Nakhon Si Ayutthaya": "Central", 
+        "Phrae": "North", 
+        "Phuket": "South", 
+        "Prachin Buri": "East", 
+        "Prachuap Khiri Khan": "Central", 
+        "Ranong": "South", 
+        "Ratchaburi": "Central", 
+        "Rayong": "East", 
+        "Roi Et": "Northeast", 
+        "Sa Kaeo": "East", 
+        "Sakon Nakhon": "Northeast", 
+        "Samut Prakan": "Bangkok", 
+        "Samut Sakhon": "Central", 
+        "Samut Songkhram": "Central", 
+        "Saraburi": "Central", 
+        "Satun": "South", 
+        "Si Sa Ket": "Northeast", 
+        "Sing Buri": "Central", 
+        "Songkhla (Songkhla Lake)": "South", 
+        "Songkhla": "South", 
+        "Sukhothai": "North", 
+        "Suphan Buri": "Central", 
+        "Surat Thani": "South", 
+        "Surin": "Northeast", 
+        "Tak": "North", 
+        "Trang": "South", 
+        "Trat": "East", 
+        "Ubon Ratchathani": "Northeast", 
+        "Udon Thani": "Northeast", 
+        "Uthai Thani": "North", 
+        "Uttaradit": "North", 
+        "Yala": "South", 
+        "Yasothon": "Northeast"
+      };
+
       $scope.updateViz = function(filters){
         var formatPercent = d3.format(".2f"),
             monthWeekFormat = d3.time.format("%m-%d");
@@ -41,145 +126,66 @@
             width  = $scope.width - margin.left - margin.right,
             height = $scope.height - margin.top - margin.bottom;
 
+        var container = $scope.element.find(".viz");
 
-        d3.json("/assets/data/tha_provinces.json", function(error, tha) {
-          console.log($scope.filters);
+        d3.select(container[0]).select('svg').remove(); // clear the existing
 
-          var container = $scope.element.find(".viz");
+        var svg = d3.select(container[0]).append("svg")
+            .attr("width", width)
+            .attr("height", height);
 
-          d3.select(container[0]).select('svg').remove(); // clear the existing
+        var projection = d3.geo.albers()
+          .center([0, 13.7])
+          .rotate([-100.60, 0])
+          .parallels([5, 21])
+          .scale(1000)
+          .translate([width / 2, height / 2]);
 
-          var svg = d3.select(container[0]).append("svg")
-              .attr("width", width)
-              .attr("height", height);
+        function adjustProject(region, projection){
+          var proj = projection;
 
-          var projection = d3.geo.albers()
-            .center([0, 13.7])
-            .rotate([-100.60, 0])
-            .parallels([5, 21])
-            .scale(1000)
-            .translate([width / 2, height / 2]);
-
-          function adjustProject(region, projection){
-            var proj = projection;
-
-            switch(region) {
-              case "North":
-                proj = projection.center([0, 17.5]);
-                break;
-              case "Northeast":
-                proj = projection.center([0, 16]);
-                break;
-              case "Central":
-                proj = projection.center([0, 14]);
-                break;
-              case "Bangkok":
-                proj = projection.center([0.2, 13.8]);
-                proj = projection.scale(6000);
-                break;
-              case "East":
-                // proj = projection.center([0, 14]);
-                break;
-              case "South":
-                proj = projection.center([0, 8]);
-                break;
-              default:
-                break;
-            }
-
-            return proj;
+          switch(region) {
+            case "North":
+              proj = projection.center([0, 17.5]);
+              break;
+            case "Northeast":
+              proj = projection.center([0, 16]);
+              break;
+            case "Central":
+              proj = projection.center([0, 14]);
+              break;
+            case "Bangkok":
+              proj = projection.center([0.2, 13.8]);
+              proj = projection.scale(6000);
+              break;
+            case "East":
+              // proj = projection.center([0, 14]);
+              break;
+            case "South":
+              proj = projection.center([0, 8]);
+              break;
+            default:
+              break;
           }
 
-          projection = adjustProject($scope.region, projection);
+          return proj;
+        }
 
-          var path = d3.geo.path()
-              .projection(projection)
-              .pointRadius(2);
-          var mapping = {
-            "Amnat Charoen" : "Northeast", 
-            "Ang Thong": "Central", 
-            "Bangkok Metropolis": "Bangkok", 
-            "Buri Ram": "Northeast", 
-            "Chachoengsao": "East", 
-            "Chai Nat": "Central", 
-            "Chaiyaphum": "Northeast", 
-            "Chanthaburi": "East", 
-            "Chiang Mai": "North", 
-            "Chiang Rai": "North", 
-            "Chon Buri": "East", 
-            "Chumphon": "South", 
-            "Kalasin": "Northeast", 
-            "Kamphaeng Phet": "North", 
-            "Kanchanaburi": "Central", 
-            "Khon Kaen": "Northeast", 
-            "Krabi": "South", 
-            "Lampang": "North", 
-            "Lamphun": "North", 
-            "Loei": "Northeast", 
-            "Lop Buri": "Central", 
-            "Mae Hong Son": "North", 
-            "Maha Sarakham": "Northeast", 
-            "Mukdahan": "Northeast", 
-            "Nakhon Nayok": "East", 
-            "Nakhon Pathom": "Central", 
-            "Nakhon Phanom": "Northeast", 
-            "Nakhon Ratchasima": "Northeast", 
-            "Nakhon Sawan": "North", 
-            "Nakhon Si Thammarat": "South", 
-            "Nan": "North", 
-            "Narathiwat": "South", 
-            "Nong Bua Lam Phu": "Northeast", 
-            "Nong Khai": "Northeast", 
-            "Nonthaburi": "Bangkok", 
-            "Pathum Thani": "Bangkok", 
-            "Pattani": "South", 
-            "Phangnga": "South", 
-            "Phatthalung (Songkhla Lake)": "South", 
-            "Phatthalung": "South", 
-            "Phayao": "North", 
-            "Phetchabun": "North", 
-            "Phetchaburi": "Central", 
-            "Phichit": "North", 
-            "Phitsanulok": "North", 
-            "Phra Nakhon Si Ayutthaya": "Central", 
-            "Phrae": "North", 
-            "Phuket": "South", 
-            "Prachin Buri": "East", 
-            "Prachuap Khiri Khan": "Central", 
-            "Ranong": "South", 
-            "Ratchaburi": "Central", 
-            "Rayong": "East", 
-            "Roi Et": "Northeast", 
-            "Sa Kaeo": "East", 
-            "Sakon Nakhon": "Northeast", 
-            "Samut Prakan": "Bangkok", 
-            "Samut Sakhon": "Central", 
-            "Samut Songkhram": "Central", 
-            "Saraburi": "Central", 
-            "Satun": "South", 
-            "Si Sa Ket": "Northeast", 
-            "Sing Buri": "Central", 
-            "Songkhla (Songkhla Lake)": "South", 
-            "Songkhla": "South", 
-            "Sukhothai": "North", 
-            "Suphan Buri": "Central", 
-            "Surat Thani": "South", 
-            "Surin": "Northeast", 
-            "Tak": "North", 
-            "Trang": "South", 
-            "Trat": "East", 
-            "Ubon Ratchathani": "Northeast", 
-            "Udon Thani": "Northeast", 
-            "Uthai Thani": "North", 
-            "Uttaradit": "North", 
-            "Yala": "South", 
-            "Yasothon": "Northeast"
-          };
-          
+        projection = adjustProject($scope.region, projection);
+
+        var path = d3.geo.path()
+            .projection(projection)
+            .pointRadius(2);
+
+        $scope.spinner.removeClass("hide");
+
+        d3.json("/assets/data/tha_provinces.json", function(error, tha) {
+          // console.log($scope.filters);
+
           // Add region as a property
           var subunitObj = tha.objects.subunits.geometries;
           for (var i = subunitObj.length - 1; i >= 0; i--) {
-            subunitObj[i].properties.REGION = mapping[subunitObj[i].properties.NAME_1];
+            subunitObj[i].properties.REGION = $scope.mapping[subunitObj[i].properties.NAME_1];
           };
 
           if ($scope.region != null){
@@ -209,6 +215,9 @@
 
           $scope.serviceApi.mapreduce_join_mslocation(submitFilters, function(data){
             console.log(data);
+
+            $scope.spinner.addClass("hide");
+
             if (data.length === 0)
               return;
 
@@ -220,7 +229,7 @@
             };
             var avg = sum/data.length;
 
-            console.log(regionMapping);
+            // console.log(regionMapping);
 
             var threshold = 95.0;
 
@@ -247,6 +256,20 @@
                 .value(avg)
                 .render();
 
+          },
+          function(error){
+            $scope.spinner.addClass("hide");
+            svg.append('text')
+                .attr('x', width/2)
+                .attr('y', height/2)
+                .attr('class', 'text-error')
+                .text('Could not load the content!')
+                .append('tspan')
+                  .attr('x', width/2+ 16)
+                  .attr('y', height/2 + 16)
+                  .text(error.statusText);
+
+            // console.log(error.statusText);
           }); // end facebook
 
         }); // end d3.json

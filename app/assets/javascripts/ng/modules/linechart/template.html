@@ -3,54 +3,76 @@
   <h4>{{ service }} <i id="robot-spinner" class="fa fa-spinner fa-spin"></i></h4>
   <h5>{{ name }} - <i class="robot-description-text">{{ description }}</i></h5>
   <p>From <i class="robot-date-time-text">{{ filters.time.from.date | date:'medium' }}</i> <i class="fa fa-angle-double-right"></i> To <i class="robot-date-time-text">{{ filters.time.to.date | date:'medium' }}</i></p>
-  
+
   <!-- Sites -->
   <div class="btn-group">
+    <div     
+        multi-select
+        input-model="panel.site_options"
+        button-label="name"
+        item-label="name"
+        tick-property="ticked"
+        default-label="Site"
+        selection-mode="single"
+        on-close="refreshSiteFilter()"
+    >
+    </div>
+  </div>
+
+<!--   <div class="btn-group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
       Site: {{ site || "All" }} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
-      <li ng-repeat="item in panel.site_options track by $index" ng-click="setSiteFilter(item)">
-        <a>{{ item }}</a>
+      <li ng-repeat="item in panel.site_options track by $index" ng-click="setSiteFilter(item.name)">
+        <a>{{ item.name }}</a>
       </li>
     </ul>
-  </div>
+  </div> -->
 
   <!-- APN && GGSN -->
   <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      GGSN: {{ apn || "All" }} <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-      <li ng-repeat="item in panel.apn_options track by $index" ng-click="setApnFilter(item)">
-        <a>{{ item }}</a>
-      </li>
-    </ul>
+    <div     
+        multi-select
+        input-model="panel.apn_options"
+        button-label="name"
+        item-label="name"
+        tick-property="ticked"
+        on-close="refreshApnFilter()"
+        max-labels="1"
+        default-label="GGSN"
+    >
+    </div>
   </div>
 
   <!-- Regions -->
   <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      Region: {{ region || "All" }} <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-      <li ng-repeat="item in panel.region_options track by $index" ng-click="setRegionFilter(item)">
-        <a>{{ item }}</a>
-      </li>
-    </ul>
+    <div     
+        multi-select
+        input-model="panel.region_options"
+        button-label="name"
+        item-label="name"
+        tick-property="ticked"
+        on-close="refreshRegionFilter()"
+        max-labels="1"
+        default-label="Region"
+    >
+    </div>
   </div>
-
-  <!-- Regions -->
+  
+  <!-- SGSN -->
   <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      SGSN: {{ sgsn || "All" }} <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-      <!-- time options -->
-      <li ng-repeat="item in panel.sgsn_options track by $index" ng-click="setSgsnFilter(item)">
-        <a>{{ item }}</a>
-      </li>
-    </ul>
+    <div     
+        multi-select
+        input-model="panel.sgsn_options"
+        button-label="name"
+        item-label="name"
+        tick-property="ticked"
+        on-close="refreshSgsnFilter()"
+        max-labels="1"
+        default-label="SGSN"
+    >
+    </div>
   </div>
 
   <!-- Separate RCN check box -->

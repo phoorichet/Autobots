@@ -12,6 +12,7 @@
     "angular": "latest",
     "angular-ui-router": "latest",
     "angular-resource": "latest",
-    "bootstrap-multiselect": "latest"
+    "bootstrap-multiselect": "latest",
+    "angular-multi-select": "latest"
   }
 }
