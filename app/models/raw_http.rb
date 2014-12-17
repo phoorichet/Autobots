@@ -7,7 +7,7 @@ class RawHttp < ActiveRecord::Base
 
   #(id: integer, connecting_time_1: float, time_to_first_byte_1: float, result_1: string, 
   # result_detail_1: string, imei: string, imsi: string, script_name: string,
-  # service: string, service_info: string, agv_rssi: float, avg_rxlev: float, 
+  # service: string, service_info: string, avg_rssi: float, avg_rxlev: float, 
   # avg_ecio: float, cell_id: integer, lac: integer, start_time: datetime, 
   # stop_time: datetime, duration_time: float, data_download_transfer: integer, 
   # max_download: float, max_download_overall: float, min_download: float, 
@@ -15,7 +15,7 @@ class RawHttp < ActiveRecord::Base
   # throughput_download_rlc: float, result: string, lat: float, lon: float, 
   # apn: string, created_at: datetime, updated_at: datetime
   # Tell the front-end which attributes are measurable
-  set_default :export_attr, [:connecting_time_1, :time_to_first_byte_1, :agv_rssi,
+  set_default :export_attr, [:connecting_time_1, :time_to_first_byte_1, :avg_rssi,
                             :avg_rxlev, :avg_ecio, :duration_time, 
                             :data_download_transfer, :max_download_overall,
                             :min_download, :throughput_download_ip, :throughput_download_app,

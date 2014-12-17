@@ -54,5 +54,7 @@ rake bower:install
 
 ## Deployment instructions
 
+The steps are same for setting up. However, some tweaks must be applied.
+
 ## ...
 

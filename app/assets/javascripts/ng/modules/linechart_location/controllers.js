@@ -23,6 +23,11 @@
         $scope.sgsn        = attributes.sgsn   || null;
         $scope.stack       = attributes.stack  || null;
         $scope.attr        = attributes.attr;
+        $scope.threshold   = attributes.threshold;
+        $scope.domain_min  = parseFloat(attributes.domainmin);
+        $scope.domain_max  = parseFloat(attributes.domainmax);
+
+        $scope.default_threshold = 85;
         
         $scope.filters     = Filters;
         $scope.service     = attributes.service;
@@ -244,6 +249,15 @@
         }
       });
 
+      $scope.getThreshold = function(){
+        if ( parseInt($scope.threshold) !== NaN){
+          return parseInt($scope.threshold);
+        }else if(parseFloat($scope.threshold) !== NaN){
+          return parseFloat($scope.threshold);
+        }
+        return $scope.default_threshold;
+      }
+
       $scope.updateViz = function(filters){
         // Create static content for the page first
         var margin = {top: 50, right: 300, bottom: 130, left: 50},
@@ -251,7 +265,7 @@
           width = $scope.width - margin.left - margin.right,
           height = $scope.height - margin.top - margin.bottom, //500-50-50 = 400
           height2 = $scope.height - margin2.top - margin2.bottom, //500-400-20 = 80
-          threshold = 85,
+          threshold = $scope.getThreshold(),
           dateFormat = d3.time.format("%x %X"),
           formatPercent = d3.format(".2f");
 
@@ -318,13 +332,22 @@
                 .domain(d3.extent(data, function(d){ return d.groups.date; }))
                 .range([0, width]);
 
+          // Test domain_min, domain_max
+          if (isNaN($scope.domain_min)){
+            $scope.domain_min = d3.min(data, function(d){ return d.values.y; });
+          }
+
+          if (isNaN($scope.domain_max)){
+            $scope.domain_max = d3.max(data, function(d){ return d.values.y; });
+          }
+
           var y = d3.scale.linear()
                 // .domain(d3.extent(data, function(d){ return d[attr]; }))
-                .domain([0, 100]) // Max at 100%
+                .domain([$scope.domain_min, scope.domain_max]) // Max at 100%
               .range([height , 0]);
 
           var y2 = d3.scale.linear()
-                .domain([0, 100])
+                .domain([$scope.domain_min, scope.domain_max])
               .range([height2, 0]);
 
           var xAxis = d3.svg.axis()

@@ -23,7 +23,7 @@
     <%= f.label :operation, class: "col-lg-2" %>
     <div class="col-lg-10">
       
-      <%= f.select :operation, options_for_select([['>', '>'], ['<', '<'], ['=', '=']], selected: @filter.operation), {} , class: "form-control" %>
+      <%= f.select :operation, options_for_select([['>', '>'], ['<', '<'], ['=', '='], ['!=', '!=']], selected: @filter.operation), {} , class: "form-control" %>
     </div>
   </div>
 
@@ -38,7 +38,7 @@
     <%= f.label :operand_type, class: "col-lg-2" %>
     <div class="col-lg-10">
       
-      <%= f.select :operand_type, options_for_select([['integer', 'integer'], ['float', 'float'], ['string', 'string']], selected: @filter.operand_type), {} , class: "form-control" %>
+      <%= f.select :operand_type, options_for_select([['integer', 'integer'], ['float', 'float'], ['string', 'string'],['nil', 'nil']], selected: @filter.operand_type), {} , class: "form-control" %>
     </div>
   </div>
 
