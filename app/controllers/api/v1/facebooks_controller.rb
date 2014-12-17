@@ -67,16 +67,24 @@ module Api
         # Stored filtering
         metric.filters.each do |d|
           operand = d.operand
+          temp_operation = nil
 
           if (d.operand_type == 'integer')
             operand = operand.to_i
           elsif (d.operand_type == 'float')
             operand = operand.to_f
+          elsif (d.operand_type == 'nil')
+            operand = nil
+            if (d.operation == '!=')
+              temp_operation = "IS NOT"
+            elsif (d.operation == '=')
+              temp_operation = "IS"
+            end
           else
             operand = operand.to_s  
           end
               
-          results = results.where("#{d.field} #{d.operation} ?", operand)
+          results = results.where("#{d.field} #{temp_operation || d.operation} ?", operand)
         end
 
         # Addtional criteria
@@ -162,16 +170,24 @@ module Api
 
         metric.filters.each do |d|
           operand = d.operand
+          temp_operation = nil
 
           if (d.operand_type == 'integer')
             operand = operand.to_i
           elsif (d.operand_type == 'float')
             operand = operand.to_f
+          elsif (d.operand_type == 'nil')
+            operand = nil
+            if (d.operation == '!=')
+              temp_operation = "IS NOT"
+            elsif (d.operation == '=')
+              temp_operation = "IS"
+            end
           else
             operand = operand.to_s  
           end
               
-          results = results.where("#{d.field} #{d.operation} ?", operand)
+          results = results.where("#{d.field} #{temp_operation || d.operation} ?", operand)
         end
 
         # Addtional criteria
