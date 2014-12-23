@@ -10,4 +10,21 @@ class RawSpeedtest < ActiveRecord::Base
                              :mcc, :mnc, :lac, :cell_id, :result, :operator,
                              :set_server_id, :set_server_name, :apn, 
                             ]
+
+  def get_site
+    if (self.apn.index("CWD"))
+      return "CWD"
+    elsif (self.apn.index("TLS"))
+      return "TLS"
+    elsif (self.apn.index("SUK"))
+      return "SUK"
+    else
+      return "Unknow"
+    end  
+  end
+
+  def get_vendor
+    length = self.apn.length
+    return self.apn[length-1..length]
+  end
 end

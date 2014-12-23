@@ -23,13 +23,13 @@
         // default value
         $scope.interval  = '1m'; 
         $scope.timepick  = 'Last 1 week'; 
-        var startStop    = $scope.calculateTime('2M', 'now');
+        var startStop    = $scope.calculateTime('7d', 'now');
         $scope.timestart = startStop.start;
         $scope.timestop  = startStop.stop;
         $scope.setTime();
 
         $scope.to   = {};
-        $scope.date_options   = $scope.generateIntegerArray(1, 31);
+        $scope.date_options   = $scope.generateIntegerArray(1, 32);
         $scope.month_options  = moment.months().map(function(d, i){ return {name: d, value: i};}) // Create a object pair
         $scope.year_options   = $scope.generateYear();
         $scope.hour_options   = $scope.generateIntegerArray(0, 24);

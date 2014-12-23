@@ -5,6 +5,9 @@
     service="<%= @metric.service.name %>" 
     metricid="<%= @metric.id %>" 
     attr="<%= @metric.attr %>" 
+    threshold="<%= @metric.get_threshold %>" 
+    domainmax="<%= @metric.get_domain_max %>" 
+    domainmin="<%= @metric.get_domain_min %>" 
     width="1000" height="500">
   <div></div>
 </linechartlocation-panel>

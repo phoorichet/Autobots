@@ -333,21 +333,15 @@
                 .range([0, width]);
 
           // Test domain_min, domain_max
-          if (isNaN($scope.domain_min)){
-            $scope.domain_min = d3.min(data, function(d){ return d.values.y; });
-          }
+          var y_domain_min = isNaN($scope.domain_min) ? d3.min(data, function(d){ return d.values.y; }) : $scope.domain_min;
+          var y_domain_max = isNaN($scope.domain_max) ? d3.max(data, function(d){ return d.values.y; }) : $scope.domain_max;
 
-          if (isNaN($scope.domain_max)){
-            $scope.domain_max = d3.max(data, function(d){ return d.values.y; });
-          }
-
-          var y = d3.scale.linear()
-                // .domain(d3.extent(data, function(d){ return d[attr]; }))
-                .domain([$scope.domain_min, scope.domain_max]) // Max at 100%
+          var y = d3.scale.linear() // .domain(d3.extent(data, function(d){ return d[attr]; }))
+                .domain([y_domain_min, y_domain_max])
               .range([height , 0]);
 
           var y2 = d3.scale.linear()
-                .domain([$scope.domain_min, scope.domain_max])
+                .domain([y_domain_min, y_domain_max])
               .range([height2, 0]);
 
           var xAxis = d3.svg.axis()

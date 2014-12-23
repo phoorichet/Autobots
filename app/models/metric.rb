@@ -2,9 +2,11 @@ class Metric < ActiveRecord::Base
   belongs_to :service
   belongs_to :visualization
 
-  has_many   :filters
-  has_many   :vspecs
-  has_many   :selectfs
+  has_many   :filters,  dependent: :destroy
+  has_many   :vspecs,   dependent: :destroy
+  has_many   :selectfs, dependent: :destroy
+
+  default_scope order(name: :asc)
 
   # Get the threshold attribute fro vspecs
   def get_threshold

@@ -84,7 +84,7 @@ module Api
         # Addtional criteria
         # results = results.where("region =  ?",  filters[:region]) if filters[:region] 
         # results = results.where("sgsn_name =  ?",    filters[:sgsn]) if filters[:sgsn] 
-        results = results.where("apn =  ?",     filters[:apn]) if filters[:apn] 
+        results = results.where(apn: filters[:apn]) if filters[:apn] 
         results = results.where("apn LIKE ?", "%#{filters[:site]}%") if filters[:site] 
 
         # ---------
@@ -172,7 +172,7 @@ module Api
         # Addtional criteria
         # results = results.where("region =  ?",  filters[:region]) if filters[:region] 
         # results = results.where("sgsn_name =  ?",    filters[:sgsn]) if filters[:sgsn] 
-        results = results.where("apn =  ?",     filters[:apn]) if filters[:apn] 
+        results = results.where(apn: filters[:apn]) if filters[:apn] 
         results = results.where("apn LIKE ?", "%#{filters[:site]}%") if filters[:site] 
 
         # ---------
@@ -190,6 +190,12 @@ module Api
           rnc_names   = MsRncSgsn.select(:rnc_name).sgsn(sgsn).pluck(:rnc_name)
           sgsn_imeis  = MsLocation.select(:imei).rncs(rnc_names).pluck(:imei)
           results = results.where(imei: sgsn_imeis)
+        end
+
+        rnc_imeis = nil
+        if filters[:rnc]
+          rnc_imeis  = MsLocation.select(:imei).rncs(filters[:rnc]).pluck(:imei)
+          results = results.where(imei: rnc_imeis)
         end
         # end Hack
         # ---------

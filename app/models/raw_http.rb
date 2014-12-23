@@ -27,5 +27,22 @@ class RawHttp < ActiveRecord::Base
   scope :facebook,  -> { where("script_name LIKE ?", "%facebook%") }
   scope :instagram, -> { where("script_name LIKE ?", "%Instagram%") }
   scope :twitter,   -> { where("script_name LIKE ?", "%Twitter%") }
+
+  def get_site
+    if (self.apn.index("CWD"))
+      return "CWD"
+    elsif (self.apn.index("TLS"))
+      return "TLS"
+    elsif (self.apn.index("SUK"))
+      return "SUK"
+    else
+      return "Unknow"
+    end  
+  end
+
+  def get_vendor
+    length = self.apn.length
+    return self.apn[length-1..length]
+  end
   
 end

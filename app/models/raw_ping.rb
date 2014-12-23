@@ -18,4 +18,21 @@ class RawPing < ActiveRecord::Base
                             :apn_mcc, :apn_mcc, :ip, :lac, :cell_id, :script_name,
                             :packet_size, :percent_loss
                             ]
+
+  def get_site
+    if (self.apn.index("CWD"))
+      return "CWD"
+    elsif (self.apn.index("TLS"))
+      return "TLS"
+    elsif (self.apn.index("SUK"))
+      return "SUK"
+    else
+      return "Unknow"
+    end  
+  end
+
+  def get_vendor
+    length = self.apn.length
+    return self.apn[length-1..length]
+  end
 end
